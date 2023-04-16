@@ -11,8 +11,6 @@
   Array.from(forms).forEach(form => {
     form.addEventListener('submit', event => {
       if ((!form.checkValidity()) || (!checkPass())) {
-        alert("invalido")
-        console.log("invalido")
         event.preventDefault()
         event.stopPropagation()
         showInvalidRegister()
@@ -82,7 +80,7 @@ function closeModal(modal) {
 }
 
 //para que el confirmar contraseña coincida con contraseña 
-function checkPass() {
+/*function checkPass() {
     var pass = document.getElementById("pass")
     var confirmPass = document.getElementById("passConfirm")
     
@@ -97,7 +95,7 @@ function checkPass() {
         console.log("SI")
         return true;
     }
-}
+}*/
 
 function showInvalidRegister() {
    document.getElementById("invalidPersonalizado").style.display = 'none'

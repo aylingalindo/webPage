@@ -108,12 +108,12 @@
         </div>
 
         <!-- contenido que va a cambiar -->
-        <div class="card-body">
+        <form class="card-body" action="dashboardServlet" method="post" class="needs-validation" novalidate>
           <div id="postTitle" class="row mx-3 mb-4">
-            <textarea class="form-control form-control-lg" type="text" placeholder="Title"></textarea>
+            <input class="form-control form-control-lg" name="titleNewPost" type="text" placeholder="Title"></input>
           </div>
           <div class="row mx-3 mb-4">
-            <textarea class="form-control" placeholder="What do you want to share?" rows="4"></textarea>
+            <input class="form-control" name="descriptionNewPost" placeholder="What do you want to share?" rows="4"></textarea>
           </div>
           <div class="row mx-3 my-4 newpostContainer">
               <button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-photos"></i></button>
@@ -126,20 +126,20 @@
               <i class="icon ion-md-pricetags ms-2 mt-2"></i>
             </div>
             <div class="col-11 categories">
-              <button type="button" class="cat">#Science</button>
-              <button type="button" class="cat">#Tech</button>
-              <button type="button" class="cat">#Art</button>
-              <button type="button" class="cat">#Design</button>
-              <button type="button" class="cat">#Business</button>
-              <button type="button" class="cat">#Psychology</button>
-              <button type="button" class="cat">#Medicine</button>
-              <button type="button" class="cat">#Human Arts</button>
+              <input type="button" class="cat" value="#Science"></input>
+              <input type="button" class="cat" value ="#Tech"></input>
+              <input type="button" class="cat" value="#Art"></input>
+              <input type="button" class="cat" value="#Design"></input>
+              <input type="button" class="cat" value="#Business"></input>
+              <input type="button" class="cat" value="#Psychology"></input>
+              <input type="button" class="cat" value="#Medicine"></input>
+              <input type="button" class="cat" value="#Human Arts"></input>
             </div>
           </div>
           <div class="row mx-3 my-4">
-              <button type="submit" class="btn btn-primary signUpBtn">Post</button>
+              <input type="submit" class="btn btn-primary signUpBtn" value = "Post"></input>
           </div>
-        </div>
+        </form>
 
       </div>
 

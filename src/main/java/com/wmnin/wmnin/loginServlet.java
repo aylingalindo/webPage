@@ -15,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -47,10 +48,39 @@ public class loginServlet extends HttpServlet {
                     java.sql.Statement st = con.createStatement();
                     ResultSet rs = st.executeQuery("SELECT * FROM TB_User WHERE username = '"+ user +"' AND `password` = '"+ pass +"'");
                     System.out.println("Paso el query");
-
+                    
+                    int userID = 0;
+                    int currentID = 0;
+                    
                     if(rs.next()) {
+                        userID = rs.getInt("id_user");
+                        System.out.println(userID);
+                        
+                        PreparedStatement pst = con.prepareStatement("SET SQL_SAFE_UPDATES = 0;");
+                        pst.executeUpdate();
+                        PreparedStatement pst3 = con.prepareStatement("DELETE FROM Tb_currentUser;");
+                        pst3.executeUpdate();
+                        PreparedStatement pst4 = con.prepareStatement("SET SQL_SAFE_UPDATES = 1;");
+                        pst4.executeUpdate();    
+                        
+                        PreparedStatement pst2 = con.prepareStatement("INSERT INTO Tb_currentUser(id_user) VALUES ('"  + userID + "')");
+                        pst2.executeUpdate();      
+
+                        //String userIDs = "" + userID;
+                        //PreparedStatement pst = con.prepareStatement("DELETE FROM Tb_currentUser WHERE NOT id_user = ?");
+                        //pst.setString(1, userIDs);
+                        //pst.executeUpdate();
+                        
                         System.out.println("ENTRO AL NEXT");
                         response.sendRedirect("dashboard.jsp");
+                        
+                        String name = rs.getString("first_name") + " " + rs.getString("p_lastname");
+                        String foto = rs.getString("profile_img");
+                        System.out.println("name " + name);
+                        System.out.println("foto " + foto);
+                        request.setAttribute("name", name);
+                        request.setAttribute("foto", foto);
+                        
                     } else {
                         System.out.println("ERRORsito");
                         request.setAttribute("err", "1");
