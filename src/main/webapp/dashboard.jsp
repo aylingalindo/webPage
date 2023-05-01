@@ -4,6 +4,7 @@
     Author     : Aylin
 --%>
 
+<%@page import="modelos.entidades.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -37,14 +38,26 @@
         </form>
         <button data-modal-target="#popupAdvancedSearch" type="button" class="btn btn-primary ms-4 advancedSearchBtn">Advanced Search</button>
 
+ <%
+     Usuario usuarioLogin = new Usuario();
+     usuarioLogin = (Usuario)request.getAttribute("usuario");
+     System.out.println("Usuario dashboard "+usuarioLogin.getUsername());
+     String ocupacion = usuarioLogin.getOccupation();
+     System.out.println("Ocupacion: "+ ocupacion);
+ %>       
+        
+        
+        
         <!--elementos para seleccionar-->
         <div class="menu d-flex flex-column justify-content-evenly mb-5 pb-5">
 
           <!-- Info User-->
           <div class="nav-item pb-3 userInfo">
             <img src="assets/fotoPerfil.jpeg" class="img-fluid rounded-circle pfp mb-2">
-            <a href="user-profile.jsp" class="nav-link mb-2">Aylin Galindo</a>    <!-- dblock para que cada uno este en una linea y p-3 para separalos-->
-            <p class="mb-2">Game Dev Student</p>
+            <a href="user-profile.jsp" class="nav-link mb-2"> 
+                <% out.print( usuarioLogin.getFirstname() + " " + usuarioLogin.getpLastname() ); %> 
+            </a>    <!-- dblock para que cada uno este en una linea y p-3 para separalos-->
+            <p class="mb-2"><% out.print(ocupacion); %> </p>
           </div>
 
           <!-- Links -->

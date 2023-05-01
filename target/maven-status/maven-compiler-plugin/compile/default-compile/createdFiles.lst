@@ -1,3 +1,10 @@
-com\wmnin\wmnin\loginServlet.class
-com\wmnin\wmnin\signupServlet.class
-com\wmnin\wmnin\conexionSQL.class
+Servlets\dashboardServlet.class
+modelos\entidades\Usuario.class
+DAO\DAOPublicacion.class
+modelos\Operaciones.class
+DAO\DAOUsuario.class
+modelos\entidades\Publicacion.class
+Servlets\signupServlet.class
+modelos\Database.class
+Servlets\conexionSQL.class
+Servlets\loginServlet.class
