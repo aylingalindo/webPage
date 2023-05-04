@@ -44,6 +44,7 @@
      System.out.println("Usuario dashboard "+usuarioLogin.getUsername());
      String ocupacion = usuarioLogin.getOccupation();
      System.out.println("Ocupacion: "+ ocupacion);
+     String nombreDisplay = usuarioLogin.getFirstname() + " " + usuarioLogin.getpLastname();
  %>       
         
         
@@ -55,9 +56,9 @@
           <div class="nav-item pb-3 userInfo">
             <img src="assets/fotoPerfil.jpeg" class="img-fluid rounded-circle pfp mb-2">
             <a href="user-profile.jsp" class="nav-link mb-2"> 
-                <% out.print( usuarioLogin.getFirstname() + " " + usuarioLogin.getpLastname() ); %> 
+                <% out.print(nombreDisplay); %> 
             </a>    <!-- dblock para que cada uno este en una linea y p-3 para separalos-->
-            <p class="mb-2"><% out.print(ocupacion); %> </p>
+            <p class="mb-2"> <% out.print(usuarioLogin.getOccupation()); %> </p>
           </div>
 
           <!-- Links -->
@@ -112,7 +113,7 @@
           <div class="row pt-3 mx-3">
             <div class="col-11 me-auto">
               <img src="assets/fotoPerfil.jpeg" class="img-fluid rounded-circle pfpNewpost">
-              Aylin Galindo
+              <% out.print(nombreDisplay);%>
             </div>
             <div class="col">
               <button data-close-button type="button" class="closeBtn"><i class="icon ion-md-close"></i></button>

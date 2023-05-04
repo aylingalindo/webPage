@@ -102,3 +102,14 @@ function showInvalidRegister() {
    alert("funcion")
 }
 
+function showImageRegister(){
+    //var archivos = $("#inptImg")[0].files;
+    //const primerArchivo = archivos[0];
+    
+    //let url = URL.createObjectURL(primerArchivo);
+    //const img = document.getElementById('pfpRegistroSrc');
+    //img.src = url;
+    const url = document.getElementById('pfpRegistroSrc').value;
+    alert("url: " + url);
+    document.getElementById('pfpRegistroSrc').setAttribute("src", url);
+}

@@ -20,6 +20,7 @@ import modelos.entidades.Usuario;
 public class DAOUsuario implements Operaciones{
     Database db = new Database();
     Usuario usu = new Usuario();
+    public Usuario logged = new Usuario();
 
     public Object login(Object obj) {
         usu = (Usuario)obj;
@@ -28,7 +29,6 @@ public class DAOUsuario implements Operaciones{
         ResultSet rs;
         String sql = "SELECT * FROM TB_User WHERE username = ? AND `password` = ? ";// insert query sql 
         
-        Usuario logged = new Usuario();
         logged.setIdUser(0);
         try{
             System.out.println("Paso el query, entro al try");
@@ -48,7 +48,7 @@ public class DAOUsuario implements Operaciones{
                 logged.setBirthdate(rs.getString("birthdate"));
                 logged.setEmail(rs.getString("email"));
                 logged.setUsername(rs.getString("username"));;
-                logged.setPassword(rs.getString("`password`"));;
+                logged.setPassword(rs.getString("password"));;
                 logged.setProfileImg(rs.getString("profile_img"));
                 logged.setCoverImg(rs.getString("cover_img"));
                 logged.setSingupDate(rs.getString("singup_date"));
@@ -58,6 +58,7 @@ public class DAOUsuario implements Operaciones{
                 logged.setOccupation(rs.getString("occupation"));
                 logged.setUserStatus(rs.getInt("user_status"));
                 
+                System.out.println(logged.getOccupation());
                 //pst = con.prepareStatement("SET SQL_SAFE_UPDATES = 0;");
                 //pst.executeQuery();
                 //pst = con.prepareStatement("DELETE FROM Tb_currentUser;");

@@ -35,6 +35,14 @@ public class Publicacion {
         this.post_user = post_user;
     }
 
+    public Publicacion(String title, String description, String media,  int idCategory, int post_user) {
+        this.title = title;
+        this.description = description;
+        this.media = media;
+        this.idCategory = idCategory;
+        this.post_user = post_user;
+    }
+    
     public int getId_post() {
         return id_post;
     }

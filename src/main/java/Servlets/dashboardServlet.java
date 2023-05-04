@@ -4,6 +4,7 @@
  */
 package Servlets;
 
+import DAO.DAOPublicacion;
 import com.mysql.cj.xdevapi.Statement;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -20,6 +21,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelos.entidades.Publicacion;
+import modelos.entidades.Usuario;
 
 
 /**
@@ -28,54 +31,35 @@ import java.util.logging.Logger;
  */
 @WebServlet(name = "dashboardServlet", urlPatterns = {"/dashboardServlet"})
 public class dashboardServlet extends HttpServlet {
+    DAOPublicacion dao = new DAOPublicacion();
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String title = request.getParameter("titleNewPost");
         String description = request.getParameter("descriptionNewPost");
+        String media = null;
+        int idCat = 0;
+        // obtener la media y el id_category accediendo a la posicion de la categoria que ya se agrego desde bd. 
 
-        RequestDispatcher dispatcher = null;
             try{
-                System.out.println("dashboard- try");   
+                System.out.println("entró al try dashboardServlet");
+                int userPost = loginServlet.logged.getIdUser();
                 
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+"WomanIn", "root", "1234");
+                Publicacion publi = new Publicacion(title, description, media, idCat, userPost);
                 
-                java.sql.Statement st = con.createStatement();
-                ResultSet rs = st.executeQuery("SELECT MAX(id_user) FROM Tb_currentUser");
+                // obtener el id usuario logged Usuario logged = (Usuario) dao.login(usu);
                 
-                int userInt = rs.getInt("MAX(id_user)");
                 
-                System.out.println(userInt);
-                System.out.println("insertquery dashboard");
-                System.out.println("title dashboard" + title);
-                System.out.println("description dashboard" + description);
-                
-                String user = "" + userInt;
-                
-                String query = "INSERT INTO TB_Posts(title, description, post_status, post_user) VALUES " + "(?,?,?,?)";
-                PreparedStatement pst = con.prepareStatement(query);
-                pst.setString(1, title);
-                pst.setString(2, description);
-                pst.setString(3, "1");
-                pst.setString(4, user);
-
-
-
-                pst.executeUpdate();
-              
-            } catch(ClassNotFoundException | SQLException e){
-                System.out.println("catch");
-                Logger.getLogger(signupServlet.class.getName()).log(Level.SEVERE, null, e);
-        }
+                RequestDispatcher rd = request.getRequestDispatcher("dashboard.jsp");
+                rd.forward(request, response);
+            }catch (Exception ex) {
+                System.out.println("error");
+                System.out.println(ex.getMessage());
+            }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+
     @Override
     public String getServletInfo() {
         return "Short description";

@@ -102,11 +102,11 @@
                       <label class="form-label">Choose a profile picture</label>
                     </div>
                     <div class="col-12 pfpRegistro ms-5">
-                        <img src="assets/defaultpfp.png" class="img-fluid rounded-circle">
+                        <img src="assets/defaultpfp.png" class="img-fluid rounded-circle"  id="pfpRegistroSrc">
                     </div>
                     <div class="col-12 mb-3">
                         <!--<input type="file" class="form-control" name="profileImgSignup" accept="image/png, image/jpeg" required>-->
-                        <input type="url" class="form-control" name="profileImgSignup" required>
+                        <input type="url" class="form-control" name="profileImgSignup" id="profileImgSignup" value="" onchange="showImageRegister()" required>
                         <div class="invalid-feedback">
                             Select an image.
                         </div>

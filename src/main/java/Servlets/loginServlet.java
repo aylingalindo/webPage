@@ -36,6 +36,7 @@ import modelos.entidades.Usuario;
 public class loginServlet extends HttpServlet {
     DAOUsuario dao = new DAOUsuario();
     conexionSQL connection = new conexionSQL();
+    public static Usuario logged;
     
     
     @Override
@@ -48,12 +49,13 @@ public class loginServlet extends HttpServlet {
                 String pantalla;
                 
                 Usuario usu = new Usuario(user, pass);
-                Usuario logged = (Usuario) dao.login(usu);
+                logged = (Usuario) dao.login(usu);
                 
                 if(logged.getIdUser()!=0){
                     System.out.println("rs.next");
                     pantalla = "dashboard.jsp";
                     request.setAttribute("err", 0);
+                    System.out.println(logged.getOccupation());
                     request.setAttribute("usuario", logged); // envia al jsp el obj usuario logged con la info del usuario q inicio sesion. 
                 }else {
                     pantalla = "index.jsp";
