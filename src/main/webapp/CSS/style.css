@@ -1,0 +1,542 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 21, 2023, 9:57:13 PM
+    Author     : Aylin
+*/
+
+:root{
+    --primary:#E5F1ED;
+    --titles:#56a696;
+    --light: #fff;
+    --text:#3e4852;
+    --hover: #DEBC93;
+    --bs-link-color:#DEBC93;
+    --bs-link-hover-color:#DEBC93;
+}
+
+body{
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+
+
+/* ------------------------------- DASHBOARD ------------------------------------------------ */
+
+.nav-link:hover {
+    color:var(--hover);
+}
+
+#sidebar {
+    min-height: 100vh; 
+    background-color: var(--light)!important;
+}
+
+#sidebar .logo {
+    padding: .875rem 1.25rem; 
+    color: var(--titles);
+    font-family: serif;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+#sidebar .menu {
+    width: 18rem; 
+    color:var(--text);
+    min-height: 100vh; 
+    font-size: larger;
+}
+
+.icon {
+    align-items: center;
+}
+
+.icon:hover {
+    align-items: center;
+}
+
+a:hover {
+    color:var(--hover);
+}
+
+
+p {
+    font-size: 14px!important;
+    margin:0; 
+}
+
+.searchNavbar {
+    right: 20px;
+}
+
+/*clase de la foto de perfil*/
+.pfp{
+    max-width: 70px;
+}
+
+.userInfo {
+    text-align: center;
+}
+
+.logo {
+    font-weight: bolder!important;
+}
+
+h2 {
+    padding-top: .875rem; 
+    font-weight: bold;
+    color: var(--titles);
+    margin-bottom: 32px;
+    margin-left: 64px;
+    margin-right: 64px;
+}
+
+.col.sortingItem.active {
+    color: var(--hover);
+    border-bottom: var(--hover) solid 4px;
+}
+
+.sortingItem:hover {
+    color: var(--hover);
+    border-bottom: var(--hover) solid 4px;
+}
+
+.misLinks {
+    margin-bottom: 20px;
+}
+
+.misLinks:hover {
+    color:var(--hover);
+}
+
+/* ------------------------------------ */
+
+#content {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height:100vh;
+    width: 100%;
+    padding-bottom: 5rem;
+    background-color: var(--primary);
+}
+
+.prueba {
+    text-align: right;
+}
+
+.pfpNewpost{
+    max-width: 40px;
+    align-items: right!important;
+}
+
+.btn-primary {
+    background-color: var(--light);
+    border-color: var(--light);
+    color: var(--text);
+    --bs-btn-active-bg:var(--hover);
+    --bs-btn-active-border-color: var(--hover);
+}
+
+
+.btn-primary:hover {
+    background-color: var(--light);
+    border-color: var(--hover);
+    color: var(--hover);
+}
+
+.btnNewpost{
+    width: 100%;
+}
+
+.contentItem{
+    margin-left: 80px;
+    margin-right: 80px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+.subTitle{
+    font-size:large;
+    padding-bottom: 1.2rem;
+    font-weight: bold;
+}
+
+.border-bottom{ 
+    border-color: var(--light)!important;
+}
+
+.sortBy {
+    background-color: var(--primary);
+    border: 0;
+    color: var(--text);
+    margin-right: 64px;
+}
+
+.sortBy:hover{
+    background-color: var(--primary);
+    border: 0;
+    color: var(--hover);
+}
+
+.card{
+    border-radius: 30%;
+    border: 2px;
+}
+
+.card-header {
+    border-bottom: var(--light);
+    background-color: var(--light);
+    padding-bottom: 0px;
+}
+
+.card-body{
+    background-color: var(--light);
+}
+
+.card-footer {
+    border-top: var(--light);
+    background-color: var(--light);
+}
+
+.card-footer:hover{
+    color: var(--hover);
+}
+
+#popupNewpost {
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%)scale(0); /* escala 0 para que no se vea cuando no esta activo, se usa escala y opacidad para poder crear transiciones*/
+    transition: 200ms ease-in-out;
+    z-index: 10; /* su capa, para que se muestre sobre lo demás*/
+    width:45%;
+    height:50%;
+}
+
+#popupNewpost.active {
+    transform: translate(-50%, -50%)scale(1); 
+}
+
+#popupNewpost .closeBtn{
+    background: none;
+    border: none;
+}
+
+#popupNewpost button :hover {
+    background: none;
+    border: none;
+    color: var(--hover);
+}
+
+.newpostContainer {
+    border: 1px solid var(--primary);
+    border-radius: 5px;
+}
+
+#popupNewpost .form-control {
+    border: 0;
+}
+
+.cat {
+    border-radius: 0; 
+    background-color: var(--hover);
+    opacity: 50%;
+    margin: 2px; 
+    display: inline-block;
+}
+
+.categories {
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 45px;
+    white-space: nowrap;
+}
+
+.cat:hover {
+    background-color: var(--titles);
+}
+
+
+.advancedSearchBtn {
+    font-size: small;
+    background-color: var(--titles);
+    border-color: var(--titles);
+}
+
+.advancedSearchBtn:hover {
+    background-color: var(--titles);
+}
+
+#popupAdvancedSearch {
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%)scale(0); /* escala 0 para que no se vea cuando no esta activo, se usa escala y opacidad para poder crear transiciones*/
+    transition: 200ms ease-in-out;
+    z-index: 10; /* su capa, para que se muestre sobre lo demás*/
+    width:45%;
+    height:50%;
+}
+#popupAdvancedSearch.active {
+    transform: translate(-50%, -50%)scale(1); 
+}
+
+.closeBtn{
+    background: none;
+    border: none;
+}
+
+.closeBtn:hover{
+    color:var(--hover);
+}
+
+#popupAdvancedSearch button :hover {
+    background: none;
+    border: none;
+    color: var(--hover);
+}
+
+#popupEditInfo {
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%)scale(0); /* escala 0 para que no se vea cuando no esta activo, se usa escala y opacidad para poder crear transiciones*/
+    transition: 200ms ease-in-out;
+    z-index: 10; /* su capa, para que se muestre sobre lo demás*/
+    width:45%;
+    height:50%;
+}
+#popupEditInfo.active {
+    transform: translate(-50%, -50%)scale(1); 
+}
+
+#popupEditAbout {
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%)scale(0); /* escala 0 para que no se vea cuando no esta activo, se usa escala y opacidad para poder crear transiciones*/
+    transition: 200ms ease-in-out;
+    z-index: 10; /* su capa, para que se muestre sobre lo demás*/
+    width:45%;
+    height:50%;
+}
+#popupEditAbout.active {
+    transform: translate(-50%, -50%)scale(1); 
+}
+
+#popupEditPost {
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%)scale(0); /* escala 0 para que no se vea cuando no esta activo, se usa escala y opacidad para poder crear transiciones*/
+    transition: 200ms ease-in-out;
+    z-index: 10; /* su capa, para que se muestre sobre lo demás*/
+    width:30%;
+    height:30%;
+}
+#popupEditPost.active {
+    transform: translate(-50%, -50%)scale(1); 
+}
+
+#popupDeletePost {
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%)scale(0); /* escala 0 para que no se vea cuando no esta activo, se usa escala y opacidad para poder crear transiciones*/
+    transition: 200ms ease-in-out;
+    z-index: 10; /* su capa, para que se muestre sobre lo demás*/
+    width:45%;
+    height:50%;
+}
+#popupDeletePost.active {
+    transform: translate(-50%, -50%)scale(1); 
+}
+
+.popupRegisterValidation {
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%)scale(0);/* escala 0 para que no se vea cuando no esta activo, se usa escala y opacidad para poder crear transiciones*/
+    transition: 200ms ease-in-out;
+    z-index: 10; /* su capa, para que se muestre sobre lo demás*/
+    width:40%;
+    height:30%;
+}
+
+.popupRegisterValidation.active {
+    transform: translate(-50%, -50%)scale(1); 
+}
+
+/* ------------------------- */
+
+#postTitle .form-control {
+    max-height: 15px;
+    overflow: hidden;
+}
+
+.postImg{
+    max-height: 200px;
+}
+/* ---------------------------------- INDEX PAGE ------------------------------------------------- */
+
+#indexPage{
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--primary);
+}
+
+#indexPage .d-flex {
+    height: 100vh;
+}
+
+#indexPage .container {
+    height: fit-content;
+    margin: 120px;
+}
+
+footer {
+    color: var(--text);
+    background-color: var(--primary);
+}
+
+.signUpBtn{
+    background-color:var(--titles);
+    border-color: var(--titles);
+    color: var(--primary);
+}
+
+.signUpBtn:hover{
+    background-color:var(--titles);
+    border-color: var(--hover);
+    color: var(--hover);
+}
+
+.signInBtn{
+    background-color:var(--primary);
+    border-color: var(--primary);
+    width: 100%;
+}
+
+.signInBtn:hover{
+    background-color:var(--primary);
+    border-color: var(--hover);
+    color: var(--hover);
+}
+
+#popupRegister {
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%)scale(0); /* escala 0 para que no se vea cuando no esta activo, se usa escala y opacidad para poder crear transiciones*/
+    transition: 200ms ease-in-out;
+    z-index: 10; /* su capa, para que se muestre sobre lo demás*/
+    width:50%;
+    height:60%;
+}
+
+#popupRegister.active {
+    transform: translate(-50%, -50%)scale(1); 
+}
+
+#overlay {
+    position: fixed; 
+    opacity: 0;  /* para que no se vea cuando no esta activo el pop up*/
+    transition: 200ms ease-in-out;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.2);  
+    z-index: 8;
+    pointer-events: none;
+    backdrop-filter: blur(5px);
+}
+
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#popupRegister .closeBtn{
+    background: none;
+    border: none;
+}
+
+#popupRegister button :hover {
+    background: none;
+    border: none;
+    color: var(--hover);
+}
+
+.carousel-inner {
+    max-width: fit-content;
+}
+
+.carousel-indicators [data-bs-target] {
+    background-color: var(--titles);
+}
+
+#carouselExample .img-fluid {
+    display: inline;
+    left: 35%;
+}
+
+h1{
+    font-weight: 900;
+    font-size: 135px;
+    color: var(--titles);
+    font-family: serif;
+}
+
+#indexPage h5{
+    font-size: 30px;
+}
+
+.pfpRegistro {
+    max-width: 130px;
+}
+
+#invalidPersonalizado {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: .875em;
+    color: var(--bs-danger-text);
+}
+/*------------------------------------- USER PROFILE -----------------------------------------------*/
+
+.portadaPerfil{
+    overflow: hidden;
+    height: 300px;
+    max-width: fit-content;
+}
+
+.headerPerfil {
+    max-width: fit-content;
+    padding: 0px;
+}
+
+.pfpPerfil{
+    max-width: 130px;
+    border: 6px solid var(--primary);
+    position:relative;
+    z-index: 6;
+    top:-70%;
+}
+
+.pfpDiv {
+    overflow: visible;
+    height: 50px;
+}
+
+h6{
+    font-weight: bold;
+}
+
+.pfpFriend{
+    max-width: 50px;
+}
+
+.communitySorting{
+    border-bottom: var(--text)!important;
+}

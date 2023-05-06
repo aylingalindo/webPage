@@ -6,16 +6,16 @@ package Servlets;
 
 import DAO.DAOUsuario;
 import com.mysql.cj.xdevapi.Statement;
-import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.RequestDispatcher;           //MODIFICAR
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;            //MODIFICAR
+import jakarta.servlet.annotation.WebServlet;       //MODIFICAR
+import jakarta.servlet.http.HttpServlet;            //MODIFICAR
+import jakarta.servlet.http.HttpServletRequest;     //MODIFICAR
+import jakarta.servlet.http.HttpServletResponse;    //MODIFICAR
 import java.io.Console;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

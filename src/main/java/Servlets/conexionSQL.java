@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 
 public class conexionSQL {
     String url = "jdbc:mysql://localhost:3306/";
-    String db = "WomanIn";
+    String db = "WomanIn";  //MODIFICAR
     String user = "root";
-    String pass = "1234";
+    String pass = "1234";   //MODIFICAR
     String driver = "com.mysql.jdbc.Driver";
     
     Connection con;

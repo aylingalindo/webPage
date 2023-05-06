@@ -19,6 +19,8 @@ public class Publicacion {
     String category;
     int post_status;
     int post_user;
+    String post_userdata;
+    int post_likes;
 
     public Publicacion() {
     }
@@ -115,6 +117,20 @@ public class Publicacion {
         this.post_user = post_user;
     }
     
+    public String getPost_userdata() {
+        return post_userdata;
+    }
+
+    public void setPost_userdata(String user) {
+        this.post_userdata = user;
+    }
     
+    public int getPost_likes() {
+        return post_likes;
+    }
+
+    public void setPost_likes(int likes) {
+        this.post_likes = likes;
+    }
     
 }

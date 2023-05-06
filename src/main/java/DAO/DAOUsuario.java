@@ -24,7 +24,9 @@ public class DAOUsuario implements Operaciones{
 
     public Object login(Object obj) {
         usu = (Usuario)obj;
+        
         Connection con;
+        
         PreparedStatement pst;
         ResultSet rs;
         String sql = "SELECT * FROM TB_User WHERE username = ? AND `password` = ? ";// insert query sql 
@@ -58,7 +60,23 @@ public class DAOUsuario implements Operaciones{
                 logged.setOccupation(rs.getString("occupation"));
                 logged.setUserStatus(rs.getInt("user_status"));
                 
-                System.out.println(logged.getOccupation());
+                System.out.println("id user DAO " + logged.getIdUser());
+                System.out.println("first name DAO " + logged.getFirstname());
+                System.out.println("pLastname DAO " + logged.getpLastname());
+                System.out.println("mLastname DAO " + logged.getmLastname());
+                System.out.println("birthdate DAO " + logged.getBirthdate());
+                System.out.println("email DAO " + logged.getEmail());
+                System.out.println("username DAO " + logged.getUsername());
+                System.out.println("password DAO " + logged.getPassword());
+                System.out.println("profileImg DAO " + logged.getProfileImg());
+                System.out.println("coverImg DAO " + logged.getCoverImg());
+                System.out.println("signupDate DAO " + logged.getSingupDate());
+                System.out.println("city DAO " + logged.getCity());
+                System.out.println("State DAO " + logged.getState());
+                System.out.println("Country DAO " + logged.getCountry());
+                System.out.println("Occupation DAO " + logged.getOccupation());
+                System.out.println("UserStatus DAO " + logged.getUserStatus());
+                
                 //pst = con.prepareStatement("SET SQL_SAFE_UPDATES = 0;");
                 //pst.executeQuery();
                 //pst = con.prepareStatement("DELETE FROM Tb_currentUser;");

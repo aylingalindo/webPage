@@ -8,7 +8,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelos.Database;
 import modelos.Operaciones;
 import modelos.entidades.Publicacion;
@@ -72,6 +77,55 @@ public class DAOPublicacion implements Operaciones{
     @Override
     public ArrayList<Object> cobnsultar() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    public List<Publicacion> consultLatestPost(){
+        System.out.println("Entra al DAO de publicacion");
+        List<Publicacion> datos = new ArrayList<>();
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String sql = "SELECT post.id_post, cat.id_category, post.title, post.description, post.media, post.post_status, post.post_user, user.first_name, user.p_lastname \n" +
+"FROM TB_Postcategory postcat\n" +
+"    INNER JOIN TB_Posts post\n" +
+"        ON postcat.id_post = post.id_post\n" +
+"    INNER JOIN TB_Category cat\n" +
+"        ON cat.id_category = postcat.id_category\n" +
+"    INNER JOIN TB_User user\n" +
+"        ON user.id_user = post.post_user;";
+        try{
+            System.out.println("Entra al try del DAO de publicacion");
+            Class.forName(db.getDriver());
+            con = DriverManager.getConnection(db.getUrl()+db.getDb(), db.getUser(), db.getPass());
+            
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                System.out.println("while del DAO de publicacion");
+                Publicacion post = new Publicacion();
+                post.setId_post(rs.getInt("id_post")); //nombre de la columna de la db
+                post.setTitle(rs.getString("title"));
+                post.setDescription(rs.getString("description"));
+                post.setMedia(rs.getString("media"));
+                post.setPost_status(rs.getInt("post_status"));
+                post.setPost_user(rs.getInt("post_user"));
+                String uname =  rs.getString("first_name") + rs.getString("p_lastname");
+                post.setPost_userdata(uname);
+                
+                datos.add(post);
+                
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOPublicacion.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("err " +  ex);
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAOPublicacion.class.getName()).log(Level.SEVERE, null, ex);
+             System.out.println("err2 " +  ex);
+        }
+        return datos;
     }
     
 }

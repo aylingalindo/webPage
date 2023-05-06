@@ -17,8 +17,8 @@
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital@1&family=Roboto:wght@100&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css"/>
-    <script defer src="funcionalidad.js"></script>
+    <link rel="stylesheet" href="CSS/style.css"/>
+    <script defer src="JS/funcionalidad.js"></script>
     <title>wm.In</title>
 </head>
 <body>

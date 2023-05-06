@@ -8,16 +8,16 @@ package Servlets;
 import DAO.DAOUsuario;
 import modelos.entidades.Usuario;
 
-import jakarta.servlet.RequestDispatcher;
+import javax.servlet.RequestDispatcher;               //MODIFICAR
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;                //MODIFICAR
+import javax.servlet.annotation.WebServlet;           //MODIFICAR
+import javax.servlet.http.HttpServlet;                //MODIFICAR
+import javax.servlet.http.HttpServletRequest;         //MODIFICAR
+import javax.servlet.http.HttpServletResponse;        //MODIFICAR
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -42,6 +42,7 @@ public class loginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+            System.out.println("Entra al doPost");
             String user = request.getParameter("nameLogin");
             String pass = request.getParameter("passLogin"); 
             
@@ -58,6 +59,7 @@ public class loginServlet extends HttpServlet {
                     System.out.println(logged.getOccupation());
                     request.setAttribute("usuario", logged); // envia al jsp el obj usuario logged con la info del usuario q inicio sesion. 
                 }else {
+                    System.out.println("Login failed. Return to index.jsp");
                     pantalla = "index.jsp";
                     request.setAttribute("err", 1);
                     request.setAttribute("err_message", "Credenciales equivocadas");
@@ -118,6 +120,11 @@ public class loginServlet extends HttpServlet {
                 System.out.println("error");
                 System.out.println(ex.getMessage());
             }
+           
+           //Test Servlet
+           /* RequestDispatcher rd = request.getRequestDispatcher("dashboard.jsp");
+            rd.forward(request, response);
+            response.sendRedirect("dashboard.jsp");*/
     }
 
 }

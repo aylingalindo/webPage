@@ -18,8 +18,8 @@
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital@1&family=Roboto:wght@100&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css"/>
-    <script defer src="funcionalidad.js"></script>
+    <link rel="stylesheet" href="CSS/style.css"/>
+    
     <title>wm.In</title>
 </head>
 <body>
@@ -37,26 +37,26 @@
           <button class="btn searchNavbar position-absolute" type="submit"><i class="icon ion-md-search"></i></button>
         </form>
         <button data-modal-target="#popupAdvancedSearch" type="button" class="btn btn-primary ms-4 advancedSearchBtn">Advanced Search</button>
-
+ 
  <%
      Usuario usuarioLogin = new Usuario();
      usuarioLogin = (Usuario)request.getAttribute("usuario");
-     System.out.println("Usuario dashboard "+usuarioLogin.getUsername());
+     System.out.println("Usuario dashboard "+ usuarioLogin.getUsername());
      String ocupacion = usuarioLogin.getOccupation();
      System.out.println("Ocupacion: "+ ocupacion);
      String nombreDisplay = usuarioLogin.getFirstname() + " " + usuarioLogin.getpLastname();
- %>       
-        
-        
+     String profileImg = usuarioLogin.getProfileImg();
+     System.out.println("img dashboard "+ profileImg);
+ %>              
         
         <!--elementos para seleccionar-->
         <div class="menu d-flex flex-column justify-content-evenly mb-5 pb-5">
 
           <!-- Info User-->
           <div class="nav-item pb-3 userInfo">
-            <img src="assets/fotoPerfil.jpeg" class="img-fluid rounded-circle pfp mb-2">
+              <img src="<% out.print(profileImg); %>" class="img-fluid rounded-circle pfp mb-2">
             <a href="user-profile.jsp" class="nav-link mb-2"> 
-                <% out.print(nombreDisplay); %> 
+                <% out.print(nombreDisplay); %>
             </a>    <!-- dblock para que cada uno este en una linea y p-3 para separalos-->
             <p class="mb-2"> <% out.print(usuarioLogin.getOccupation()); %> </p>
           </div>
@@ -113,7 +113,7 @@
           <div class="row pt-3 mx-3">
             <div class="col-11 me-auto">
               <img src="assets/fotoPerfil.jpeg" class="img-fluid rounded-circle pfpNewpost">
-              <% out.print(nombreDisplay);%>
+             <%-- <% out.print(nombreDisplay);%> --%>
             </div>
             <div class="col">
               <button data-close-button type="button" class="closeBtn"><i class="icon ion-md-close"></i></button>
@@ -251,62 +251,21 @@
         </div>-->
 
         <!-- post -->
-        <div class="card contentItem">
-          <div class="card-header">
-            <img src="assets/razor.jpeg" class="img-fluid rounded-circle pfpNewpost">
-            Razor
-          </div>
-          <div class="card-body">
-            <h5>Hello world</h5>
-            <p> I like to hunt </p>
-          </div>
-          <div class="card-footer">
-            <p><i class="icon ion-md-heart pe-2"></i>15</p>
-          </div>
-        </div>
-
-        <div class="card contentItem">
-          <div class="card-header">
-            <img src="assets/razor.jpeg" class="img-fluid rounded-circle pfpNewpost">
-            Razor
-          </div>
-          <div class="card-body">
-            <h5>Gatitos bonitos</h5>
-            <p> I like to hunt </p>
-            <img src="assets/gatitos.jpeg" class="img-fluid postImg">
-          </div>
-          <div class="card-footer">
-            <p><i class="icon ion-md-heart pe-2"></i>15</p>
-          </div>
-        </div>
-
-        <div class="card contentItem">
-          <div class="card-header">
-            <img src="assets/razor.jpeg" class="img-fluid rounded-circle pfpNewpost">
-            Razor
-          </div>
-          <div class="card-body">
-              <h5>Titulo</h5>
-            <p> I like to hunt </p>
-          </div>
-          <div class="card-footer">
-            <p><i class="icon ion-md-heart pe-2"></i>15</p>
-          </div>
-        </div>
-
-        <div class="card contentItem">
-          <div class="card-header">
-            <img src="assets/razor.jpeg" class="img-fluid rounded-circle pfpNewpost">
-            Razor
-          </div>
-          <div class="card-body">
-              <h5>Perritos bonitos</h5>
-            <p> I like to hunt </p>
-            <img src="assets/cachorros.jpg" class="img-fluid postImg">
-          </div>
-          <div class="card-footer">
-            <p><i class="icon ion-md-heart pe-2"></i>15</p>
-          </div>
+        <div id="posts">
+            <div class="card contentItem">
+              <div class="card-header">
+                <img src="assets/razor.jpeg" class="img-fluid rounded-circle pfpNewpost">
+                Razor
+              </div>
+              <div class="card-body">
+                  <h5>Perritos bonitos</h5>
+                <p> I like to hunt </p>
+                <img src="assets/cachorros.jpg" class="img-fluid postImg">
+              </div>
+              <div class="card-footer">
+                <p><i class="icon ion-md-heart pe-2"></i>15</p>
+              </div>
+            </div>
         </div>
       </section>
       
@@ -323,5 +282,10 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollto/1.4.6/jquery-scrollto.min.js"></script>
+    <script defer src="JS/funcionalidad.js"></script>
+    <script defer src="JS/dashboard.js"></script>
 </body>
 </html>

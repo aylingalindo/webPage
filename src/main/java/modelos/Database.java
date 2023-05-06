@@ -17,9 +17,9 @@ public class Database {
 
     public Database() {
         this.url = "jdbc:mysql://localhost:3306/";
-        this.db = "WomanIn";
+        this.db = "WomanIn";        //MODIFICAR
         this.user = "root";
-        this.pass = "1234";
+        this.pass = "1234";         //MODIFICAR
         this.driver = "com.mysql.jdbc.Driver";
     }
 
