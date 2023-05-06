@@ -8,11 +8,11 @@ import DAO.DAOPublicacion;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import javax.servlet.ServletException;              //MODIFICAR
-import javax.servlet.annotation.WebServlet;         //MODIFICAR
-import javax.servlet.http.HttpServlet;              //MODIFICAR
-import javax.servlet.http.HttpServletRequest;       //MODIFICAR
-import javax.servlet.http.HttpServletResponse;      //MODIFICAR
+import jakarta.servlet.ServletException;              //MODIFICAR
+import jakarta.servlet.annotation.WebServlet;         //MODIFICAR
+import jakarta.servlet.http.HttpServlet;              //MODIFICAR
+import jakarta.servlet.http.HttpServletRequest;       //MODIFICAR
+import jakarta.servlet.http.HttpServletResponse;      //MODIFICAR
 import modelos.entidades.Publicacion;
 import org.json.simple.JSONObject;
 
