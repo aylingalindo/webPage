@@ -124,10 +124,10 @@
         <!-- contenido que va a cambiar -->
         <form class="card-body" action="dashboardServlet" method="post" class="needs-validation" novalidate>
           <div id="postTitle" class="row mx-3 mb-4">
-            <input class="form-control form-control-lg" name="titleNewPost" type="text" placeholder="Title"></input>
+            <input class="form-control form-control-lg" name="titleNewPost" type="text" placeholder="Title"/>
           </div>
           <div class="row mx-3 mb-4">
-            <input class="form-control" name="descriptionNewPost" placeholder="What do you want to share?" rows="4"></textarea>
+            <input class="form-control" name="descriptionNewPost" placeholder="What do you want to share?" rows="4"/>
           </div>
           <div class="row mx-3 my-4 newpostContainer">
               <button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-photos"></i></button>
@@ -140,18 +140,26 @@
               <i class="icon ion-md-pricetags ms-2 mt-2"></i>
             </div>
             <div class="col-11 categories">
-              <input type="button" class="cat" value="#Science"></input>
-              <input type="button" class="cat" value ="#Tech"></input>
-              <input type="button" class="cat" value="#Art"></input>
-              <input type="button" class="cat" value="#Design"></input>
-              <input type="button" class="cat" value="#Business"></input>
-              <input type="button" class="cat" value="#Psychology"></input>
-              <input type="button" class="cat" value="#Medicine"></input>
-              <input type="button" class="cat" value="#Human Arts"></input>
+              <input name="cat" type="radio" class="cat" id="c1" value="1"/>
+              <label for="c1">Science</label>
+              <input name="cat" type="radio" class="cat" id="c2" value ="2"/>
+              <label for="c2">Tech</label>
+              <input name="cat" type="radio" class="cat" id="c3" value="3"/>
+              <label for="c3">Art</label>
+              <input name="cat" type="radio" class="cat" id="c4" value="4"/>
+              <label for="c4">Design</label>
+              <input name="cat" type="radio" class="cat" id="c5" value="5"/>
+              <label for="c5">Business</label>
+              <input name="cat" type="radio" class="cat" id="c6" value="6"/>
+              <label for="c6">Psychology</label>
+              <input name="cat" type="radio" class="cat" id="c7" value="7"/>
+              <label for="c7">Medicine</label>
+              <input name="cat" type="radio" class="cat" id="c8" value="8"/>
+              <label for="c8">Human Arts</label>
             </div>
           </div>
           <div class="row mx-3 my-4">
-              <input type="submit" class="btn btn-primary signUpBtn" value = "Post"></input>
+              <input type="submit" class="btn btn-primary signUpBtn" value = "Post"/>
           </div>
         </form>
 

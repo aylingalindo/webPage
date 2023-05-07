@@ -26,10 +26,11 @@ import modelos.entidades.Usuario;
 public class DAOPublicacion implements Operaciones{
     Database db = new Database();
     Publicacion publi = new Publicacion();
-    int activeP = 1;
+    int activeP;
     
     @Override
-    public Object insertar(Object obj) {
+    public Boolean insertar(Object obj) {
+        activeP = 1;
         publi = (Publicacion) obj;
         Connection con;
         PreparedStatement pst;
@@ -37,10 +38,13 @@ public class DAOPublicacion implements Operaciones{
         String sql = "INSERT INTO TB_Posts(title, description, media, post_status, post_user, id_category) VALUES " + "(?,?,?,?,?,?)";
         
         try{
+            System.out.println("Paso el query, entro al try DASHBOARD, INSERT PUBLI");
             Class.forName(db.getDriver());
             con = DriverManager.getConnection(db.getUrl()+db.getDb(), db.getUser(), db.getPass());
             
             pst = con.prepareStatement(sql);
+            
+            System.out.println(publi.getTitle() + publi.getDescription() + publi.getMedia() + activeP + publi.getPost_user() + publi.getIdCategory());
 
             pst.setString(1, publi.getTitle());
             pst.setString(2, publi.getDescription());
@@ -51,13 +55,13 @@ public class DAOPublicacion implements Operaciones{
             int rowCount = pst.executeUpdate();
             
             if(rowCount>0){
-                System.out.println("Se ejecuto el query correctamente");
+                System.out.println("Se ejecuto el query correctamente DAO INSERT PUBLI");
                 con.close();
                 return true;
             }
             con.close();
         } catch(Exception ex){
-            System.out.println("error");
+            System.out.println("error DAO INSERT PUBLI");
             System.out.println(ex.getMessage());
         }
             

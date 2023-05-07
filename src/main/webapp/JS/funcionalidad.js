@@ -113,3 +113,10 @@ function showImageRegister(){
     alert("url: " + url);
     document.getElementById('pfpRegistroSrc').setAttribute("src", url);
 }
+
+
+const cat = document.querySelector('.cat');
+
+cat.onclick = () => {
+    alert("boton presionado");
+}
