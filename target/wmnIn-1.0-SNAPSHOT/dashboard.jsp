@@ -53,14 +53,13 @@
         <div class="menu d-flex flex-column justify-content-evenly mb-5 pb-5">
 
           <!-- Info User-->
+          <form action="profileServlet" method="get" class="needs-validation" novalidate>
           <div class="nav-item pb-3 userInfo">
-              <img src="<% out.print(profileImg); %>" class="img-fluid rounded-circle pfp mb-2">
-            <a href="user-profile.jsp" class="nav-link mb-2"> 
-                <% out.print(nombreDisplay); %>
-            </a>    <!-- dblock para que cada uno este en una linea y p-3 para separalos-->
+            <img src="<% out.print(profileImg); %>" class="img-fluid rounded-circle pfp mb-2">
+            <input href="user-profile.jsp" type="submit" class="nav-link mb-2" value="<% out.print(nombreDisplay); %>"/>
             <p class="mb-2"> <% out.print(usuarioLogin.getOccupation()); %> </p>
           </div>
-
+          </form>
           <!-- Links -->
           <div class="container px-5 pb-3">
             <div class="row misLinks">
@@ -84,7 +83,7 @@
                 <i class="icon ion-md-home lead "></i>
               </div>
               <div class="col-8">
-                <a href="dashboard.jsp" class="nav-link">Home</a>
+                <a class="nav-link">Home</a>
               </div>
             </div>
             <div class="row misLinks">

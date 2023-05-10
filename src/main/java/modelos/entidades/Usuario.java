@@ -45,6 +45,16 @@ public class Usuario {
         this.userStatus = userStatus;
     }
     
+    public Usuario(int idUser, String birthdate, String email, String city, String state, String country, String occupation) {
+        this.idUser = idUser;
+        this.birthdate = birthdate;
+        this.email = email;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.occupation = occupation;
+    }
+    
     public Usuario(String firstname, String pLastname, String mLastname, String birthdate, String email, String username, String password, String profileImg) {
         this.firstname = firstname;
         this.pLastname = pLastname;

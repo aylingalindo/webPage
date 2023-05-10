@@ -1,0 +1,93 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+package Servlets;
+
+import DAO.DAOUsuario;
+
+import jakarta.servlet.RequestDispatcher;               //MODIFICAR
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import jakarta.servlet.ServletException;                //MODIFICAR
+import jakarta.servlet.annotation.WebServlet;           //MODIFICAR
+import jakarta.servlet.http.HttpServlet;                //MODIFICAR
+import jakarta.servlet.http.HttpServletRequest;         //MODIFICAR
+import jakarta.servlet.http.HttpServletResponse;        //MODIFICAR
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import modelos.entidades.Usuario;
+
+
+@WebServlet(name = "profileServlet", urlPatterns = {"/profileServlet"})
+public class profileServlet extends HttpServlet {
+    DAOUsuario dao = new DAOUsuario();
+    public Usuario profile = (Usuario)dao.accessLogged();
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        System.out.println("Entra al do get PROFILE");
+        request.setAttribute("usuario", profile);
+        RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
+        rd.forward(request, response);  
+    }
+    
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+            System.out.println("entro al servlet de registro");
+            
+            // int opc = request.getParameter("hiddenOpc")
+            // if opc = 1 // hacer el do post de editar info perfil
+            // if opc = 2 // hacer el do post de editar about
+            
+            int idUser = profile.getIdUser();
+            String usernameUser = profile.getUsername();
+            
+            
+            Usuario usuAbout = new Usuario(
+                idUser,
+                request.getParameter("fechaAbout"),
+                request.getParameter("emailAbout"),
+                request.getParameter("cityAbout"),
+                request.getParameter("stateAbout"),
+                request.getParameter("countryAbout"),
+                request.getParameter("OcupationAbout")
+            );
+            
+            try{ 
+                System.out.println("entro al try post profile");
+                if( dao.validarExistenteCorreo(usuAbout.getEmail()) == false){
+                    System.out.println("email taken");
+                    System.out.println("res.next");
+                    request.setAttribute("status", "0");
+                    request.setAttribute("err", "2"); 
+                    request.setAttribute("err_message", "The email is already taken");
+                } else{
+                    System.out.println("paso la validacion");
+                    if(dao.modificar(usuAbout)== true){
+                        System.out.println("status 1");
+                        request.setAttribute("status", "1");
+                    }else{
+                        System.out.println("status 0");
+                        request.setAttribute("status", "0"); 
+                        request.setAttribute("err", "2");
+                        request.setAttribute("err_message", "Update about failed");
+                    }
+                }
+            request.setAttribute("usuario", profile);
+            RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
+            rd.forward(request, response);  
+                
+            } catch(ServletException | IOException  e){
+                System.out.println("catch");
+                Logger.getLogger(signupServlet.class.getName()).log(Level.SEVERE, null, e);
+            }
+    }
+}

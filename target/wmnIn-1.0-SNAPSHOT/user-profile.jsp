@@ -4,6 +4,7 @@
     Author     : Aylin
 --%>
 
+<%@page import="modelos.entidades.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -24,6 +25,18 @@
 <body>
   <div class="d-flex"> 
     <div id="overlay"></div>
+    
+    <%
+        Usuario usuarioLogin = new Usuario();
+        usuarioLogin = (Usuario)request.getAttribute("usuario");
+        System.out.println("Usuario dashboard "+ usuarioLogin.getUsername());
+        String ocupacion = usuarioLogin.getOccupation();
+        System.out.println("Ocupacion: "+ ocupacion);
+        String nombreDisplay = usuarioLogin.getFirstname() + " " + usuarioLogin.getpLastname();
+        String profileImg = usuarioLogin.getProfileImg();
+        System.out.println("img dashboard "+ profileImg);
+    %> 
+    
     <!-- NAV BAR-->
     <div id="sidebar" class="bg-primary">
 
@@ -42,9 +55,13 @@
 
           <!-- Info User-->
           <div class="nav-item pb-3 userInfo">
-            <img src="assets/fotoPerfil.jpeg" class="img-fluid rounded-circle pfp mb-2">
-            <a href="user-profile.html" class="nav-link mb-2">Aylin Galindo</a>    <!-- dblock para que cada uno este en una linea y p-3 para separalos-->
-            <p class="mb-2">Game Dev Student</p>
+                <img src="<% out.print(profileImg); %>" class="img-fluid rounded-circle pfp mb-2">
+            <a class="nav-link mb-2">
+                 <% out.print(nombreDisplay); %>
+            </a>    <!-- dblock para que cada uno este en una linea y p-3 para separalos-->
+            <p class="mb-2">
+                <% out.print(usuarioLogin.getOccupation()); %>
+            </p>
           </div>
 
           <!-- Links -->
@@ -65,14 +82,16 @@
                 <a href="#" class="nav-link">Messages</a>
               </div>
             </div>
+            <form action="dashboardServlet" method="get" class="needs-validation" novalidate>
             <div class="row misLinks">
               <div class="col-2 pe-1">
                 <i class="icon ion-md-home lead "></i>
               </div>
               <div class="col-8">
-                <a href="dashboard.jsp" class="nav-link">Home</a>
+                  <input href="dashboard.jsp" type="submit" class="nav-link" value="Home"/>
               </div>
             </div>
+            </form>
             <div class="row misLinks">
               <div class="col-2 pe-1">
                 <i class="icon ion-md-exit"></i>
@@ -88,7 +107,7 @@
 
     <!-- CONTENT -->
     <div id="content">
-
+        
       <!-- POP UP ADVANCED SEARCH-->
       <div id="popupAdvancedSearch" class="card">
 
@@ -274,35 +293,45 @@
         </div>
         <!-- form para editar información-->
         <div class="card-body d-flex">
-          <form class="row g-3">
+          <form action="profileServlet" method="post" class="needs-validation row g-3" novalidate>
               <div class="col-12">
                 <label class="form-label">Ocupation</label>
-                <input type="text" class="form-control" id="Ocupation" value="Game Developer">
+                <input type="text" class="form-control" id="OcupationAbout" name="OcupationAbout" value="Game Developer" required="">
               </div>
               <div class="col-12">
-                <label class="form-label">Location</label>
-                <input type="text" class="form-control" id="Ocupation" value="Monterrey, MX">
+                  <div class="row-4">
+                    <label class="form-label">City</label>
+                    <input type="text" class="form-control" id="cityAbout" name="cityAbout" value="Monterrey">
+                  </div>
+                  <div class="row-4">
+                    <label class="form-label">State</label>
+                    <input type="text" class="form-control" id="stateAbout" name="stateAbout" value="Nuevo Leon">
+                  </div>
+                  <div class="row-4">
+                    <label class="form-label">Country</label>
+                    <input type="text" class="form-control" id="countryAbout" name="countryAbout" value="Mexico">
+                  </div>
               </div>
               <div class="col-12">
-                <label for="validationEmail" class="form-label">Email</label>
+                <label for="emailAbout" class="form-label">Email</label>
                 <div class="input-group has-validation">
-                  <input type="text" class="form-control" id="validationEmail" value="aylingalindo@email.com" required>
+                  <input type="text" class="form-control" id="emailAbout" name="emailAbout" value="aylingalindo@email.com" required>
                   <div class="invalid-feedback">
                     Please write a valid email.
                   </div>
                 </div>
               </div>
               <div class="col-12">
-                <label for="validationDate" class="form-label">Date of birth</label>
+                <label for="fechaAbout" class="form-label">Date of birth</label>
                 <div class="input-group has-validation">
-                  <input type="date" class="form-control" name="fecha" id="validationDate" value="" required>
+                  <input type="date" class="form-control" name="fechaAbout" id="validationDate" value="" required>
                   <div class="invalid-feedback">
                   Please select a valid date.
                 </div>
                 </div>
               </div>
               <div class="col-12">
-                <button type="submit" class="btn btn-primary signInBtn">Sign Up</button>
+                <button type="submit" class="btn btn-primary signInBtn">Save About Info</button>
               </div>
           </form>
         </div>

@@ -6,7 +6,6 @@
 package Servlets;
 
 import DAO.DAOUsuario;
-import modelos.entidades.Usuario;
 
 import jakarta.servlet.RequestDispatcher;               //MODIFICAR
 import java.io.IOException;
@@ -36,7 +35,7 @@ import modelos.entidades.Usuario;
 public class loginServlet extends HttpServlet {
     DAOUsuario dao = new DAOUsuario();
     conexionSQL connection = new conexionSQL();
-    public static Usuario logged;
+    public Usuario login;
     
     
     @Override
@@ -50,14 +49,14 @@ public class loginServlet extends HttpServlet {
                 String pantalla;
                 
                 Usuario usu = new Usuario(user, pass);
-                logged = (Usuario) dao.login(usu);
+                login = (Usuario) dao.login(usu);
                 
-                if(logged.getIdUser()!=0){
+                if(login.getIdUser()!=0){
                     System.out.println("rs.next");
                     pantalla = "dashboard.jsp";
                     request.setAttribute("err", 0);
-                    System.out.println(logged.getOccupation());
-                    request.setAttribute("usuario", logged); // envia al jsp el obj usuario logged con la info del usuario q inicio sesion. 
+                    System.out.println(login.getOccupation());
+                    request.setAttribute("usuario", login); // envia al jsp el obj usuario logged con la info del usuario q inicio sesion. 
                 }else {
                     System.out.println("Login failed. Return to index.jsp");
                     pantalla = "index.jsp";

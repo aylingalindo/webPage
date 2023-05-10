@@ -5,7 +5,7 @@
 package Servlets;
 
 import DAO.DAOPublicacion;
-import static Servlets.loginServlet.logged;
+import DAO.DAOUsuario;
 import com.mysql.cj.xdevapi.Statement;
 import jakarta.servlet.RequestDispatcher;           //MODIFICAR
 import java.io.IOException;
@@ -33,8 +33,18 @@ import modelos.entidades.Usuario;
 @WebServlet(name = "dashboardServlet", urlPatterns = {"/dashboardServlet"})
 public class dashboardServlet extends HttpServlet {
     DAOPublicacion dao = new DAOPublicacion();
+    DAOUsuario daoU = new DAOUsuario();
+    Usuario logged = (Usuario)daoU.accessLogged();
     
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        System.out.println("Entra al do get PROFILE");
+        request.setAttribute("usuario", logged);
+        RequestDispatcher rd = request.getRequestDispatcher("dashboard.jsp");
+        rd.forward(request, response);  
+    }
+    
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("entro al servlet ");

@@ -1,10 +1,12 @@
 Servlets\dashboardServlet.class
 modelos\entidades\Usuario.class
+Servlets\postServlet.class
 DAO\DAOPublicacion.class
 modelos\Operaciones.class
 DAO\DAOUsuario.class
 modelos\entidades\Publicacion.class
 Servlets\signupServlet.class
 modelos\Database.class
+Servlets\profileServlet.class
 Servlets\conexionSQL.class
 Servlets\loginServlet.class
