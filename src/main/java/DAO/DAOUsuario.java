@@ -195,7 +195,6 @@ public class DAOUsuario implements Operaciones{
             if(rowCount>0){
                 System.out.println("Se ejecuto el query correctamente");
                 con.close();
-                System.out.println("q pedo");
                 return true;
             }
             con.close();
@@ -240,7 +239,52 @@ public class DAOUsuario implements Operaciones{
                 logged.setBirthdate(usu.getBirthdate());
                 
                 con.close();
-                System.out.println("q pedo");
+                return true;
+            }
+            con.close();
+        } catch(Exception ex){
+            System.out.println("error");
+            System.out.println(ex.getMessage());
+        }
+        return false;
+    }
+    
+    public boolean modificarInfo(Object obj) {
+        System.out.println("entro al dao modificar info");
+        usu = (Usuario)obj;
+        Connection con;
+        PreparedStatement pst; 
+        String sql = "update tb_user set first_name = ?, p_lastname = ?, m_lastname = ?, username = ?, `password` = ?, profile_img = ? , cover_img = ? where id_user = ?;";
+        
+        try{
+            System.out.println("Paso el query, entro al try");
+            Class.forName(db.getDriver());
+            con = DriverManager.getConnection(db.getUrl()+db.getDb(), db.getUser(), db.getPass());
+            
+            pst = con.prepareStatement(sql);
+
+            pst.setString(1, usu.getFirstname());
+            pst.setString(2, usu.getpLastname());
+            pst.setString(3, usu.getmLastname());
+            pst.setString(4, usu.getUsername());
+            pst.setString(5, usu.getPassword());
+            pst.setString(6, usu.getProfileImg());
+            pst.setString(7,usu.getCoverImg());
+            pst.setInt(8,usu.getIdUser());
+            int rowCount = pst.executeUpdate();
+            
+            if(rowCount>0){
+                System.out.println("Se ejecuto el query correctamente");
+                
+                logged.setFirstname(usu.getFirstname());
+                logged.setpLastname(usu.getpLastname());
+                logged.setmLastname(usu.getmLastname());
+                logged.setUsername(usu.getUsername());
+                logged.setPassword(usu.getPassword());
+                logged.setProfileImg(usu.getProfileImg());
+                logged.setCoverImg(usu.getCoverImg());
+                
+                con.close();
                 return true;
             }
             con.close();

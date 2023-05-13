@@ -45,6 +45,17 @@ public class Usuario {
         this.userStatus = userStatus;
     }
     
+    public Usuario(int idUser, String firstname, String pLastname, String mLastname, String username, String password, String profileImg, String coverImg) {
+        this.idUser = idUser;
+        this.firstname = firstname;
+        this.pLastname = pLastname;
+        this.mLastname = mLastname;
+        this.username = username;
+        this.password = password;
+        this.profileImg = profileImg;
+        this.coverImg = coverImg;
+    }
+    
     public Usuario(int idUser, String birthdate, String email, String city, String state, String country, String occupation) {
         this.idUser = idUser;
         this.birthdate = birthdate;

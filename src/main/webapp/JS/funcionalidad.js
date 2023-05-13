@@ -114,6 +114,18 @@ function showImageRegister(){
     document.getElementById('pfpRegistroSrc').setAttribute("src", url);
 }
 
+function showImageEdit(){
+    //var archivos = $("#inptImg")[0].files;
+    //const primerArchivo = archivos[0];
+    
+    //let url = URL.createObjectURL(primerArchivo);
+    //const img = document.getElementById('pfpRegistroSrc');
+    //img.src = url;
+    const url = document.getElementById('pfpUserProfileEdit').value;
+    alert("url: " + url);
+    document.getElementById('pfpUserProfileEdit').setAttribute("src", url);
+}
+
 
 const cat = document.querySelector('.cat');
 

@@ -39,55 +39,105 @@ public class profileServlet extends HttpServlet {
         rd.forward(request, response);  
     }
     
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            System.out.println("entro al servlet de registro");
+            System.out.println("entro al servlet de profile");
             
-            // int opc = request.getParameter("hiddenOpc")
-            // if opc = 1 // hacer el do post de editar info perfil
-            // if opc = 2 // hacer el do post de editar about
+            String opc = request.getParameter("hiddenOpc");
+            System.out.println(opc);
             
-            int idUser = profile.getIdUser();
-            String usernameUser = profile.getUsername();
+            if (opc.equals("1")){
+                System.out.println("entro al if de opc 1");
+                // hacer el do post de editar info perfil
+                try{ 
+                    System.out.println("entro al try post profile info");
+                    int idUser = profile.getIdUser();
+                    String confirmPass = request.getParameter("validationConfirmPass");
+                    String pass = request.getParameter("validationPassword");
+             
+                    Usuario usuAbout = new Usuario(
+                        idUser,
+                    request.getParameter("validationName"),
+                    request.getParameter("validationFirstLN"),
+                    request.getParameter("validationSecondLN"),
+                    request.getParameter("validationUsername"),
+                    pass,
+                    request.getParameter("profileImgEdit"),
+                        request.getParameter("backgroundImgEdit")
+                    );
             
-            
-            Usuario usuAbout = new Usuario(
-                idUser,
-                request.getParameter("fechaAbout"),
-                request.getParameter("emailAbout"),
-                request.getParameter("cityAbout"),
-                request.getParameter("stateAbout"),
-                request.getParameter("countryAbout"),
-                request.getParameter("OcupationAbout")
-            );
-            
-            try{ 
-                System.out.println("entro al try post profile");
-                if( dao.validarExistenteCorreo(usuAbout.getEmail()) == false){
-                    System.out.println("email taken");
-                    System.out.println("res.next");
-                    request.setAttribute("status", "0");
-                    request.setAttribute("err", "2"); 
-                    request.setAttribute("err_message", "The email is already taken");
-                } else{
-                    System.out.println("paso la validacion");
-                    if(dao.modificar(usuAbout)== true){
-                        System.out.println("status 1");
-                        request.setAttribute("status", "1");
-                    }else{
-                        System.out.println("status 0");
-                        request.setAttribute("status", "0"); 
-                        request.setAttribute("err", "2");
-                        request.setAttribute("err_message", "Update about failed");
+                    
+                    if((pass.equals(confirmPass))== false){
+                        System.out.println("pass not match");
+                        request.setAttribute("status", "0");
+                        request.setAttribute("err", "2"); 
+                        request.setAttribute("err_message", "Passwords do not match");
+                    } else{
+                        System.out.println("paso la validacion");
+                        if(dao.modificarInfo(usuAbout)== true){
+                            System.out.println("status 1");
+                            request.setAttribute("status", "1");
+                        }else{
+                            System.out.println("status 0");
+                            request.setAttribute("status", "0"); 
+                            request.setAttribute("err", "2");
+                            request.setAttribute("err_message", "Update about failed");
+                        }
                     }
-                }
-            request.setAttribute("usuario", profile);
-            RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
-            rd.forward(request, response);  
-                
-            } catch(ServletException | IOException  e){
+                    request.setAttribute("usuario", profile);
+                    RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
+                    rd.forward(request, response);  
+                    
+                } catch(ServletException | IOException  e){
                 System.out.println("catch");
                 Logger.getLogger(signupServlet.class.getName()).log(Level.SEVERE, null, e);
+                }
+            } else if (opc.equals("1")){
+                // hacer el do post de editar about
+                
+                int idUser = profile.getIdUser();
+                String usernameUser = profile.getUsername();
+            
+            
+                Usuario usuAbout = new Usuario(
+                    idUser,
+                    request.getParameter("fechaAbout"),
+                    request.getParameter("emailAbout"),
+                    request.getParameter("cityAbout"),
+                    request.getParameter("stateAbout"),
+                    request.getParameter("countryAbout"),
+                    request.getParameter("OcupationAbout")
+                );
+            
+                try{ 
+                    System.out.println("entro al try post profile");
+                    if( dao.validarExistenteCorreo(usuAbout.getEmail()) == false){
+                        System.out.println("email taken");
+                        System.out.println("res.next");
+                        request.setAttribute("status", "0");
+                        request.setAttribute("err", "2"); 
+                        request.setAttribute("err_message", "The email is already taken");
+                    } else{
+                        System.out.println("paso la validacion");
+                        if(dao.modificar(usuAbout)== true){
+                            System.out.println("status 1");
+                            request.setAttribute("status", "1");
+                        }else{
+                            System.out.println("status 0");
+                            request.setAttribute("status", "0"); 
+                            request.setAttribute("err", "2");
+                            request.setAttribute("err_message", "Update about failed");
+                        }
+                    }
+                request.setAttribute("usuario", profile);
+                RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
+                rd.forward(request, response);  
+                
+                } catch(ServletException | IOException  e){
+                System.out.println("catch");
+                Logger.getLogger(signupServlet.class.getName()).log(Level.SEVERE, null, e);
+                }
             }
     }
 }

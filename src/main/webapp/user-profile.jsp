@@ -182,20 +182,20 @@
         <div class="card-body d-flex">
           <div id="carouselExample" class="carousel slide flex-fill">
             <div class="carousel-inner mx-3 mb-5">
-
+                
+             <form action="profileServlet" method="post" id="formEditInfo" class="needs-validation" novalidate>
               <!-- form de la pagina 1 :D-->
               <div class="carousel-item active">
-                <form class="row g-3 needs-validation" novalidate>
                   <div class="col-12">
                     <label for="validationName" class="form-label">First name(s)</label>
-                    <input type="text" class="form-control" id="validationName" value="Aylin" required>
+                    <input type="text" class="form-control" id="validationName" name="validationName" value="<% out.print(usuarioLogin.getFirstname()); %>" required>
                     <div class="invalid-feedback">
                       Please fill with letters. 
                     </div>
                   </div>
                   <div class="col-6">
                     <label for="validationFirstLN" class="form-label">First last name</label>
-                    <input type="text" class="form-control" id="validationFirstLN" value="Galindo" required>
+                    <input type="text" class="form-control" id="validationFirstLN" name="validationFirstLN" value="<% out.print(usuarioLogin.getpLastname()); %>" required>
                     <div class="invalid-feedback">
                       Please fill with letters. 
                     </div>
@@ -203,13 +203,12 @@
                   <div class="col-6">
                     <label for="validationSecondLN" class="form-label">Second last name</label>
                     <div class="input-group has-validation">
-                      <input type="text" class="form-control" id="validationSecondLN" value="Acosta" required>
+                      <input type="text" class="form-control" id="validationSecondLN" name="validationSecondLN" value="<% out.print(usuarioLogin.getmLastname()); %>" required>
                       <div class="invalid-feedback">
                         Please fill with letters.
                       </div>
                     </div>
                   </div>
-                </form>
               </div>
 
               <!-- form de la pagina 2 :D -->
@@ -219,17 +218,23 @@
                       <label class="form-label">Choose a profile picture</label>
                     </div>
                     <div class="col-12 pfpRegistro">
-                        <img src="assets/defaultpfp.png" class="img-fluid rounded-circle">
+                        <img src="<% out.print(usuarioLogin.getProfileImg()); %>" id="pfpUserProfileEdit" class="img-fluid rounded-circle">
                     </div>
                     <div class="col-12 mb-3">
-                      <input type="file" class="form-control" aria-label="file example" required>
+                      <input type="url" class="form-control" name="profileImgEdit" id="profileImgEdit" value="<% out.print(usuarioLogin.getProfileImg()); %>" onchange="showImageEdit()" required>
                       <div class="invalid-feedback">Example invalid form file feedback</div>
                     </div>
                     <div class="col-12">
                       <label class="form-label">Choose a background image</label>
                     </div>
                     <div class="col-12 mb-3">
-                      <input type="file" class="form-control" aria-label="file example" required>
+                      <% 
+                        String portada = "";
+                        if (usuarioLogin.getCoverImg() != "null" | usuarioLogin.getCoverImg() != ""){
+                            portada = usuarioLogin.getCoverImg();
+                        } 
+                      %>
+                      <input type="url" class="form-control" name="backgroundImgEdit" id="profileImgEdit" value="<% out.print(portada); %>">
                       <div class="invalid-feedback">Example invalid form file feedback</div>
                     </div>
                   </div>
@@ -237,37 +242,37 @@
 
               <!-- form de la pagina 3 :DD -->
               <div class="carousel-item">
-                <form class="row g-3 needs-validation" novalidate>
                   <div class="col-12">
-                    <label for="validationCustom01" class="form-label">Change username</label>
-                    <input type="text" class="form-control" id="validationCustom01" value="@aylingalindo" required>
+                    <label for="validationUsername" class="form-label">Change username</label>
+                    <input type="text" class="form-control" id="validationUsername" name="validationUsername" value="<% out.print(usuarioLogin.getUsername()); %>" required>
                     <div class="valid-feedback">
                       Looks good!
                     </div>
                   </div>
                   <div class="col-12">
-                    <label for="validationCustomUsername" class="form-label">Change password</label>
+                    <label for="validationPassword" class="form-label">Change password</label>
                     <div class="input-group has-validation">
-                      <input type="password" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" value="password" required>
+                      <input type="password" class="form-control" id="validationPassword" name="validationPassword" aria-describedby="inputGroupPrepend" value="<% out.print(usuarioLogin.getPassword()); %>" required>
                       <div class="invalid-feedback">
                         Invalid passowrd.
                       </div>
                     </div>
                   </div>
                   <div class="col-12">
-                    <label for="validationCustomUsername" class="form-label">Confirm password</label>
+                    <label for="validationConfirmPass" class="form-label">Confirm password</label>
                     <div class="input-group has-validation">
-                      <input type="password" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" value="" required>
+                      <input type="password" class="form-control" id="validationConfirmPass" name="validationConfirmPass" aria-describedby="inputGroupPrepend" value="" required>
                       <div class="invalid-feedback">
                         Invalid passowrd.
                       </div>
                     </div>
                   </div>
                   <div class="col-12">
-                    <button type="submit" class="btn btn-primary signInBtn">Confirm</button>
+                      <input hidden name="hiddenOpc" value="1"/>
+                    <input type="submit" class="btn btn-primary signInBtn" value="Confirm"/>
                   </div>
-                </form>
               </div>
+             </form>
             </div>
             <div class="carousel-indicators mb-0">
               <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -284,38 +289,39 @@
         <div class="card-header">
           <div class="row">
             <div class="col-10 ms-3 mt-3">
-              <h4>@aylingalindo</h4>
+              <h4><% out.print("@"+usuarioLogin.getUsername()); %></h4>
             </div>
             <div class="col ms-2 pt-3">
               <button data-close-button type="button" class="closeBtn"><i class="icon ion-md-close"></i></button>
             </div>
           </div>
         </div>
+            
         <!-- form para editar información-->
         <div class="card-body d-flex">
           <form action="profileServlet" method="post" class="needs-validation row g-3" novalidate>
               <div class="col-12">
                 <label class="form-label">Ocupation</label>
-                <input type="text" class="form-control" id="OcupationAbout" name="OcupationAbout" value="Game Developer" required="">
+                <input type="text" class="form-control" id="OcupationAbout" name="OcupationAbout" value="<% out.print(usuarioLogin.getOccupation()); %>" required>
               </div>
               <div class="col-12">
-                  <div class="row-4">
+                  <div class="col-3">
                     <label class="form-label">City</label>
-                    <input type="text" class="form-control" id="cityAbout" name="cityAbout" value="Monterrey">
+                    <input type="text" class="form-control" id="cityAbout" name="cityAbout" value="<% out.print(usuarioLogin.getCity()); %>">
                   </div>
-                  <div class="row-4">
+                  <div class="col-3">
                     <label class="form-label">State</label>
-                    <input type="text" class="form-control" id="stateAbout" name="stateAbout" value="Nuevo Leon">
+                    <input type="text" class="form-control" id="stateAbout" name="stateAbout" value="<% out.print(usuarioLogin.getState()); %>">
                   </div>
-                  <div class="row-4">
+                  <div class="col-3">
                     <label class="form-label">Country</label>
-                    <input type="text" class="form-control" id="countryAbout" name="countryAbout" value="Mexico">
+                    <input type="text" class="form-control" id="countryAbout" name="countryAbout" value="<% out.print(usuarioLogin.getState()); %>">
                   </div>
               </div>
               <div class="col-12">
                 <label for="emailAbout" class="form-label">Email</label>
                 <div class="input-group has-validation">
-                  <input type="text" class="form-control" id="emailAbout" name="emailAbout" value="aylingalindo@email.com" required>
+                  <input type="text" class="form-control" id="emailAbout" name="emailAbout" value="<% out.print(usuarioLogin.getEmail()); %>" required>
                   <div class="invalid-feedback">
                     Please write a valid email.
                   </div>
@@ -324,7 +330,7 @@
               <div class="col-12">
                 <label for="fechaAbout" class="form-label">Date of birth</label>
                 <div class="input-group has-validation">
-                  <input type="date" class="form-control" name="fechaAbout" id="validationDate" value="" required>
+                  <input type="date" class="form-control" name="fechaAbout" id="validationDate" value="<% out.print(usuarioLogin.getBirthdate()); %>" required>
                   <div class="invalid-feedback">
                   Please select a valid date.
                 </div>
@@ -415,15 +421,15 @@
       <section class="border-bottom">
         <div class="container contentItem headerPerfil">
           <div class="portadaPerfil">
-            <img class="img-fluid" src="assets/fotoPortada.jpeg">
+            <img class="img-fluid" src="<% out.print(usuarioLogin.getCoverImg()); %>">
           </div>
           <div class="d-flex ms-5">
             <div class="pfpDiv align-self-baseline">
-              <img src="assets/fotoPerfil.jpeg" class="img-fluid rounded-circle pfpPerfil">
+              <img src="<% out.print(profileImg); %>" class="img-fluid rounded-circle pfpPerfil">
             </div>
             <div class="flex-column ms-3 me-auto">
               <div class="row">
-                <h2 class="m-0">Aylin Galindo</h2>
+                <h2 class="m-0"><% out.print(nombreDisplay); %></h2>
               </div>
               <div class="row">
                 <h6>128 community friends</h6>
@@ -459,7 +465,7 @@
                 <h6><i class="icon ion-md-briefcase pe-2"></i>Occupation:</h6>
               </div>
               <div class="col">
-                <p>Game Developer</p>
+                <p><% out.print(usuarioLogin.getOccupation()); %></p>
               </div>
             </div>
 
@@ -468,7 +474,7 @@
                 <h6><i class="icon ion-md-person pe-2"></i>User:</h6>
               </div>
               <div class="col">
-                <p>@aylingalindo</p>
+                <p><% out.print("@"+usuarioLogin.getUsername()); %></p>
               </div>
             </div>
 
@@ -486,7 +492,7 @@
                 <h6><i class="icon ion-md-at pe-2"></i>Email:</h6>
               </div>
               <div class="col">
-                <p>aylingalindo@email.com</p>
+                <p><% out.print(usuarioLogin.getEmail()); %></p>
               </div>
             </div>
 
@@ -495,7 +501,7 @@
                 <h6><i class="icon ion-md-home pe-2"></i>Location:</h6>
               </div>
               <div class="col">
-                <p>Monterrey, MX</p>
+                <p><% out.print(usuarioLogin.getCity() +", "+ usuarioLogin.getState() +", " + usuarioLogin.getCountry()); %></p>
               </div>
             </div>
 
