@@ -19,7 +19,7 @@ function getRecentPosts(){
             console.log("entra a succes");
             console.log("data", data);
             posts = data;
-            
+            alert("nombre:" + data[0].postUserFirstname + " " + data[0].postUserpLastname);
             for(var i=0; i<Object.keys(data).length; i++){
                 console.log("POST ", data[i]);
                 /*$("#posts").append(
