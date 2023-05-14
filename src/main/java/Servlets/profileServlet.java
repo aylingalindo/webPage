@@ -130,7 +130,7 @@ public class profileServlet extends HttpServlet {
                 System.out.println("catch");
                 Logger.getLogger(signupServlet.class.getName()).log(Level.SEVERE, null, e);
                 }
-            } else if (opc.equals("1")){
+            } else if (opc.equals("2")){
                 // hacer el do post de editar about
                 
                 int idUser = profile.getIdUser();
