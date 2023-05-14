@@ -89,14 +89,10 @@ public class DAOPublicacion implements Operaciones{
         Connection con;
         PreparedStatement pst;
         ResultSet rs;
-        String sql = "SELECT post.id_post, cat.id_category, post.title, post.description, post.media, post.post_status, post.post_user, user.first_name, user.p_lastname \n" +
-"FROM TB_Postcategory postcat\n" +
-"    INNER JOIN TB_Posts post\n" +
-"        ON postcat.id_post = post.id_post\n" +
-"    INNER JOIN TB_Category cat\n" +
-"        ON cat.id_category = postcat.id_category\n" +
-"    INNER JOIN TB_User user\n" +
-"        ON user.id_user = post.post_user;";
+        String sql = "SELECT post.id_post, post.id_category, post.title, post.description, post.media, post.post_status, post.post_user, user.first_name, user.p_lastname , user.profile_img \n" +
+        "FROM TB_Posts post\n" +
+        "    INNER JOIN TB_User user\n" +
+        "        ON user.id_user = post.post_user;";
         try{
             System.out.println("Entra al try del DAO de publicacion");
             Class.forName(db.getDriver());
@@ -108,14 +104,17 @@ public class DAOPublicacion implements Operaciones{
             while(rs.next()){
                 System.out.println("while del DAO de publicacion");
                 Publicacion post = new Publicacion();
+                Usuario uinfo = new Usuario();
                 post.setId_post(rs.getInt("id_post")); //nombre de la columna de la db
                 post.setTitle(rs.getString("title"));
                 post.setDescription(rs.getString("description"));
                 post.setMedia(rs.getString("media"));
                 post.setPost_status(rs.getInt("post_status"));
                 post.setPost_user(rs.getInt("post_user"));
-                String uname =  rs.getString("first_name") + rs.getString("p_lastname");
-                post.setPost_userdata(uname);
+                uinfo.setFirstname(rs.getString("first_name")); 
+                uinfo.setpLastname(rs.getString("p_lastname")); 
+                uinfo.setProfileImg(rs.getString("profile_img")); 
+                post.setPost_userdata(uinfo);
                 
                 datos.add(post);
                 

@@ -88,7 +88,7 @@
                 <i class="icon ion-md-home lead "></i>
               </div>
               <div class="col-8">
-                  <input href="dashboard.jsp" type="submit" class="nav-link" value="Home"/>
+                  <input href="dashboard.jsp" type="submit" class="nav-link closeBtn" value="Home"/>
               </div>
             </div>
             </form>

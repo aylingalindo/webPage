@@ -86,6 +86,12 @@ public class Usuario {
         this.password = contrasena;
     }
 
+    public Usuario(String firstname, String pLastname, String profileImg) {
+        this.firstname = firstname;
+        this.pLastname = pLastname;
+        this.profileImg = profileImg;
+    }
+    
     public int getIdUser() {
         return idUser;
     }

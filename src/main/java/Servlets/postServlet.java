@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;              //MODIFICAR
 import jakarta.servlet.http.HttpServletRequest;       //MODIFICAR
 import jakarta.servlet.http.HttpServletResponse;      //MODIFICAR
 import modelos.entidades.Publicacion;
+import modelos.entidades.Usuario;
 import org.json.simple.JSONObject;
 
 /**
@@ -43,18 +44,21 @@ public class postServlet extends HttpServlet {
             JSONObject json = new JSONObject();
             for(int i=0; i<posts.size(); i++){
                 JSONObject jsonAux = new JSONObject();
-
+                Usuario uinfo = new Usuario();
+                uinfo = posts.get(i).getPost_userdata();           
                 jsonAux.put("idPost", posts.get(i).getId_post());
                 jsonAux.put("title", posts.get(i).getTitle());
                 jsonAux.put("description", posts.get(i).getDescription());
                 jsonAux.put("media", posts.get(i).getMedia());
                 jsonAux.put("postStatus", posts.get(i).getPost_status());
                 jsonAux.put("postUser", posts.get(i).getPost_user());
-                jsonAux.put("postUserdata", posts.get(i).getPost_userdata());
+                jsonAux.put("postUserFirstname", uinfo.getFirstname());
+                jsonAux.put("postUserpLastname", uinfo.getpLastname());
+                jsonAux.put("postUserPfp", uinfo.getProfileImg());
 
                 json.put(i, jsonAux);
-                System.out.println("JSON  " + json.toJSONString());
-                System.out.println("JSON llego al final de json" + i);
+                //System.out.println("JSON  " + json.toJSONString());
+                //System.out.println("JSON llego al final de json" + i);
             }
             out.print(json);
         }

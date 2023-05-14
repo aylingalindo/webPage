@@ -56,7 +56,7 @@
           <form action="profileServlet" method="get" class="needs-validation" novalidate>
           <div class="nav-item pb-3 userInfo">
             <img src="<% out.print(profileImg); %>" class="img-fluid rounded-circle pfp mb-2">
-            <input href="user-profile.jsp" type="submit" class="nav-link mb-2" value="<% out.print(nombreDisplay); %>"/>
+            <input href="user-profile.jsp" type="submit" class="nav-link mb-2 ms-5 ps-5 closeBtn" value="<% out.print(nombreDisplay); %>"/>
             <p class="mb-2"> <% out.print(usuarioLogin.getOccupation()); %> </p>
           </div>
           </form>
@@ -111,8 +111,8 @@
         <div class="card-header">
           <div class="row pt-3 mx-3">
             <div class="col-11 me-auto">
-              <img src="assets/fotoPerfil.jpeg" class="img-fluid rounded-circle pfpNewpost">
-             <%-- <% out.print(nombreDisplay);%> --%>
+              <img src="<% out.print(profileImg); %>" class="img-fluid rounded-circle pfpNewpost">
+              <% out.print(nombreDisplay);%> 
             </div>
             <div class="col">
               <button data-close-button type="button" class="closeBtn"><i class="icon ion-md-close"></i></button>
@@ -223,7 +223,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-auto">
-              <img src="assets/fotoPerfil.jpeg" class="img-fluid rounded-circle pfpNewpost">
+              <img src="<% out.print(profileImg); %>" class="img-fluid rounded-circle pfpNewpost">
             </div>
             <div class="col-lg">
               <button data-modal-target="#popupNewpost" class="btn btn-primary btnNewpost">New post</button>

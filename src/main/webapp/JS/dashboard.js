@@ -22,11 +22,11 @@ function getRecentPosts(){
             
             for(var i=0; i<Object.keys(data).length; i++){
                 console.log("POST ", data[i]);
-                $("#posts").append(
+                /*$("#posts").append(
                     $("<div>").addClass("card contentItem").append(
                         $("<div>").addClass("card-header").append(
-                            $("<img>").attr("src", data[i].media).addClass("img-fluid rounded-circle pfpNewpost")
-                            .append(data[i].postUserdata)).append(
+                            $("<img>").attr("src", data[i].postUserPfp).addClass("img-fluid rounded-circle pfpNewpost")
+                            .append(data[i].postUserFirstname+ " " + data[i].postUserpLastname)).append(
                         $("<div>").addClass("card-header").append(
                             $("<h5>").text(data[i].title)
                             .append($("<p>").text(data[i].description))).append(
@@ -34,7 +34,23 @@ function getRecentPosts(){
                             $("<p>").append("<i>").addClass("icon ion-md-heart pe-2").text("0"))
                         ))
                     )
-                );    
+                );*/
+                $("#posts").append(
+                    $("<div>").addClass("card contentItem").append(
+                        $("<div>").addClass("card-header").append(
+                            $("<img>").attr("src", data[i].postUserPfp).addClass("img-fluid rounded-circle pfpNewpost")
+                            .append(data[i].postUserFirstname+ " " + data[i].postUserpLastname)).append(
+                        $("</div>")).append(
+                        $("<div>").addClass("card-body").append(
+                            $("<h5>").text(data[i].title).append($("</h5>")).append(
+                            $("<p>").text(data[i].description)).append($("</p>")).append(
+                            $("<img>").attr("src", data[i].media).addClass("img-fluid postImg"))).append(
+                        $("</div>"))).append(
+                        $("<div>").addClass("card-footer").append(
+                            $("<p>").append("<i>").addClass("icon ion-md-heart pe-2").text("0")).append($("</p>")).append(
+                        $("</div>"))).append(
+                    $("</div>")))
+                );
             }
         },
         error: function(xhr, data, error) {

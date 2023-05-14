@@ -19,7 +19,7 @@ public class Publicacion {
     String category;
     int post_status;
     int post_user;
-    String post_userdata;
+    Usuario post_userdata = new Usuario();
     int post_likes;
 
     public Publicacion() {
@@ -59,6 +59,19 @@ public class Publicacion {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+    
+    public Usuario getPost_userdata() {
+        return post_userdata;
+    }
+
+    public void setPost_userdata(Usuario post_userdata) {
+        this.post_userdata.setFirstname(post_userdata.getFirstname());
+        this.post_userdata.setpLastname(post_userdata.getpLastname());
+        this.post_userdata.setProfileImg(post_userdata.getProfileImg());
+        System.out.println(this.post_userdata.getFirstname());
+        System.out.println(this.post_userdata.getpLastname());
+        System.out.println(this.post_userdata.getProfileImg());
     }
 
     public String getDescription() {
@@ -116,15 +129,7 @@ public class Publicacion {
     public void setPost_user(int post_user) {
         this.post_user = post_user;
     }
-    
-    public String getPost_userdata() {
-        return post_userdata;
-    }
 
-    public void setPost_userdata(String user) {
-        this.post_userdata = user;
-    }
-    
     public int getPost_likes() {
         return post_likes;
     }

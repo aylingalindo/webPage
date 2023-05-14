@@ -133,5 +133,5 @@ Drop COLUMN `mid_name`;
 
 SELECT * FROM TB_User WHERE username = 'lolola' AND `password` = '123';
 
---Modificaciones de mich
+-- Modificaciones de mich
 ALTER TABLE tb_user MODIFY COLUMN occupation VARCHAR(20) DEFAULT "";
