@@ -55,6 +55,7 @@ public class profileServlet extends HttpServlet {
                 Usuario uinfo = new Usuario();
                 uinfo = posts.get(i).getPost_userdata();           
                 jsonAux.put("idPost", posts.get(i).getId_post());
+                jsonAux.put("idCat", posts.get(i).getIdCategory());
                 jsonAux.put("title", posts.get(i).getTitle());
                 jsonAux.put("description", posts.get(i).getDescription());
                 jsonAux.put("media", posts.get(i).getMedia());

@@ -70,12 +70,67 @@ public class DAOPublicacion implements Operaciones{
 
     @Override
     public boolean modificar(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        publi = (Publicacion) obj;
+        Connection con;
+        PreparedStatement pst;
+        String sql = "update tb_posts set title = ?, description = ?, media = ?, id_category = ? where id_post = ?;";
+        
+        try{
+            System.out.println("Paso el query, entro al try");
+            Class.forName(db.getDriver());
+            con = DriverManager.getConnection(db.getUrl()+db.getDb(), db.getUser(), db.getPass());
+            
+            pst = con.prepareStatement(sql);
+
+            pst.setString(1, publi.getTitle());
+            pst.setString(2, publi.getDescription());
+            pst.setString(3, publi.getMedia());
+            pst.setInt(4, publi.getIdCategory());
+            pst.setInt(5, publi.getId_post());
+            int rowCount = pst.executeUpdate();
+            
+            if(rowCount>0){
+                System.out.println("Se ejecuto el query correctamente");
+                con.close();
+                return true;
+            }
+            con.close();
+        } catch(Exception ex){
+            System.out.println("error");
+            System.out.println(ex.getMessage());
+        }
+        return false;
     }
 
     @Override
     public boolean eliminar(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        publi = (Publicacion) obj;
+        Connection con;
+        PreparedStatement pst;
+        String sql = "update tb_posts set post_status = ? where id_post = ?;";
+        
+        try{
+            System.out.println("Paso el query, entro al try");
+            Class.forName(db.getDriver());
+            con = DriverManager.getConnection(db.getUrl()+db.getDb(), db.getUser(), db.getPass());
+            
+            pst = con.prepareStatement(sql);
+
+            pst.setInt(1, publi.getPost_status());
+            pst.setInt(2, publi.getId_post());
+            int rowCount = pst.executeUpdate();
+            
+            if(rowCount>0){
+                System.out.println("Se ejecuto el query correctamente");
+                con.close();
+                return true;
+            }
+            con.close();
+        } catch(Exception ex){
+            System.out.println("error");
+            System.out.println(ex.getMessage());
+        }
+        return false;
     }
 
     @Override
@@ -111,6 +166,7 @@ public class DAOPublicacion implements Operaciones{
                 post.setMedia(rs.getString("media"));
                 post.setPost_status(rs.getInt("post_status"));
                 post.setPost_user(rs.getInt("post_user"));
+                post.setIdCategory(rs.getInt("id_category"));
                 uinfo.setFirstname(rs.getString("first_name")); 
                 uinfo.setpLastname(rs.getString("p_lastname")); 
                 uinfo.setProfileImg(rs.getString("profile_img")); 

@@ -5,6 +5,8 @@
 package Servlets;
 
 import DAO.DAOPublicacion;
+import DAO.DAOUsuario;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -13,6 +15,8 @@ import jakarta.servlet.annotation.WebServlet;         //MODIFICAR
 import jakarta.servlet.http.HttpServlet;              //MODIFICAR
 import jakarta.servlet.http.HttpServletRequest;       //MODIFICAR
 import jakarta.servlet.http.HttpServletResponse;      //MODIFICAR
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelos.entidades.Publicacion;
 import modelos.entidades.Usuario;
 import org.json.simple.JSONObject;
@@ -23,15 +27,15 @@ import org.json.simple.JSONObject;
  */
 @WebServlet(name = "postServlet", urlPatterns = {"/postServlet"})
 public class postServlet extends HttpServlet {
-
     DAOPublicacion dao = new DAOPublicacion();
+    DAOUsuario daoU = new DAOUsuario();
+    public Usuario profile = (Usuario)daoU.accessLogged();
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("Entra al do get");
         
-
         String action = request.getParameter("action");
         PrintWriter out = response.getWriter();
         System.out.println("action is " + action);
@@ -76,6 +80,33 @@ public class postServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        int idUser = profile.getIdUser();
+            
+        Publicacion editPost = new Publicacion(
+         Integer.parseInt(request.getParameter("postIdEdit")),
+           request.getParameter("titleEdit"),
+      request.getParameter("descriptionEdit"),
+           request.getParameter("imgUrlEdit"),
+       Integer.parseInt(request.getParameter("catEdit"))
+        );
+            
+        try{ 
+            System.out.println("entro al try edit post");
+            if(dao.modificar(editPost)== true){
+                    System.out.println("status 1");
+                    System.out.println("se editó exitosamente el post");
+                    request.setAttribute("status", "1");
+            }else{
+                    System.out.println("status 0");
+                    request.setAttribute("status", "0"); 
+                    request.setAttribute("err", "2");
+                    request.setAttribute("err_message", "Update about failed");
+            }
+            request.setAttribute("usuario", profile);
+            RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
+            rd.forward(request, response);  
+        }catch (ServletException | IOException ex) {
+                System.out.println("error");
+                System.out.println(ex.getMessage());
+        }
     }
-}

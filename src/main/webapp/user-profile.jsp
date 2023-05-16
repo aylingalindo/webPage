@@ -19,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital@1&family=Roboto:wght@100&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="CSS/style.css"/>
-    <script defer src="JS/funcionalidad.js"></script>
+    
     <title>wm.In</title>
 </head>
 <body>
@@ -600,6 +600,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollto/1.4.6/jquery-scrollto.min.js"></script>
+  <script defer src="JS/funcionalidad.js"></script>
   <script defer src="JS/user-profile.js"></script>
 </body>
 </html>
