@@ -143,18 +143,26 @@
             <label class="form-label">Category</label>
           </div>
           <div class="row mx-3 mb-4 newpostContainer">
-            <div class="col">
+            <div class="col mt-2">
               <i class="icon ion-md-pricetags ms-2 mt-2"></i>
             </div>
             <div class="col-11 categories">
-              <button type="button" class="cat btn">#Science</button>
-              <button type="button" class="cat btn">#Tech</button>
-              <button type="button" class="cat btn">#Art</button>
-              <button type="button" class="cat btn">#Design</button>
-              <button type="button" class="cat btn">#Business</button>
-              <button type="button" class="cat btn">#Psychology</button>
-              <button type="button" class="cat btn">#Medicine</button>
-              <button type="button" class="cat btn">#Human Arts</button>
+              <input name="cat" type="radio" class="cat" id="c1" value="1"/>
+              <label for="c1">Science</label>
+              <input name="cat" type="radio" class="cat" id="c2" value ="2"/>
+              <label for="c2">Tech</label>
+              <input name="cat" type="radio" class="cat" id="c3" value="3"/>
+              <label for="c3">Art</label>
+              <input name="cat" type="radio" class="cat" id="c4" value="4"/>
+              <label for="c4">Design</label>
+              <input name="cat" type="radio" class="cat" id="c5" value="5"/>
+              <label for="c5">Business</label>
+              <input name="cat" type="radio" class="cat" id="c6" value="6"/>
+              <label for="c6">Psychology</label>
+              <input name="cat" type="radio" class="cat" id="c7" value="7"/>
+              <label for="c7">Medicine</label>
+              <input name="cat" type="radio" class="cat" id="c8" value="8"/>
+              <label for="c8">Human Arts</label>
             </div>
           </div>
           <div class="row mx-3 my-4">
@@ -369,24 +377,38 @@
             <textarea class="form-control" placeholder="What do you want to share?" rows="4"></textarea>
           </div>
           <div class="row mx-3 my-4 newpostContainer">
-              <button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-photos"></i></button>
+              <div class="col mt-2">
+              <i class="icon ion-md-photos ms-2"></i>
+            </div>
+            <div class="col-11">
+              <input type="url" class="form-control" name="mediaNewPost" id="mediaNewPost" value="">
+            </div>
+              <!--<button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-photos"></i></button>
               <button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-play"></i></button>
               <button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-attach"></i></button>
-              <button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-pin"></i></button>
+              <button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-pin"></i></button>-->
           </div>
           <div class="row mx-3 my-4 newpostContainer">
-            <div class="col">
+            <div class="col mt-2">
               <i class="icon ion-md-pricetags ms-2 mt-2"></i>
             </div>
             <div class="col-11 categories">
-              <button type="button" class="cat">#Science</button>
-              <button type="button" class="cat">#Tech</button>
-              <button type="button" class="cat">#Art</button>
-              <button type="button" class="cat">#Design</button>
-              <button type="button" class="cat">#Business</button>
-              <button type="button" class="cat">#Psychology</button>
-              <button type="button" class="cat">#Medicine</button>
-              <button type="button" class="cat">#Human Arts</button>
+              <input name="cat" type="radio" class="cat" id="c1" value="1"/>
+              <label for="c1">Science</label>
+              <input name="cat" type="radio" class="cat" id="c2" value ="2"/>
+              <label for="c2">Tech</label>
+              <input name="cat" type="radio" class="cat" id="c3" value="3"/>
+              <label for="c3">Art</label>
+              <input name="cat" type="radio" class="cat" id="c4" value="4"/>
+              <label for="c4">Design</label>
+              <input name="cat" type="radio" class="cat" id="c5" value="5"/>
+              <label for="c5">Business</label>
+              <input name="cat" type="radio" class="cat" id="c6" value="6"/>
+              <label for="c6">Psychology</label>
+              <input name="cat" type="radio" class="cat" id="c7" value="7"/>
+              <label for="c7">Medicine</label>
+              <input name="cat" type="radio" class="cat" id="c8" value="8"/>
+              <label for="c8">Human Arts</label>
             </div>
           </div>
           <div class="row mx-3 my-4">

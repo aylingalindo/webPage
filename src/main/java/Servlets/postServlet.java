@@ -66,6 +66,33 @@ public class postServlet extends HttpServlet {
             }
             out.print(json);
         }
+        if("profile".equals(action)){
+            System.out.println("Antes del posts");
+            List<Publicacion> posts = dao.consultLatestPostProfile(profile.getIdUser());
+            System.out.println("Post " + posts.get(0).getTitle() + posts.get(0).getDescription());
+
+            JSONObject json = new JSONObject();
+            for(int i=0; i<posts.size(); i++){
+                JSONObject jsonAux = new JSONObject();
+                Usuario uinfo = new Usuario();
+                uinfo = posts.get(i).getPost_userdata();           
+                jsonAux.put("idPost", posts.get(i).getId_post());
+                jsonAux.put("idCat", posts.get(i).getIdCategory());
+                jsonAux.put("title", posts.get(i).getTitle());
+                jsonAux.put("description", posts.get(i).getDescription());
+                jsonAux.put("media", posts.get(i).getMedia());
+                jsonAux.put("postStatus", posts.get(i).getPost_status());
+                jsonAux.put("postUser", posts.get(i).getPost_user());
+                jsonAux.put("postUserFirstname", uinfo.getFirstname());
+                jsonAux.put("postUserpLastname", uinfo.getpLastname());
+                jsonAux.put("postUserPfp", uinfo.getProfileImg());
+
+                json.put(i, jsonAux);
+                //System.out.println("JSON  " + json.toJSONString());
+                //System.out.println("JSON llego al final de json" + i);
+            }
+            out.print(json);
+        }
         /*switch(action){
             case "recents":{
                 getLatestPosts(request);
@@ -110,3 +137,4 @@ public class postServlet extends HttpServlet {
                 System.out.println(ex.getMessage());
         }
     }
+}

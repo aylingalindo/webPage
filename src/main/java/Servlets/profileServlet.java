@@ -39,39 +39,6 @@ public class profileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("Entra al do get PROFILE");
-        
-        String action = request.getParameter("action");
-        PrintWriter out = response.getWriter();
-        System.out.println("action is " + action);
-
-        if("recents".equals(action)){
-            System.out.println("Antes del posts");
-            List<Publicacion> posts = daoP.consultLatestPostProfile(profile.getIdUser());
-            System.out.println("Post " + posts.get(0).getTitle() + posts.get(0).getDescription());
-
-            JSONObject json = new JSONObject();
-            for(int i=0; i<posts.size(); i++){
-                JSONObject jsonAux = new JSONObject();
-                Usuario uinfo = new Usuario();
-                uinfo = posts.get(i).getPost_userdata();           
-                jsonAux.put("idPost", posts.get(i).getId_post());
-                jsonAux.put("idCat", posts.get(i).getIdCategory());
-                jsonAux.put("title", posts.get(i).getTitle());
-                jsonAux.put("description", posts.get(i).getDescription());
-                jsonAux.put("media", posts.get(i).getMedia());
-                jsonAux.put("postStatus", posts.get(i).getPost_status());
-                jsonAux.put("postUser", posts.get(i).getPost_user());
-                jsonAux.put("postUserFirstname", uinfo.getFirstname());
-                jsonAux.put("postUserpLastname", uinfo.getpLastname());
-                jsonAux.put("postUserPfp", uinfo.getProfileImg());
-
-                json.put(i, jsonAux);
-                //System.out.println("JSON  " + json.toJSONString());
-                //System.out.println("JSON llego al final de json" + i);
-            }
-            out.print(json);
-        }
-        
         request.setAttribute("usuario", profile);
         RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
         rd.forward(request, response);  

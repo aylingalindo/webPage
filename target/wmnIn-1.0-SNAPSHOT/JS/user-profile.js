@@ -13,7 +13,7 @@ $(document).ready(function(){
 function getRecentPosts(){
     console.log("entra a funcion getRecentPost, antes de ajax");    
     $.ajax({
-          url: "profileServlet?action=recents"
+          url: "postServlet?action=profile"
         , type: "GET"
         , dataType: "JSON"
         , success: function(data){

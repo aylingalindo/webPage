@@ -50,22 +50,18 @@ public class dashboardServlet extends HttpServlet {
         System.out.println("entro al servlet ");
         String title = request.getParameter("titleNewPost");
         String description = request.getParameter("descriptionNewPost");
+        String media = request.getParameter("mediaNewPost");
         System.out.println("titulo: " + title);
         System.out.println("desc: " + description);
         String cat = request.getParameter("cat");
-        int icat;
+        int icat = 0;
         
         if (cat == null){
             System.out.println("btn null: " + cat);
-            icat = 0;
         }else{
             icat = Integer.parseInt(cat);
             System.out.println("btn: " + icat);
         }
-        
-        
-        String media = null;
-        // obtener la media y el id_category accediendo a la posicion de la categoria que ya se agrego desde bd. 
 
             try{
                 System.out.println("entró al try dashboardServlet");
