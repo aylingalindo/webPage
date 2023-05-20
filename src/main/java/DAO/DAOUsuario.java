@@ -20,7 +20,7 @@ import modelos.entidades.Usuario;
 public class DAOUsuario implements Operaciones{
     Database db = new Database();
     Usuario usu = new Usuario();
-    public Usuario logged = new Usuario();
+    public static Usuario logged = new Usuario();
 
     public Object login(Object obj) {
         usu = (Usuario)obj;
@@ -135,6 +135,38 @@ public class DAOUsuario implements Operaciones{
         }
     }
     
+    public Boolean validarExistenteCorreo(String email) {
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String sql = "SELECT * FROM TB_User WHERE email = ?";
+        
+        try{
+            System.out.println("Paso el query, entro al try");
+            Class.forName(db.getDriver());
+            con = DriverManager.getConnection(db.getUrl()+db.getDb(), db.getUser(), db.getPass());
+            
+            pst = con.prepareStatement(sql);
+            pst.setString(1, email);
+            rs = pst.executeQuery();
+            if(rs.next()){
+                con.close();
+                return false;
+            }
+            con.close();
+        } catch(Exception ex){
+            System.out.println("error");
+            System.out.println(ex.getMessage());
+            return false;
+        } finally {
+            return true;
+        }
+    }
+    
+    public Object accessLogged(){
+        return logged;
+    }
+    
     @Override
     public Boolean insertar(Object obj) {
         usu = (Usuario)obj;
@@ -163,7 +195,6 @@ public class DAOUsuario implements Operaciones{
             if(rowCount>0){
                 System.out.println("Se ejecuto el query correctamente");
                 con.close();
-                System.out.println("q pedo");
                 return true;
             }
             con.close();
@@ -176,7 +207,92 @@ public class DAOUsuario implements Operaciones{
 
     @Override
     public boolean modificar(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        usu = (Usuario)obj;
+        Connection con;
+        PreparedStatement pst;
+        String sql = "update tb_user set occupation = ?, city = ?, state = ?, country = ?, email = ?, birthdate = ? where id_user = ?;";
+        
+        try{
+            System.out.println("Paso el query, entro al try");
+            Class.forName(db.getDriver());
+            con = DriverManager.getConnection(db.getUrl()+db.getDb(), db.getUser(), db.getPass());
+            
+            pst = con.prepareStatement(sql);
+
+            pst.setString(1, usu.getOccupation());
+            pst.setString(2, usu.getCity());
+            pst.setString(3, usu.getState());
+            pst.setString(4, usu.getCountry());
+            pst.setString(5, usu.getEmail());
+            pst.setString(6, usu.getBirthdate());
+            pst.setInt(7,usu.getIdUser());
+            int rowCount = pst.executeUpdate();
+            
+            if(rowCount>0){
+                System.out.println("Se ejecuto el query correctamente");
+                
+                logged.setOccupation(usu.getOccupation());
+                logged.setCity(usu.getCity());
+                logged.setState(usu.getState());
+                logged.setCountry(usu.getCountry());
+                logged.setEmail(usu.getEmail());
+                logged.setBirthdate(usu.getBirthdate());
+                
+                con.close();
+                return true;
+            }
+            con.close();
+        } catch(Exception ex){
+            System.out.println("error");
+            System.out.println(ex.getMessage());
+        }
+        return false;
+    }
+    
+    public boolean modificarInfo(Object obj) {
+        System.out.println("entro al dao modificar info");
+        usu = (Usuario)obj;
+        Connection con;
+        PreparedStatement pst; 
+        String sql = "update tb_user set first_name = ?, p_lastname = ?, m_lastname = ?, username = ?, `password` = ?, profile_img = ? , cover_img = ? where id_user = ?;";
+        
+        try{
+            System.out.println("Paso el query, entro al try");
+            Class.forName(db.getDriver());
+            con = DriverManager.getConnection(db.getUrl()+db.getDb(), db.getUser(), db.getPass());
+            
+            pst = con.prepareStatement(sql);
+
+            pst.setString(1, usu.getFirstname());
+            pst.setString(2, usu.getpLastname());
+            pst.setString(3, usu.getmLastname());
+            pst.setString(4, usu.getUsername());
+            pst.setString(5, usu.getPassword());
+            pst.setString(6, usu.getProfileImg());
+            pst.setString(7,usu.getCoverImg());
+            pst.setInt(8,usu.getIdUser());
+            int rowCount = pst.executeUpdate();
+            
+            if(rowCount>0){
+                System.out.println("Se ejecuto el query correctamente");
+                
+                logged.setFirstname(usu.getFirstname());
+                logged.setpLastname(usu.getpLastname());
+                logged.setmLastname(usu.getmLastname());
+                logged.setUsername(usu.getUsername());
+                logged.setPassword(usu.getPassword());
+                logged.setProfileImg(usu.getProfileImg());
+                logged.setCoverImg(usu.getCoverImg());
+                
+                con.close();
+                return true;
+            }
+            con.close();
+        } catch(Exception ex){
+            System.out.println("error");
+            System.out.println(ex.getMessage());
+        }
+        return false;
     }
 
     @Override
@@ -188,4 +304,5 @@ public class DAOUsuario implements Operaciones{
     public ArrayList<Object> cobnsultar() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
 }

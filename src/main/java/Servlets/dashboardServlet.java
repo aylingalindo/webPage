@@ -5,6 +5,7 @@
 package Servlets;
 
 import DAO.DAOPublicacion;
+import DAO.DAOUsuario;
 import com.mysql.cj.xdevapi.Statement;
 import jakarta.servlet.RequestDispatcher;           //MODIFICAR
 import java.io.IOException;
@@ -32,30 +33,60 @@ import modelos.entidades.Usuario;
 @WebServlet(name = "dashboardServlet", urlPatterns = {"/dashboardServlet"})
 public class dashboardServlet extends HttpServlet {
     DAOPublicacion dao = new DAOPublicacion();
+    DAOUsuario daoU = new DAOUsuario();
+    Usuario logged = (Usuario)daoU.accessLogged();
     
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        System.out.println("Entra al do get PROFILE");
+        request.setAttribute("usuario", logged);
+        RequestDispatcher rd = request.getRequestDispatcher("dashboard.jsp");
+        rd.forward(request, response);  
+    }
+    
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("entro al servlet ");
         String title = request.getParameter("titleNewPost");
         String description = request.getParameter("descriptionNewPost");
-        String media = null;
-        int idCat = 0;
-        // obtener la media y el id_category accediendo a la posicion de la categoria que ya se agrego desde bd. 
+        String media = request.getParameter("mediaNewPost");
+        System.out.println("titulo: " + title);
+        System.out.println("desc: " + description);
+        String cat = request.getParameter("cat");
+        int icat = 0;
+        
+        if (cat == null){
+            System.out.println("btn null: " + cat);
+        }else{
+            icat = Integer.parseInt(cat);
+            System.out.println("btn: " + icat);
+        }
 
             try{
                 System.out.println("entró al try dashboardServlet");
-                int userPost = loginServlet.logged.getIdUser();
+                int userPost = logged.getIdUser();
+                System.out.println("usuario: " + userPost);
+                request.setAttribute("usuario", logged);
                 
-                Publicacion publi = new Publicacion(title, description, media, idCat, userPost);
+                Publicacion publi = new Publicacion(title, description, media, icat, userPost);
                 
-                // obtener el id usuario logged Usuario logged = (Usuario) dao.login(usu);
-                
-                
+                if(dao.insertar(publi)== true){
+                    System.out.println("publi insert sucess");
+                    request.setAttribute("insertP", "1");
+                }else {
+                    System.out.println("publi insert failed");
+                    request.setAttribute("insertP", "2");
+                    request.setAttribute("err", "2");
+                    request.setAttribute("err_message", "New post failed");
+                }
+
                 RequestDispatcher rd = request.getRequestDispatcher("dashboard.jsp");
                 rd.forward(request, response);
-            }catch (Exception ex) {
-                System.out.println("error");
-                System.out.println(ex.getMessage());
+                
+            }catch(ServletException | IOException  e){
+                System.out.println("catch");
+                Logger.getLogger(signupServlet.class.getName()).log(Level.SEVERE, null, e);
             }
     }
 

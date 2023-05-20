@@ -53,14 +53,13 @@
         <div class="menu d-flex flex-column justify-content-evenly mb-5 pb-5">
 
           <!-- Info User-->
+          <form action="profileServlet" method="get" class="needs-validation" novalidate>
           <div class="nav-item pb-3 userInfo">
-              <img src="<% out.print(profileImg); %>" class="img-fluid rounded-circle pfp mb-2">
-            <a href="user-profile.jsp" class="nav-link mb-2"> 
-                <% out.print(nombreDisplay); %>
-            </a>    <!-- dblock para que cada uno este en una linea y p-3 para separalos-->
+            <img src="<% out.print(profileImg); %>" class="img-fluid rounded-circle pfp mb-2">
+            <input href="user-profile.jsp" type="submit" class="nav-link mb-2 ms-5 ps-5 closeBtn" value="<% out.print(nombreDisplay); %>"/>
             <p class="mb-2"> <% out.print(usuarioLogin.getOccupation()); %> </p>
           </div>
-
+          </form>
           <!-- Links -->
           <div class="container px-5 pb-3">
             <div class="row misLinks">
@@ -84,7 +83,7 @@
                 <i class="icon ion-md-home lead "></i>
               </div>
               <div class="col-8">
-                <a href="dashboard.jsp" class="nav-link">Home</a>
+                <a class="nav-link">Home</a>
               </div>
             </div>
             <div class="row misLinks">
@@ -112,8 +111,8 @@
         <div class="card-header">
           <div class="row pt-3 mx-3">
             <div class="col-11 me-auto">
-              <img src="assets/fotoPerfil.jpeg" class="img-fluid rounded-circle pfpNewpost">
-             <%-- <% out.print(nombreDisplay);%> --%>
+              <img src="<% out.print(profileImg); %>" class="img-fluid rounded-circle pfpNewpost">
+              <% out.print(nombreDisplay);%> 
             </div>
             <div class="col">
               <button data-close-button type="button" class="closeBtn"><i class="icon ion-md-close"></i></button>
@@ -124,34 +123,47 @@
         <!-- contenido que va a cambiar -->
         <form class="card-body" action="dashboardServlet" method="post" class="needs-validation" novalidate>
           <div id="postTitle" class="row mx-3 mb-4">
-            <input class="form-control form-control-lg" name="titleNewPost" type="text" placeholder="Title"></input>
+            <input class="form-control form-control-lg" name="titleNewPost" type="text" placeholder="Title"/>
           </div>
           <div class="row mx-3 mb-4">
-            <input class="form-control" name="descriptionNewPost" placeholder="What do you want to share?" rows="4"></textarea>
+            <input class="form-control" name="descriptionNewPost" placeholder="What do you want to share?" rows="4"/>
           </div>
           <div class="row mx-3 my-4 newpostContainer">
-              <button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-photos"></i></button>
-              <button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-play"></i></button>
+            <div class="col mt-2">
+              <i class="icon ion-md-photos ms-2"></i>
+            </div>
+            <div class="col-11">
+              <input type="url" class="form-control" name="mediaNewPost" id="mediaNewPost" value="">
+            </div>
+              <!--<button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-play"></i></button>
               <button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-attach"></i></button>
-              <button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-pin"></i></button>
+              <button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-pin"></i></button>-->
           </div>
           <div class="row mx-3 my-4 newpostContainer">
-            <div class="col">
+            <div class="col mt-2">
               <i class="icon ion-md-pricetags ms-2 mt-2"></i>
             </div>
             <div class="col-11 categories">
-              <input type="button" class="cat" value="#Science"></input>
-              <input type="button" class="cat" value ="#Tech"></input>
-              <input type="button" class="cat" value="#Art"></input>
-              <input type="button" class="cat" value="#Design"></input>
-              <input type="button" class="cat" value="#Business"></input>
-              <input type="button" class="cat" value="#Psychology"></input>
-              <input type="button" class="cat" value="#Medicine"></input>
-              <input type="button" class="cat" value="#Human Arts"></input>
+              <input name="cat" type="radio" class="cat" id="c1" value="1"/>
+              <label for="c1">Science</label>
+              <input name="cat" type="radio" class="cat" id="c2" value ="2"/>
+              <label for="c2">Tech</label>
+              <input name="cat" type="radio" class="cat" id="c3" value="3"/>
+              <label for="c3">Art</label>
+              <input name="cat" type="radio" class="cat" id="c4" value="4"/>
+              <label for="c4">Design</label>
+              <input name="cat" type="radio" class="cat" id="c5" value="5"/>
+              <label for="c5">Business</label>
+              <input name="cat" type="radio" class="cat" id="c6" value="6"/>
+              <label for="c6">Psychology</label>
+              <input name="cat" type="radio" class="cat" id="c7" value="7"/>
+              <label for="c7">Medicine</label>
+              <input name="cat" type="radio" class="cat" id="c8" value="8"/>
+              <label for="c8">Human Arts</label>
             </div>
           </div>
           <div class="row mx-3 my-4">
-              <input type="submit" class="btn btn-primary signUpBtn" value = "Post"></input>
+              <input type="submit" class="btn btn-primary signUpBtn" value = "Post"/>
           </div>
         </form>
 
@@ -190,18 +202,26 @@
             <label class="form-label">Category</label>
           </div>
           <div class="row mx-3 mb-4 newpostContainer">
-            <div class="col">
+            <div class="col mt-2">
               <i class="icon ion-md-pricetags ms-2 mt-2"></i>
             </div>
             <div class="col-11 categories">
-              <button type="button" class="cat btn">#Science</button>
-              <button type="button" class="cat btn">#Tech</button>
-              <button type="button" class="cat btn">#Art</button>
-              <button type="button" class="cat btn">#Design</button>
-              <button type="button" class="cat btn">#Business</button>
-              <button type="button" class="cat btn">#Psychology</button>
-              <button type="button" class="cat btn">#Medicine</button>
-              <button type="button" class="cat btn">#Human Arts</button>
+              <input name="cat" type="radio" class="cat" id="c1" value="1"/>
+              <label for="c1">Science</label>
+              <input name="cat" type="radio" class="cat" id="c2" value ="2"/>
+              <label for="c2">Tech</label>
+              <input name="cat" type="radio" class="cat" id="c3" value="3"/>
+              <label for="c3">Art</label>
+              <input name="cat" type="radio" class="cat" id="c4" value="4"/>
+              <label for="c4">Design</label>
+              <input name="cat" type="radio" class="cat" id="c5" value="5"/>
+              <label for="c5">Business</label>
+              <input name="cat" type="radio" class="cat" id="c6" value="6"/>
+              <label for="c6">Psychology</label>
+              <input name="cat" type="radio" class="cat" id="c7" value="7"/>
+              <label for="c7">Medicine</label>
+              <input name="cat" type="radio" class="cat" id="c8" value="8"/>
+              <label for="c8">Human Arts</label>
             </div>
           </div>
           <div class="row mx-3 my-4">
@@ -216,7 +236,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-auto">
-              <img src="assets/fotoPerfil.jpeg" class="img-fluid rounded-circle pfpNewpost">
+              <img src="<% out.print(profileImg); %>" class="img-fluid rounded-circle pfpNewpost">
             </div>
             <div class="col-lg">
               <button data-modal-target="#popupNewpost" class="btn btn-primary btnNewpost">New post</button>
@@ -266,6 +286,15 @@
                 <p><i class="icon ion-md-heart pe-2"></i>15</p>
               </div>
             </div>
+        </div>
+        <div id="pagination" class="pagination">
+            <button id="prevPage" class="btn btn-primary signUpBtn">Prev</button>
+                <div id="pages">
+                <!--<span class="numPage">1</span>
+                <span class="numPage">2</span>
+                <span class="numPage">3</span> -->
+                </div>
+            <button id="nextPage" class="btn btn-primary signUpBtn">Next</button>
         </div>
       </section>
       

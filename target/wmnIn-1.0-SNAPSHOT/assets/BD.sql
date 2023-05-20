@@ -39,10 +39,15 @@ CREATE TABLE IF NOT EXISTS TB_Posts(
 	media 			VARCHAR(2000),
 	post_status 		INTEGER UNSIGNED NOT NULL,
 	post_user 		INTEGER UNSIGNED NOT NULL,
+    -- AY: le agregue el id_category y su foreign key 
+    id_category	   INT,
 	FOREIGN KEY(post_status) 
 		REFERENCES TB_CatStatus(id_status),
 	FOREIGN KEY(post_user) 
-		REFERENCES TB_User(id_user)
+		REFERENCES TB_User(id_user),
+	-- AY: la fk en cuestion
+	FOREIGN KEY(id_category) 
+		REFERENCES TB_Category(id_category)
 );
 
 CREATE TABLE IF NOT EXISTS TB_Likes(
@@ -74,7 +79,18 @@ CREATE TABLE IF NOT EXISTS TB_Category(
 	id_category INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 	category VARCHAR(50) NOT NULL
 );
+-- AY: le quite el unsigned a tabla de categorias pq me daba problemas 
+/* 
+ALTER TABLE tb_category 
+	drop primary key,
+	drop column id_category
 
+ALTER TABLE tb_category
+	add column id_category int primary key auto_increment */
+
+
+-- AY: borre esta tabla 
+-- DROP table tb_postcategory
 CREATE TABLE IF NOT EXISTS TB_PostCategory(
 	id_postCategoy		INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 	id_post			INT UNSIGNED NOT NULL,
@@ -117,5 +133,5 @@ Drop COLUMN `mid_name`;
 
 SELECT * FROM TB_User WHERE username = 'lolola' AND `password` = '123';
 
---Modificaciones de mich
+-- Modificaciones de mich
 ALTER TABLE tb_user MODIFY COLUMN occupation VARCHAR(20) DEFAULT "";
