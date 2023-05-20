@@ -118,7 +118,9 @@ public class postServlet extends HttpServlet {
     
     void getLatestPosts(HttpServletRequest request, PrintWriter out){
             System.out.println("Antes del posts");
-            List<Publicacion> posts = dao.consultLatestPost();
+            int currentPage = Integer.parseInt(request.getParameter("page"));
+            
+            List<Publicacion> posts = dao.consultLatestPost(currentPage);
             System.out.println("Post " + posts.get(0).getTitle() + posts.get(0).getDescription());
 
             JSONObject json = new JSONObject();

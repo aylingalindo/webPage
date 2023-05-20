@@ -29,6 +29,7 @@ public class DAOPublicacion implements Operaciones{
     Database db = new Database();
     Publicacion publi = new Publicacion();
     int activeP;
+    int postPerPage = 3;
     
     @Override
     public Boolean insertar(Object obj) {
@@ -140,22 +141,27 @@ public class DAOPublicacion implements Operaciones{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
-    public List<Publicacion> consultLatestPost(){
+    public List<Publicacion> consultLatestPost(int currentPage){     
         System.out.println("Entra al DAO de publicacion");
         List<Publicacion> datos = new ArrayList<>();
         Connection con;
         PreparedStatement pst;
         ResultSet rs;
+        
+        int firstPost = (currentPage - 1) * postPerPage;
+        
         String sql = "SELECT post.id_post, post.id_category, post.title, post.description, post.media, post.post_status, post.post_user, user.first_name, user.p_lastname , user.profile_img \n" +
         "FROM TB_Posts post\n" +
         "    INNER JOIN TB_User user\n" +
-        "        ON user.id_user = post.post_user;";
+        "        ON user.id_user = post.post_user LIMIT ?, ? ;";
         try{
             System.out.println("Entra al try del DAO de publicacion");
             Class.forName(db.getDriver());
             con = DriverManager.getConnection(db.getUrl()+db.getDb(), db.getUser(), db.getPass());
             
             pst = con.prepareStatement(sql);
+            pst.setInt(1, firstPost);
+            pst.setInt(2, postPerPage);
             rs = pst.executeQuery();
             
             while(rs.next()){
@@ -195,6 +201,7 @@ public class DAOPublicacion implements Operaciones{
         Connection con;
         PreparedStatement pst;
         ResultSet rs;
+               
         String sql = "SELECT post.id_post, post.id_category, post.title, post.description, post.media, post.post_status, post.post_user, user.first_name, user.p_lastname , user.profile_img \n" +
         "FROM TB_Posts post\n" +
         "    INNER JOIN TB_User user\n" +
@@ -247,7 +254,6 @@ public class DAOPublicacion implements Operaciones{
             Class.forName(db.getDriver());
             con = DriverManager.getConnection(db.getUrl()+db.getDb(), db.getUser(), db.getPass());
             System.out.println("DAO publicacion - Antes de el procedure");
-            int postPerPage = 3;
             String procedure = "{ CALL Pagination(?,?)}";
             CallableStatement st = con.prepareCall(procedure);
                 

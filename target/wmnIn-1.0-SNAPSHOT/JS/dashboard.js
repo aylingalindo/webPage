@@ -3,20 +3,35 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 
-$(document).ready(function(){
-    var posts;
+var pageClick = false;
+var posts;
+var totalPages;
+
+$(document).ready(function(){    
     console.log("entra al console log del document ready");
     getPagination();
-    getRecentPosts();
+    if(!pageClick){
+            console.log("FROM THE DOC READY");
+            getRecentPosts(1);
+    }
 });
 
-//$('.numPage').on('click', getPagination());
+$('#pages').on('click', 'span', function(){
+    console.log("CLICK ON NUMPAGE");
+    pageClick = true;
+    var currentPage = $(this).text();
+    getRecentPosts(currentPage);
+});
 
-function getRecentPosts(){
-    console.log("entra a funcion getRecentPost, antes de ajax");    
+function getRecentPosts(currentPage){
+    console.log("entra a funcion getRecentPost, antes de ajax");
+    $("#posts").empty();
     $.ajax({
           url: "postServlet?action=recents"
         , type: "GET"
+        , data: {
+            page: currentPage
+          }
         , dataType: "JSON"
         , success: function(data){
             console.log("entra a succes");
@@ -24,19 +39,6 @@ function getRecentPosts(){
             posts = data;
             for(var i=0; i<Object.keys(data).length; i++){
                 console.log("POST ", data[i]);
-                /*$("#posts").append(
-                    $("<div>").addClass("card contentItem").append(
-                        $("<div>").addClass("card-header").append(
-                            $("<img>").attr("src", data[i].postUserPfp).addClass("img-fluid rounded-circle pfpNewpost")
-                            .append(data[i].postUserFirstname+ " " + data[i].postUserpLastname)).append(
-                        $("<div>").addClass("card-header").append(
-                            $("<h5>").text(data[i].title)
-                            .append($("<p>").text(data[i].description))).append(
-                        $("<div>").addClass("card-footer").append(
-                            $("<p>").append("<i>").addClass("icon ion-md-heart pe-2").text("0"))
-                        ))
-                    )
-                );*/
                 $("#posts").append(
                     $("<div>").addClass("card contentItem").append(
                         $("<div>").addClass("card-header").append(
