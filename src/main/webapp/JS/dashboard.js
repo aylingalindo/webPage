@@ -6,8 +6,11 @@
 $(document).ready(function(){
     var posts;
     console.log("entra al console log del document ready");
+    getPagination();
     getRecentPosts();
 });
+
+//$('.numPage').on('click', getPagination());
 
 function getRecentPosts(){
     console.log("entra a funcion getRecentPost, antes de ajax");    
@@ -58,6 +61,34 @@ function getRecentPosts(){
             console.log(data);
             console.log(error);
             console.log("error");
+        }
+    });
+}
+
+function getPagination(){
+    console.log("Entro a getPagination");
+    $.ajax({
+          url: "postServlet?action=totalPages"
+        , type: "GET"
+        , dataType: "text"
+        , success: function(data){
+            console.log("got into getPagination");
+            var totalPages = parseInt(data);
+            totalPages = data;
+            console.log("total pages: " + totalPages + "in Page: " + i );
+            var i = 0;
+            do{
+                i++;
+                console.log("total pages: " + totalPages + "in Page: " + i );
+                $("#pages").append('<span class="numPage">' + i + '</span>');
+            }while(i < totalPages)
+        },
+        error: function(xhr, data, error) {
+            console.log(xhr.responseText);
+            console.log(xhr.statusText);
+            console.log(data);
+            console.log(error);
+            console.log("error en cosultPagination");
         }
     });
 }

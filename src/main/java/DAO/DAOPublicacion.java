@@ -9,6 +9,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.CallableStatement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -237,4 +239,33 @@ public class DAOPublicacion implements Operaciones{
         return datos;
     }
     
+    public int consultPagination(){
+        System.out.println("Entra al DAO consultPagination");
+        Connection con;
+        int totalPages = 0;
+        try{
+            Class.forName(db.getDriver());
+            con = DriverManager.getConnection(db.getUrl()+db.getDb(), db.getUser(), db.getPass());
+            System.out.println("DAO publicacion - Antes de el procedure");
+            int postPerPage = 3;
+            String procedure = "{ CALL Pagination(?,?)}";
+            CallableStatement st = con.prepareCall(procedure);
+                
+            st.setInt(1, postPerPage);
+            st.registerOutParameter(2, Types.INTEGER);
+            st.execute();
+            
+            totalPages = st.getInt(2);
+            System.out.println("DAO publicacion - total pages: " + totalPages);
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOPublicacion.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("err " +  ex);
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAOPublicacion.class.getName()).log(Level.SEVERE, null, ex);
+             System.out.println("err2 " +  ex);
+        }
+        return totalPages;
+    }
 }

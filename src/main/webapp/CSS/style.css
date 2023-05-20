@@ -540,3 +540,13 @@ h6{
 .communitySorting{
     border-bottom: var(--text)!important;
 }
+
+.pagination{
+   /*TO-DO: Centrar*/
+}
+.numPage{
+    font-weight: bold;
+    color: var(--title);
+    cursor: pointer;
+    margin: 5px 10px;
+}
