@@ -142,7 +142,7 @@ public class DAOPublicacion implements Operaciones{
     }
     
     public List<Publicacion> consultLatestPost(int currentPage){     
-        System.out.println("Entra al DAO de publicacion");
+        System.out.println("Entra al DAO de consultLatestPosts");
         List<Publicacion> datos = new ArrayList<>();
         Connection con;
         PreparedStatement pst;
@@ -155,7 +155,7 @@ public class DAOPublicacion implements Operaciones{
         "    INNER JOIN TB_User user\n" +
         "        ON user.id_user = post.post_user LIMIT ?, ? ;";
         try{
-            System.out.println("Entra al try del DAO de publicacion");
+            //System.out.println("Entra al try del DAO de publicacion");
             Class.forName(db.getDriver());
             con = DriverManager.getConnection(db.getUrl()+db.getDb(), db.getUser(), db.getPass());
             
@@ -165,7 +165,7 @@ public class DAOPublicacion implements Operaciones{
             rs = pst.executeQuery();
             
             while(rs.next()){
-                System.out.println("while del DAO de publicacion");
+                //System.out.println("while del DAO de publicacion");
                 Publicacion post = new Publicacion();
                 Usuario uinfo = new Usuario();
                 post.setId_post(rs.getInt("id_post")); //nombre de la columna de la db
@@ -273,5 +273,54 @@ public class DAOPublicacion implements Operaciones{
              System.out.println("err2 " +  ex);
         }
         return totalPages;
+    }
+    
+    public List<Publicacion> searchResult(String word){
+        List<Publicacion> datos = new ArrayList<>();
+        System.out.println("Entra al DAO searchResult");
+        Connection con;
+        ResultSet rs;
+        
+        try{
+            Class.forName(db.getDriver());
+            con = DriverManager.getConnection(db.getUrl()+db.getDb(), db.getUser(), db.getPass());
+            String procedure = "{ CALL normalSearch(?,?)}";
+            CallableStatement st = con.prepareCall(procedure);
+                
+            st.setNString(1, "A");
+            st.setNString(2, word);
+            rs = st.executeQuery();
+            
+            while(rs.next()){
+                System.out.println("while del DAO de busqueda");
+                Publicacion post = new Publicacion();
+                Usuario uinfo = new Usuario();
+                post.setId_post(rs.getInt("id_post")); //nombre de la columna de la db
+                post.setTitle(rs.getString("title"));
+                post.setDescription(rs.getString("description"));
+                post.setMedia(rs.getString("media"));
+                post.setPost_status(rs.getInt("post_status"));
+                post.setPost_user(rs.getInt("post_user"));
+                post.setIdCategory(rs.getInt("id_category"));
+                uinfo.setFirstname(rs.getString("first_name")); 
+                uinfo.setpLastname(rs.getString("p_lastname")); 
+                uinfo.setProfileImg(rs.getString("profile_img")); 
+                post.setPost_userdata(uinfo);
+                System.out.println("Datos del post coincidente con " + word + ": ");
+                System.out.println(word + ": " + post.getTitle());
+                System.out.println(" ");
+                datos.add(post);
+            }
+            
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOPublicacion.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("err " +  ex);
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAOPublicacion.class.getName()).log(Level.SEVERE, null, ex);
+             System.out.println("err2 " +  ex);
+        }
+        return datos;
     }
 }

@@ -41,7 +41,7 @@ public class loginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            System.out.println("Entra al doPost");
+            System.out.println("Entra al doPost - LOGIN SERVLET");
             String user = request.getParameter("nameLogin");
             String pass = request.getParameter("passLogin"); 
             
@@ -52,13 +52,13 @@ public class loginServlet extends HttpServlet {
                 login = (Usuario) dao.login(usu);
                 
                 if(login.getIdUser()!=0){
-                    System.out.println("rs.next");
+                    //System.out.println("rs.next");
                     pantalla = "dashboard.jsp";
                     request.setAttribute("err", 0);
-                    System.out.println(login.getOccupation());
+                    //System.out.println(login.getOccupation());
                     request.setAttribute("usuario", login); // envia al jsp el obj usuario logged con la info del usuario q inicio sesion. 
                 }else {
-                    System.out.println("Login failed. Return to index.jsp");
+                    //System.out.println("Login failed. Return to index.jsp");
                     pantalla = "index.jsp";
                     request.setAttribute("err", 1);
                     request.setAttribute("err_message", "Credenciales equivocadas");

@@ -32,21 +32,22 @@
         <h4 class="logo">wm.In</h4>  <!-- no se pone bold??? -->
 
         <!--search bar-->
-        <form class="d-flex position-relative p-3 d-inline-block" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn searchNavbar position-absolute" type="submit"><i class="icon ion-md-search"></i></button>
+        
+        <form id="search" class="d-flex position-relative p-3 d-inline-block" role="search">
+          <input name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button id="search" class="btn searchNavbar position-absolute" type="submit"><i class="icon ion-md-search"></i></button>
         </form>
         <button data-modal-target="#popupAdvancedSearch" type="button" class="btn btn-primary ms-4 advancedSearchBtn">Advanced Search</button>
  
  <%
      Usuario usuarioLogin = new Usuario();
      usuarioLogin = (Usuario)request.getAttribute("usuario");
-     System.out.println("Usuario dashboard "+ usuarioLogin.getUsername());
+     //System.out.println("Usuario dashboard "+ usuarioLogin.getUsername());
      String ocupacion = usuarioLogin.getOccupation();
-     System.out.println("Ocupacion: "+ ocupacion);
+     //System.out.println("Ocupacion: "+ ocupacion);
      String nombreDisplay = usuarioLogin.getFirstname() + " " + usuarioLogin.getpLastname();
      String profileImg = usuarioLogin.getProfileImg();
-     System.out.println("img dashboard "+ profileImg);
+     //System.out.println("img dashboard "+ profileImg);
  %>              
         
         <!--elementos para seleccionar-->
@@ -250,13 +251,13 @@
 
         <!-- sorting bars-->
         <div class="container text-center border-bottom">
-          <div class="row">
-            <div class="col sortingItem active">
+          <div id="dashSections" class="row">
+            <!--<div class="col sortingItem active">
               <a href="#" class="nav-link subTitle">Comunity</a> 
             </div>
             <div class="col sortingItem">
               <a href="#" class="nav-link subTitle">Discover</a> 
-            </div>
+            </div>-->
           </div>
         </div>
 

@@ -35,11 +35,11 @@ public class postServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("Entra al do get");
+        System.out.println("Entra al do get de POST SERVLET");
         
         String action = request.getParameter("action");
         PrintWriter out = response.getWriter();
-        System.out.println("action is " + action);
+        //System.out.println("action is " + action);
         
         if("profile".equals(action)){
             //System.out.println("Antes del posts");
@@ -85,6 +85,7 @@ public class postServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("entro al do post de POST SERVLET");
         int idUser = profile.getIdUser();
             
         Publicacion editPost = new Publicacion(
@@ -117,11 +118,11 @@ public class postServlet extends HttpServlet {
     }
     
     void getLatestPosts(HttpServletRequest request, PrintWriter out){
-            System.out.println("Antes del posts");
+            System.out.println("entra a funcion GET LATESTS POSTS de post servlet");
             int currentPage = Integer.parseInt(request.getParameter("page"));
             
             List<Publicacion> posts = dao.consultLatestPost(currentPage);
-            System.out.println("Post " + posts.get(0).getTitle() + posts.get(0).getDescription());
+            //System.out.println("Post " + posts.get(0).getTitle() + posts.get(0).getDescription());
 
             JSONObject json = new JSONObject();
             for(int i=0; i<posts.size(); i++){

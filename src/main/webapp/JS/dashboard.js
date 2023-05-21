@@ -6,14 +6,20 @@
 var pageClick = false;
 var posts;
 var totalPages;
+var isSearching = false;
 
 $(document).ready(function(){    
     console.log("entra al console log del document ready");
+    if(!isSearching){
+        //alert("from de doc ready");
+        dashUI();
+    }
     getPagination();
     if(!pageClick){
             console.log("FROM THE DOC READY");
             getRecentPosts(1);
     }
+    
 });
 
 $('#pages').on('click', 'span', function(){
@@ -21,6 +27,17 @@ $('#pages').on('click', 'span', function(){
     pageClick = true;
     var currentPage = $(this).text();
     getRecentPosts(currentPage);
+});
+
+$('#search').on('click', 'span', function(){
+    event.preventDefault();
+    alert("click en search");
+    //searchUI();
+});
+
+$('#home').on('click', 'a', function(){
+    isSearching = false;
+    dashUI();
 });
 
 function getRecentPosts(currentPage){
@@ -74,14 +91,14 @@ function getPagination(){
         , type: "GET"
         , dataType: "text"
         , success: function(data){
-            console.log("got into getPagination");
+            //console.log("got into getPagination");
             var totalPages = parseInt(data);
             totalPages = data;
-            console.log("total pages: " + totalPages + "in Page: " + i );
+            //console.log("total pages: " + totalPages + "in Page: " + i );
             var i = 0;
             do{
                 i++;
-                console.log("total pages: " + totalPages + "in Page: " + i );
+                //console.log("total pages: " + totalPages + "in Page: " + i );
                 $("#pages").append('<span class="numPage">' + i + '</span>');
             }while(i < totalPages)
         },
@@ -94,3 +111,32 @@ function getPagination(){
         }
     });
 }
+
+function dashUI(){
+    console.log("Dentro de dashUI");
+    isSearching = false;
+    //alert("dashUI, is searching is " + isSearching);
+    $("#dashSections").empty();
+    $("#dashSections").append(
+            '<div class="col sortingItem active">' + 
+                '<a href="#" class="nav-link subTitle">Comunity</a> ' + 
+                '</div>' + 
+                '<div class="col sortingItem">' +
+              '<a href="#" class="nav-link subTitle">Discover</a>' +
+            '</div>');
+}
+
+function searchUI(){
+    console.log("Dentro de searchUI");
+    isSearching = true;
+    alert("searchUI, is searching is " + isSearching);
+    $("#dashSections").empty();
+    $("#dashSections").append(
+            '<div class="col sortingItem active ">' + 
+                '<a href="#" class="nav-link subTitle">Search post</a> ' + 
+                '</div>' + 
+                '<div class="col sortingItem">' +
+              '<a href="#" id="home" class="nav-link subTitle">Back to home</a>' +
+            '</div>');
+}
+

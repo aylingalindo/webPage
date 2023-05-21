@@ -47,16 +47,16 @@ public class profileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            System.out.println("entro al servlet de profile");
+            System.out.println("entro al doPost de profile");
             
             String opc = request.getParameter("hiddenOpc");
-            System.out.println(opc);
+           // System.out.println(opc);
             
             if (opc.equals("1")){
-                System.out.println("entro al if de opc 1");
+                //System.out.println("entro al if de opc 1");
                 // hacer el do post de editar info perfil
                 try{ 
-                    System.out.println("entro al try post profile info");
+                    //System.out.println("entro al try post profile info");
                     int idUser = profile.getIdUser();
                     String confirmPass = request.getParameter("validationConfirmPass");
                     String pass = request.getParameter("validationPassword");
