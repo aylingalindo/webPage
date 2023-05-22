@@ -37,12 +37,14 @@ public class DAOUsuario implements Operaciones{
             Class.forName(db.getDriver());
             con = DriverManager.getConnection(db.getUrl()+db.getDb(), db.getUser(), db.getPass());
             
+            System.out.println("DAO USUARIO - Antes del preparedStatement");
             pst = con.prepareStatement(sql);
             pst.setString(1, usu.getUsername());
             pst.setString(2, usu.getPassword());
             rs = pst.executeQuery();
-            
+            System.out.println("DAO USUARIO - Before the rs.next");
             while(rs.next()){
+                System.out.println("DAO USUARIO - Antes de los logged");
                 logged.setIdUser(rs.getInt("id_user")); // al usuario vacio le insertamos lo que retorno el result set en la columna de id_user
                 logged.setFirstname(rs.getString("first_name"));
                 logged.setpLastname(rs.getString("p_lastname"));
@@ -60,10 +62,10 @@ public class DAOUsuario implements Operaciones{
                 logged.setOccupation(rs.getString("occupation"));
                 logged.setUserStatus(rs.getInt("user_status"));
                 
-             //   System.out.println("id user DAO " + logged.getIdUser());
-               // System.out.println("first name DAO " + logged.getFirstname());
-            //    System.out.println("pLastname DAO " + logged.getpLastname());
-              //  System.out.println("mLastname DAO " + logged.getmLastname());
+                System.out.println("id user DAO " + logged.getIdUser());
+                System.out.println("first name DAO " + logged.getFirstname());
+                System.out.println("pLastname DAO " + logged.getpLastname());
+                System.out.println("mLastname DAO " + logged.getmLastname());
              //   System.out.println("birthdate DAO " + logged.getBirthdate());
               //  System.out.println("email DAO " + logged.getEmail());
                // System.out.println("username DAO " + logged.getUsername());

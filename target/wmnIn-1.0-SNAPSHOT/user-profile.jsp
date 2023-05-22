@@ -82,7 +82,7 @@
                 <a href="#" class="nav-link">Messages</a>
               </div>
             </div>
-            <form action="dashboardServlet" method="get" class="needs-validation" novalidate>
+            <form action="dashboardServlet?action=dashboard" method="get" class="needs-validation" novalidate>
             <div class="row misLinks">
               <div class="col-2 pe-1">
                 <i class="icon ion-md-home lead "></i>

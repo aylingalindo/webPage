@@ -75,6 +75,7 @@ public class postServlet extends HttpServlet {
             }
             case "totalPages":{
                 getPagination(request, out);
+                break;
             }
             default:{
                 break;

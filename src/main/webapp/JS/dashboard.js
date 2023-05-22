@@ -160,15 +160,44 @@ function searchUI(wordSearched){
          url: "dashboardServlet?action=search"
         ,type: "GET"
         ,data: { search: wordSearched}
-        ,success: function(response){
-            postSearch = response;
-            console.log("response from search is " + response);
-            //for(var i=0; i<Object.keys(response).length; i++){
-                console.log("POST DE BUSQUEDA " );
+        ,success: function(data){
+            var postResult = JSON.parse(data);
+            
+            for(var key in postResult){
+                if(postResult.hasOwnProperty(key)){
+                    var post = postResult[key];
+                    var title = post.title;
+                    var description = post.description;
+                    var username = "" + post.postUserFirstname + " " + post.postUserpLastname;
+                    var profileImg = post.postUserPfp;
+                   // console.log("Recieved TITLE correctly: " + title);
+                   // console.log("Recieved DESCRIPTION correctly: " + description);
+                   // console.log("Recieved USERNAME correctly: " + username);
+                   console.log("Recieved PROFIMG correctly: " + profileImg);
+                   $("#posts").append(
+                        $("<div>").addClass("card contentItem")
+                          .append($("<div>").addClass("card-header")
+                            .append($("<img>").attr("src", profileImg).addClass("img-fluid rounded-circle pfpNewpost")
+                              .text(username)
+                            )
+                          )
+                          .append($("<div>").addClass("card-body")
+                            .append($("<h5>").text(title))
+                            .append($("<p>").text(description))
+                          )
+                          .append($("<div>").addClass("card-footer").append("<p>").append("<i>").addClass("icon ion-md-heart pe-2").text("0"))
+                          
+                      );
+                    
+                        
+                }
+            }
+            /*for(var i=0; i<Object.keys(response).length; i++){
+                console.log("POST DE BUSQUEDA " );  
                 $("#posts").append(
-                        $("<h5>").text("response[i]").append("<h5>")
+                        $("<h5>").text(response[i]. title).append("<h5>")
                 );
-            //}
+            }*/
         },
         error: function(xhr, data, error) {
             console.log(xhr.responseText);

@@ -42,27 +42,18 @@ public class dashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("Entra al do get DASHBOARD");
-        request.setAttribute("usuario", logged);
-
-        RequestDispatcher rd = request.getRequestDispatcher("dashboard.jsp");
-        rd.forward(request, response);  
         
         String action = request.getParameter("action");
         PrintWriter out = response.getWriter();
+         if("search".equals(action)){
+             searchResults(request, out);
+             return;
+         }
         
-        switch(action){
-            case "search":{
-                String word = request.getParameter("search");
-                System.out.println("word is " + word);
-                searchResults(request, out);
-                out.close();
-                break;
-            }
-        }
-        
-        
-        
+        System.out.println("Entra al do get PROFILE");
+        request.setAttribute("usuario", logged);
+        RequestDispatcher rd = request.getRequestDispatcher("dashboard.jsp");
+        rd.forward(request, response);  
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -139,7 +130,7 @@ public class dashboardServlet extends HttpServlet {
 
                 json.put(i, jsonAux);
                 System.out.println("Imprimiendo posts desde dashboard servlet: " );
-                System.out.println("Post: " + jsonAux.toString());
+                System.out.println("Post: " + json.toJSONString());
                 System.out.println(" " );
 
             }
