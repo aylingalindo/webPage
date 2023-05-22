@@ -580,7 +580,7 @@
       </section>
       
       <!-- post -->
-      <div id="posts">
+      <div id="postsPerfil">
         <div class="card contentItem">
           <div class="card-header">
             <div class="flex-row d-flex">

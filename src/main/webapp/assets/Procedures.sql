@@ -33,6 +33,8 @@ BEGIN
         ON userInfo.id_user = post.post_user
         WHERE (title LIKE searchText) OR (description LIKE searchText);
     END IF;
+
+    IF
 END //
 DELIMITER ;
 
