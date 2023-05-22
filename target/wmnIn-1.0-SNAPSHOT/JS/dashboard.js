@@ -5,20 +5,25 @@
 
 var pageClick = false;
 var posts;
+var postSearch;
 var totalPages;
 var isSearching = false;
 
 $(document).ready(function(){    
-    console.log("entra al console log del document ready");
-    if(!isSearching){
-        //alert("from de doc ready");
-        dashUI();
-    }
+    console.log("entra al console log del document ready"); 
     getPagination();
     if(!pageClick){
             console.log("FROM THE DOC READY");
             getRecentPosts(1);
     }
+    dashUI();
+    
+    $('#search').submit(function(event){
+        event.preventDefault();
+        alert("vamos bien");
+        var wordSearched = $('#wordSearch').val();
+        searchUI(wordSearched);
+    });
     
 });
 
@@ -29,16 +34,22 @@ $('#pages').on('click', 'span', function(){
     getRecentPosts(currentPage);
 });
 
-$('#search').on('click', 'span', function(){
+/*$('#search').on('click', 'span', function(){
     event.preventDefault();
     alert("click en search");
     //searchUI();
-});
+});*/
 
-$('#home').on('click', 'a', function(){
+function backToHome(){
     isSearching = false;
+    getPagination();
+    if(!pageClick){
+            console.log("FROM THE home button");
+            getRecentPosts(1);
+    }
     dashUI();
-});
+    
+}
 
 function getRecentPosts(currentPage){
     console.log("entra a funcion getRecentPost, antes de ajax");
@@ -114,6 +125,10 @@ function getPagination(){
 
 function dashUI(){
     console.log("Dentro de dashUI");
+    $("#posts").empty();
+    $("#pages").empty();
+    //getRecentPosts(1);
+    //getPagination();
     isSearching = false;
     //alert("dashUI, is searching is " + isSearching);
     $("#dashSections").empty();
@@ -126,8 +141,10 @@ function dashUI(){
             '</div>');
 }
 
-function searchUI(){
+function searchUI(wordSearched){
     console.log("Dentro de searchUI");
+    $("#posts").empty();
+    $("#pages").empty();
     isSearching = true;
     alert("searchUI, is searching is " + isSearching);
     $("#dashSections").empty();
@@ -135,8 +152,32 @@ function searchUI(){
             '<div class="col sortingItem active ">' + 
                 '<a href="#" class="nav-link subTitle">Search post</a> ' + 
                 '</div>' + 
-                '<div class="col sortingItem">' +
-              '<a href="#" id="home" class="nav-link subTitle">Back to home</a>' +
+                '<div id="home" class="col sortingItem">' +
+              '<a href="javascript:backToHome()" class="nav-link subTitle">Back to home</a>' +
             '</div>');
+    
+    $.ajax({
+         url: "dashboardServlet?action=search"
+        ,type: "GET"
+        ,data: { search: wordSearched}
+        ,success: function(response){
+            postSearch = response;
+            console.log("response from search is " + response);
+            //for(var i=0; i<Object.keys(response).length; i++){
+                console.log("POST DE BUSQUEDA " );
+                $("#posts").append(
+                        $("<h5>").text("response[i]").append("<h5>")
+                );
+            //}
+        },
+        error: function(xhr, data, error) {
+            console.log(xhr.responseText);
+            console.log(xhr.statusText);
+            console.log(data);
+            console.log(error);
+            console.log("error");
+        }
+    });
 }
+    
 

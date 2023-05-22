@@ -34,8 +34,8 @@
         <!--search bar-->
         
         <form id="search" class="d-flex position-relative p-3 d-inline-block" role="search">
-          <input name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button id="search" class="btn searchNavbar position-absolute" type="submit"><i class="icon ion-md-search"></i></button>
+          <input id="wordSearch" name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn searchNavbar position-absolute" type="submit"><i class="icon ion-md-search"></i></button>
         </form>
         <button data-modal-target="#popupAdvancedSearch" type="button" class="btn btn-primary ms-4 advancedSearchBtn">Advanced Search</button>
  

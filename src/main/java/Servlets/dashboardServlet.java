@@ -44,17 +44,25 @@ public class dashboardServlet extends HttpServlet {
             throws ServletException, IOException {
         System.out.println("Entra al do get DASHBOARD");
         request.setAttribute("usuario", logged);
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
 
         RequestDispatcher rd = request.getRequestDispatcher("dashboard.jsp");
         rd.forward(request, response);  
         
+        String action = request.getParameter("action");
+        PrintWriter out = response.getWriter();
         
-        String word = request.getParameter("search");
-        System.out.println("word is " + word);
-        searchResults(request, out);
-        out.close();
+        switch(action){
+            case "search":{
+                String word = request.getParameter("search");
+                System.out.println("word is " + word);
+                searchResults(request, out);
+                out.close();
+                break;
+            }
+        }
+        
+        
+        
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
