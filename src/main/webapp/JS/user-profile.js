@@ -25,6 +25,21 @@ function getRecentPosts(){
                 console.log("POST ", data[i]);
                 $("#posts").append(
                     $("<div>").addClass("card contentItem").append(
+                        $("<div>").addClass("card-header").append(
+                            $("<img>").attr("src", data[i].postUserPfp).addClass("img-fluid rounded-circle pfpNewpost")).append($("</img>")).append(
+                            data[i].postUserFirstname+ " " + data[i].postUserpLastname).append(
+                        $("</div>")).append(
+                        $("<div>").addClass("card-body").append(
+                            $("<h5>").text(data[i].title).append($("</h5>")).append(
+                            $("<p>").text(data[i].description)).append($("</p>")).append(
+                            $("<img>").attr("src", data[i].media).addClass("img-fluid postImg"))).append(
+                        $("</div>"))).append(
+                        $("<div>").addClass("card-footer").append(
+                            $("<p>").append("<i>").addClass("icon ion-md-heart pe-2").append($("</i>")).text("0")).append($("</p>")).append(
+                        $("</div>"))).append(
+                    $("</div>")))
+                    /*
+                    $("<div>").addClass("card contentItem").append(
                         $("<form>").addClass("needs-validation row g-3").attr("action","profileServlet").attr("method","post").attr("novalidate").append(
                         $("<div>").addClass("card-header").append(
                             $("<div>").addClass("flex-row d-flex").append(
@@ -54,7 +69,7 @@ function getRecentPosts(){
                             $("<p>").append("<i>").addClass("icon ion-md-heart pe-2").append($("</i>")).text("0")).append($("</p>")).append(
                         $("</div>"))).append(
                     $("</form>"))).append(
-                    $("</div>")))
+                    $("</div>")))*/
                 );
             }
         },
