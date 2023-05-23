@@ -65,6 +65,16 @@ function openModal(modal) {
     overlay.classList.add('active')
 }
 
+function openEditModal(){
+    const modal = document.getElementById("popupEditPost")   // si se le hace un click se obtiene el elemento del que es target
+    openModal(modal);
+}
+
+function openDeleteModal(){
+    const modal = document.getElementById("popupDeletePost")   // si se le hace un click se obtiene el elemento del que es target
+    openModal(modal);
+}
+
 // para que la tachita cierre la ventana pop up
 closeSignUpBtn.forEach(button => {
     button.addEventListener('click', () => {
