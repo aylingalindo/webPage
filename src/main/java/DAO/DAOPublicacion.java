@@ -76,7 +76,7 @@ public class DAOPublicacion implements Operaciones{
         publi = (Publicacion) obj;
         Connection con;
         PreparedStatement pst;
-        String sql = "update tb_posts set title = ?, description = ?, media = ?, id_category = ? where id_post = ?;";
+        String sql = "update tb_posts set title = ?, description = ?, media = ? where id_post = ?;";
         
         try{
             System.out.println("Paso el query, entro al try");
@@ -88,8 +88,7 @@ public class DAOPublicacion implements Operaciones{
             pst.setString(1, publi.getTitle());
             pst.setString(2, publi.getDescription());
             pst.setString(3, publi.getMedia());
-            pst.setInt(4, publi.getIdCategory());
-            pst.setInt(5, publi.getId_post());
+            pst.setInt(4, publi.getId_post());
             int rowCount = pst.executeUpdate();
             
             if(rowCount>0){
@@ -322,5 +321,38 @@ public class DAOPublicacion implements Operaciones{
              System.out.println("err2 " +  ex);
         }
         return datos;
+    }
+    
+    public Publicacion consultEdit(int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String sql = "select title, description, media from tb_posts where id_post= ?;";
+        Publicacion publi = new Publicacion();
+        try{
+            System.out.println("Paso el query, entro al try");
+            Class.forName(db.getDriver());
+            con = DriverManager.getConnection(db.getUrl()+db.getDb(), db.getUser(), db.getPass());
+            
+            pst = con.prepareStatement(sql);
+
+            pst.setInt(1, id);
+            rs = pst.executeQuery();
+            if (rs.next()){
+                
+                publi.setId_post(id);
+                publi.setTitle(rs.getString("title"));
+                publi.setDescription(rs.getString("description"));
+                publi.setMedia(rs.getString("media"));
+                System.out.println("title: " + publi.getTitle());
+                System.out.println("description: " + publi.getDescription());
+                System.out.println("media: " + publi.getMedia());
+            }
+            con.close();
+        } catch(Exception ex){
+            System.out.println("error");
+            System.out.println(ex.getMessage());
+        }
+        return publi;
     }
 }

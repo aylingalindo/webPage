@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import modelos.*;
+import modelos.entidades.Publicacion;
 import modelos.entidades.Usuario;
 
 /**
@@ -44,6 +45,8 @@ public class DAOUsuario implements Operaciones{
             rs = pst.executeQuery();
             System.out.println("DAO USUARIO - Before the rs.next");
             while(rs.next()){
+                Publicacion post = new Publicacion();
+                post.setId_post(0);
                 System.out.println("DAO USUARIO - Antes de los logged");
                 logged.setIdUser(rs.getInt("id_user")); // al usuario vacio le insertamos lo que retorno el result set en la columna de id_user
                 logged.setFirstname(rs.getString("first_name"));
@@ -61,6 +64,7 @@ public class DAOUsuario implements Operaciones{
                 logged.setCountry(rs.getString("country"));
                 logged.setOccupation(rs.getString("occupation"));
                 logged.setUserStatus(rs.getInt("user_status"));
+                logged.setCurrent_post(post);
                 
                 System.out.println("id user DAO " + logged.getIdUser());
                 System.out.println("first name DAO " + logged.getFirstname());

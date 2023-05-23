@@ -25,8 +25,9 @@ public class Usuario {
     private String country;
     private String occupation;
     private int userStatus;
+    private Publicacion current_post;
 
-    public Usuario(int idUser, String firstname, String pLastname, String mLastname, String birthdate, String email, String username, String password, String profileImg, String coverImg, String singupDate, String city, String state, String country, String occupation, int userStatus) {
+    public Usuario(int idUser, String firstname, String pLastname, String mLastname, String birthdate, String email, String username, String password, String profileImg, String coverImg, String singupDate, String city, String state, String country, String occupation, int userStatus, Publicacion post) {
         this.idUser = idUser;
         this.firstname = firstname;
         this.pLastname = pLastname;
@@ -43,6 +44,8 @@ public class Usuario {
         this.country = country;
         this.occupation = occupation;
         this.userStatus = userStatus;
+        this.current_post = post;
+        
     }
     
     public Usuario(int idUser, String firstname, String pLastname, String mLastname, String username, String password, String profileImg, String coverImg) {
@@ -156,6 +159,15 @@ public class Usuario {
         return userStatus;
     }
 
+    public Publicacion getCurrent_post(){
+        return current_post;
+    }
+            
+    public void setCurrent_post(Publicacion post){
+        this.current_post = post; 
+    }
+            
+            
     public void setIdUser(int idUser) {
         this.idUser = idUser;
     }

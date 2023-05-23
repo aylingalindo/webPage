@@ -70,7 +70,15 @@ public class postServlet extends HttpServlet {
         }
         if("mod".equals(action)){
             String id = request.getParameter("postIdEdit");
-            System.out.print(id);
+            System.out.println("Post id: "+id);
+            Publicacion postEdit = new Publicacion();
+            postEdit = dao.consultEdit(Integer.parseInt(id));
+            profile.setCurrent_post(postEdit);
+            System.out.println("Posttt: " +postEdit.getId_post());
+            request.setAttribute("usuario", profile);
+            request.setAttribute("modal", 1);
+            RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
+            rd.forward(request, response); 
         }
         switch(action){
             case "recents":{
@@ -90,17 +98,21 @@ public class postServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("entro al do post de POST SERVLET");
+        System.out.println("entro al do post de POST SERVLET EDITT");
+        Publicacion pEdit = new Publicacion();
         int idUser = profile.getIdUser();
-            
+        pEdit = profile.getCurrent_post();
         Publicacion editPost = new Publicacion(
-         Integer.parseInt(request.getParameter("postIdEdit")),
+         pEdit.getId_post(),
            request.getParameter("titleEdit"),
-      request.getParameter("descriptionEdit"),
-           request.getParameter("imgUrlEdit"),
-       Integer.parseInt(request.getParameter("catEdit"))
+      request.getParameter("descEdit"),
+           request.getParameter("mediaEdit")
         );
-            
+        
+        System.out.println("id EDITAR: "+ editPost.getId_post());
+        System.out.println("title: "+ editPost.getTitle()); 
+        System.out.println("desc: "+ editPost.getDescription());    
+        System.out.println("MEDIAA: "+ editPost.getMedia());    
         try{ 
             System.out.println("entro al try edit post");
             if(dao.modificar(editPost)== true){
@@ -113,6 +125,9 @@ public class postServlet extends HttpServlet {
                     request.setAttribute("err", "2");
                     request.setAttribute("err_message", "Update about failed");
             }
+            editPost.setId_post(0);
+            profile.setCurrent_post(editPost);
+           
             request.setAttribute("usuario", profile);
             RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
             rd.forward(request, response);  
