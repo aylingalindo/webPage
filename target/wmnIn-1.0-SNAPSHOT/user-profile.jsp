@@ -623,6 +623,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollto/1.4.6/jquery-scrollto.min.js"></script>
   <script defer src="JS/funcionalidad.js"></script>
-  <script defer src="JS/user-profile.js"></script>
+  <script defer src="JS/profile.js"></script>
 </body>
 </html>
