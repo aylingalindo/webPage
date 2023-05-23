@@ -68,6 +68,10 @@ public class postServlet extends HttpServlet {
             }
             out.print(json);
         }
+        if("mod".equals(action)){
+            String id = request.getParameter("postIdEdit");
+            System.out.print(id);
+        }
         switch(action){
             case "recents":{
                 getLatestPosts(request, out);
