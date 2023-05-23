@@ -80,6 +80,17 @@ public class postServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
             rd.forward(request, response); 
         }
+        if("delete".equals(action)){
+            String id = request.getParameter("postIdEdit");
+            System.out.println("Post id: "+id);
+            Publicacion postEdit = new Publicacion();
+            postEdit.setId_post(Integer.parseInt(id));
+            profile.setCurrent_post(postEdit);
+            request.setAttribute("usuario", profile);
+            request.setAttribute("modal", 2);
+            RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
+            rd.forward(request, response); 
+        }
         switch(action){
             case "recents":{
                 getLatestPosts(request, out);
@@ -101,13 +112,16 @@ public class postServlet extends HttpServlet {
         System.out.println("entro al do post de POST SERVLET EDITT");
         Publicacion pEdit = new Publicacion();
         int idUser = profile.getIdUser();
-        pEdit = profile.getCurrent_post();
-        Publicacion editPost = new Publicacion(
+        String opc = request.getParameter("opcPost");
+        int iopc = Integer.parseInt(opc);
+        if (iopc == 1){
+            pEdit = profile.getCurrent_post();
+            Publicacion editPost = new Publicacion(
          pEdit.getId_post(),
            request.getParameter("titleEdit"),
       request.getParameter("descEdit"),
            request.getParameter("mediaEdit")
-        );
+             );
         
         System.out.println("id EDITAR: "+ editPost.getId_post());
         System.out.println("title: "+ editPost.getTitle()); 
@@ -135,6 +149,32 @@ public class postServlet extends HttpServlet {
                 System.out.println("error");
                 System.out.println(ex.getMessage());
         }
+        }
+        if(iopc == 2){
+         pEdit = profile.getCurrent_post();
+        try{ 
+            System.out.println("entro al try DELETE post");
+            if(dao.eliminar(pEdit)== true){
+                    System.out.println("status 1");
+                    System.out.println("se borro el post logicamente");
+                    request.setAttribute("status", "1");
+            }else{
+                    System.out.println("status 0");
+                    request.setAttribute("status", "0"); 
+                    request.setAttribute("err", "2");
+                    request.setAttribute("err_message", "Update about failed");
+            }
+            pEdit.setId_post(0);
+            profile.setCurrent_post(pEdit);
+            request.setAttribute("usuario", profile);
+            RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
+            rd.forward(request, response);  
+        }catch (ServletException | IOException ex) {
+                System.out.println("error");
+                System.out.println(ex.getMessage());
+        }
+        }
+        
     }
     
     void getLatestPosts(HttpServletRequest request, PrintWriter out){

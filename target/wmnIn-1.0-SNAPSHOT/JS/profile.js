@@ -72,12 +72,16 @@ function getRecentPosts(){
                                         $("<i>").addClass("icon ion-md-create px-0 m-0").append($("</i>"))).append(
                                     $("</button>")).append(
                                     $("<input>").attr("hidden", "true").attr("name", "postIdEdit").attr("value", data[i].idPost)).append(
-                                    $("<input>").attr("hidden", "true").attr("name", "action").attr("value", "mod")).append(
+                                    $("<input>").attr("hidden", "true").attr("name", "action").attr("value", "mod"))).append(
                                     $("</form>"))).append(
+                                    $("<form>").addClass("needs-validation row g-3").attr("action","postServlet").attr("method","get").attr("novalidate", "true").append(
                                     $("<button>").attr("data-modal-target", "#popupDeletePost").attr("type", "submit").attr('onclick', 'openDeleteModal()').addClass("closeBtn ps-5").append(
                                         $("<i>").addClass("icon ion-md-close px-0 m-0").append($("</i>"))).append(
-                                    $("</button>"))).append(
-                                $("</div>"))).append(
+                                    $("</button>")).append(
+                                    $("<input>").attr("hidden", "true").attr("name", "postIdEdit").attr("value", data[i].idPost)).append(
+                                    $("<input>").attr("hidden", "true").attr("name", "action").attr("value", "delete"))).append(
+                                    $("</form>"))).append(
+                                $("</div>")).append(
                             $("</div>"))).append(
                         $("</div>")))).append(
                         $("<div>").addClass("card-body").append(

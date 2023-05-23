@@ -118,7 +118,7 @@ public class DAOPublicacion implements Operaciones{
             
             pst = con.prepareStatement(sql);
 
-            pst.setInt(1, publi.getPost_status());
+            pst.setInt(1, 2);
             pst.setInt(2, publi.getId_post());
             int rowCount = pst.executeUpdate();
             

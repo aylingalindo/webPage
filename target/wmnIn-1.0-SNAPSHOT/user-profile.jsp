@@ -393,6 +393,7 @@
             </div>
             <div class="col-11">
               <input type="url" class="form-control" name="mediaEdit" id="mediaEdit" value="<% out.print(publi.getMedia()); %>">
+              <input hidden="true" name="opcPost" id="mediaEdit" value="1">
             </div>
               <!--<button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-photos"></i></button>
               <button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-play"></i></button>
@@ -438,7 +439,7 @@
       %>
       
       <!-- POP UP CONFIRM DELETE POST -->
-      <div id="popupDeletePost" class="card">
+      <div id="popupDeletePost" class="card active">
         <!-- titulo y boton que se van a quedar siempre -->
         <div class="card-header">
           <h4>Confirm delete</h4>
@@ -450,7 +451,10 @@
           </div>
           <div class="row">
             <div class="col-6">
+              <form action="postServlet" method="post" id="formDelete" class="needs-validation" novalidate>
               <button type="submit" class="btn btn-primary signUpBtn">Delete</button>
+              <input hidden="true" name="opcPost" value="2">
+              </form>
             </div>
             <div class="col-6">
               <button data-close-button type="submit" class="btn btn-primary signInBtn">Cancel</button>

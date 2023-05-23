@@ -348,7 +348,7 @@ h2 {
     transform: translate(-50%, -50%)scale(0); /* escala 0 para que no se vea cuando no esta activo, se usa escala y opacidad para poder crear transiciones*/
     transition: 200ms ease-in-out;
     z-index: 10; /* su capa, para que se muestre sobre lo demás*/
-    width:40%;
+    width:35%;
     height:50%;
 }
 #popupDeletePost.active {
