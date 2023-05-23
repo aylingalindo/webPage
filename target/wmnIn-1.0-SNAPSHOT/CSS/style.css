@@ -348,7 +348,7 @@ h2 {
     transform: translate(-50%, -50%)scale(0); /* escala 0 para que no se vea cuando no esta activo, se usa escala y opacidad para poder crear transiciones*/
     transition: 200ms ease-in-out;
     z-index: 10; /* su capa, para que se muestre sobre lo demás*/
-    width:40%;
+    width:35%;
     height:50%;
 }
 #popupDeletePost.active {
@@ -457,6 +457,24 @@ footer {
     opacity: 1;
     pointer-events: all;
 }
+
+#overlay2 {
+    position: fixed; 
+    opacity: 0;  /* para que no se vea cuando no esta activo el pop up*/
+    transition: 200ms ease-in-out;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.2);  
+    z-index: 8;
+    pointer-events: none;
+    backdrop-filter: blur(5px);
+}
+
+#overlay2.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
 
 #popupRegister .closeBtn{
     background: none;

@@ -45,7 +45,7 @@ public class Publicacion {
         this.post_user = post_user;
     }
     
-    public Publicacion(int id_post, String title, String description, String media,  int idCategory) {
+    public Publicacion(int id_post, String title, String description, String media) {
         this.id_post = id_post;
         this.title = title;
         this.description = description;
@@ -82,9 +82,6 @@ public class Publicacion {
         this.post_userdata.setFirstname(post_userdata.getFirstname());
         this.post_userdata.setpLastname(post_userdata.getpLastname());
         this.post_userdata.setProfileImg(post_userdata.getProfileImg());
-        System.out.println(this.post_userdata.getFirstname());
-        System.out.println(this.post_userdata.getpLastname());
-        System.out.println(this.post_userdata.getProfileImg());
     }
 
     public String getDescription() {

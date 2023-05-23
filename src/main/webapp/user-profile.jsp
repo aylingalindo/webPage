@@ -4,6 +4,7 @@
     Author     : Aylin
 --%>
 
+<%@page import="modelos.entidades.Publicacion"%>
 <%@page import="modelos.entidades.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,7 +25,6 @@
 </head>
 <body>
   <div class="d-flex"> 
-    <div id="overlay"></div>
     
     <%
         Usuario usuarioLogin = new Usuario();
@@ -36,6 +36,8 @@
         String profileImg = usuarioLogin.getProfileImg();
         System.out.println("img dashboard "+ profileImg);
     %> 
+    
+    <div id="overlay"></div>
     
     <!-- NAV BAR-->
     <div id="sidebar" class="bg-primary">
@@ -352,15 +354,23 @@
         </div>
       </div>
       
+      <% 
+            Publicacion publi  = usuarioLogin.getCurrent_post();
+            System.out.println(" ID DEL POST: " + publi.getId_post());
+            if (publi.getId_post() != 0) {   
+            int modal = (int)request.getAttribute("modal");
+                if(modal == 1){
+      %>
       <!-- POP UP EDIT POST-->
-      <div id="popupEditPost" class="card">
+      <div id="overlay2" class="active"></div>
+      <div id="popupEditPost" class="card active">
 
         <!-- titulo y boton que se van a quedar siempre -->
         <div class="card-header">
           <div class="row pt-3 mx-3">
             <div class="col-11 me-auto">
-              <img src="assets/fotoPerfil.jpeg" class="img-fluid rounded-circle pfpNewpost">
-              Aylin Galindo
+              <img src="<% out.print(profileImg); %>" class="img-fluid rounded-circle pfpNewpost">
+              <% out.print(nombreDisplay); %>
             </div>
             <div class="col">
               <button data-close-button type="button" class="closeBtn"><i class="icon ion-md-close"></i></button>
@@ -370,28 +380,32 @@
 
         <!-- contenido que va a cambiar -->
         <div class="card-body">
+        <form action="postServlet" method="post" id="formEdit" class="needs-validation" novalidate>
           <div id="postTitle" class="row mx-3 mb-4">
-            <textarea class="form-control form-control-lg" type="text" placeholder="Title"></textarea>
+            <input class="form-control form-control-lg" name="titleEdit" type="text" value="<% out.print(publi.getTitle()); %>">
           </div>
           <div class="row mx-3 mb-4">
-            <textarea class="form-control" placeholder="What do you want to share?" rows="4"></textarea>
+            <input class="form-control" name="descEdit" value="<% out.print(publi.getDescription()); %>" rows="4">
           </div>
           <div class="row mx-3 my-4 newpostContainer">
               <div class="col mt-2">
               <i class="icon ion-md-photos ms-2"></i>
             </div>
             <div class="col-11">
-              <input type="url" class="form-control" name="mediaNewPost" id="mediaNewPost" value="">
+              <input type="url" class="form-control" name="mediaEdit" id="mediaEdit" value="<% out.print(publi.getMedia()); %>">
+              <input hidden="true" name="opcPost" id="mediaEdit" value="1">
             </div>
               <!--<button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-photos"></i></button>
               <button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-play"></i></button>
               <button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-attach"></i></button>
               <button data-close-button type="button" class="closeBtn col"><i class="icon ion-md-pin"></i></button>-->
           </div>
+          <!--
           <div class="row mx-3 my-4 newpostContainer">
             <div class="col mt-2">
               <i class="icon ion-md-pricetags ms-2 mt-2"></i>
             </div>
+            
             <div class="col-11 categories">
               <input name="cat" type="radio" class="cat" id="c1" value="1"/>
               <label for="c1">Science</label>
@@ -410,16 +424,22 @@
               <input name="cat" type="radio" class="cat" id="c8" value="8"/>
               <label for="c8">Human Arts</label>
             </div>
-          </div>
+          </div>-->
           <div class="row mx-3 my-4">
               <button type="submit" class="btn btn-primary signUpBtn">Post</button>
           </div>
+        </form>
         </div>
 
       </div>
-
+      
+      <%
+                }
+                if(modal == 2){
+      %>
+      
       <!-- POP UP CONFIRM DELETE POST -->
-      <div id="popupDeletePost" class="card">
+      <div id="popupDeletePost" class="card active">
         <!-- titulo y boton que se van a quedar siempre -->
         <div class="card-header">
           <h4>Confirm delete</h4>
@@ -431,7 +451,10 @@
           </div>
           <div class="row">
             <div class="col-6">
+              <form action="postServlet" method="post" id="formDelete" class="needs-validation" novalidate>
               <button type="submit" class="btn btn-primary signUpBtn">Delete</button>
+              <input hidden="true" name="opcPost" value="2">
+              </form>
             </div>
             <div class="col-6">
               <button data-close-button type="submit" class="btn btn-primary signInBtn">Cancel</button>
@@ -440,6 +463,10 @@
         </div>
       </div>
       
+      <%
+                }
+            }
+      %>
       <!-- PERFIL -->
       <section class="border-bottom">
         <div class="container contentItem headerPerfil">

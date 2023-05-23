@@ -68,6 +68,29 @@ public class postServlet extends HttpServlet {
             }
             out.print(json);
         }
+        if("mod".equals(action)){
+            String id = request.getParameter("postIdEdit");
+            System.out.println("Post id: "+id);
+            Publicacion postEdit = new Publicacion();
+            postEdit = dao.consultEdit(Integer.parseInt(id));
+            profile.setCurrent_post(postEdit);
+            System.out.println("Posttt: " +postEdit.getId_post());
+            request.setAttribute("usuario", profile);
+            request.setAttribute("modal", 1);
+            RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
+            rd.forward(request, response); 
+        }
+        if("delete".equals(action)){
+            String id = request.getParameter("postIdEdit");
+            System.out.println("Post id: "+id);
+            Publicacion postEdit = new Publicacion();
+            postEdit.setId_post(Integer.parseInt(id));
+            profile.setCurrent_post(postEdit);
+            request.setAttribute("usuario", profile);
+            request.setAttribute("modal", 2);
+            RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
+            rd.forward(request, response); 
+        }
         switch(action){
             case "recents":{
                 getLatestPosts(request, out);
@@ -86,17 +109,24 @@ public class postServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("entro al do post de POST SERVLET");
+        System.out.println("entro al do post de POST SERVLET EDITT");
+        Publicacion pEdit = new Publicacion();
         int idUser = profile.getIdUser();
-            
-        Publicacion editPost = new Publicacion(
-         Integer.parseInt(request.getParameter("postIdEdit")),
+        String opc = request.getParameter("opcPost");
+        int iopc = Integer.parseInt(opc);
+        if (iopc == 1){
+            pEdit = profile.getCurrent_post();
+            Publicacion editPost = new Publicacion(
+         pEdit.getId_post(),
            request.getParameter("titleEdit"),
-      request.getParameter("descriptionEdit"),
-           request.getParameter("imgUrlEdit"),
-       Integer.parseInt(request.getParameter("catEdit"))
-        );
-            
+      request.getParameter("descEdit"),
+           request.getParameter("mediaEdit")
+             );
+        
+        System.out.println("id EDITAR: "+ editPost.getId_post());
+        System.out.println("title: "+ editPost.getTitle()); 
+        System.out.println("desc: "+ editPost.getDescription());    
+        System.out.println("MEDIAA: "+ editPost.getMedia());    
         try{ 
             System.out.println("entro al try edit post");
             if(dao.modificar(editPost)== true){
@@ -109,6 +139,9 @@ public class postServlet extends HttpServlet {
                     request.setAttribute("err", "2");
                     request.setAttribute("err_message", "Update about failed");
             }
+            editPost.setId_post(0);
+            profile.setCurrent_post(editPost);
+           
             request.setAttribute("usuario", profile);
             RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
             rd.forward(request, response);  
@@ -116,6 +149,32 @@ public class postServlet extends HttpServlet {
                 System.out.println("error");
                 System.out.println(ex.getMessage());
         }
+        }
+        if(iopc == 2){
+         pEdit = profile.getCurrent_post();
+        try{ 
+            System.out.println("entro al try DELETE post");
+            if(dao.eliminar(pEdit)== true){
+                    System.out.println("status 1");
+                    System.out.println("se borro el post logicamente");
+                    request.setAttribute("status", "1");
+            }else{
+                    System.out.println("status 0");
+                    request.setAttribute("status", "0"); 
+                    request.setAttribute("err", "2");
+                    request.setAttribute("err_message", "Update about failed");
+            }
+            pEdit.setId_post(0);
+            profile.setCurrent_post(pEdit);
+            request.setAttribute("usuario", profile);
+            RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
+            rd.forward(request, response);  
+        }catch (ServletException | IOException ex) {
+                System.out.println("error");
+                System.out.println(ex.getMessage());
+        }
+        }
+        
     }
     
     void getLatestPosts(HttpServletRequest request, PrintWriter out){
