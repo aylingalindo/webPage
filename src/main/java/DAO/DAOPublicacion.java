@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.CallableStatement;
+import java.sql.Date;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -153,7 +154,7 @@ public class DAOPublicacion implements Operaciones{
         String sql = "SELECT post.id_post, post.id_category, post.title, post.description, post.media, post.post_status, post.post_user, user.first_name, user.p_lastname , user.profile_img \n" +
         "FROM TB_Posts post\n" +
         "    INNER JOIN TB_User user\n" +
-        "        ON user.id_user = post.post_user LIMIT ?, ? ;";
+        "        ON user.id_user = post.post_user JOIN TB_Catstatus status ON post.post_status = status.id_status  WHERE (status.id_status = post.post_status) ORDER BY post.id_post DESC LIMIT ?, ?;";
         try{
             //System.out.println("Entra al try del DAO de publicacion");
             Class.forName(db.getDriver());
@@ -273,6 +274,82 @@ public class DAOPublicacion implements Operaciones{
              System.out.println("err2 " +  ex);
         }
         return totalPages;
+    }
+    
+    public List<Publicacion> searchResult(String word, String typeSearch, String category, String initialDate, String finalDate){
+        List<Publicacion> datos = new ArrayList<>();
+        System.out.println("Entra al DAO searchResult");
+        Connection con;
+        ResultSet rs = null;
+        
+        try{
+            Class.forName(db.getDriver());
+            con = DriverManager.getConnection(db.getUrl()+db.getDb(), db.getUser(), db.getPass());
+            
+            String procedure;
+            CallableStatement st = null;
+            if("advanced".equals(typeSearch)){
+                Date initial = Date.valueOf(initialDate);
+                Date finalD = Date.valueOf(finalDate);
+                procedure = "{ CALL advancedSearch(?, ?, ?, ?)}";
+                
+                st = con.prepareCall(procedure);
+                st.setNString(1, word);
+                st.setNString(2, category);
+                st.setDate(3, initial);
+                st.setDate(4, finalD);
+                rs = st.executeQuery();
+            }
+            else if("normal".equals(typeSearch)){
+                procedure = "{ CALL normalSearch(?,?)}";
+                
+                st = con.prepareCall(procedure);
+                st.setNString(1, "A");
+                st.setNString(2, word);
+                rs = st.executeQuery();
+            }
+            
+           // String procedure = "{ CALL normalSearch(?,?)}";
+           // CallableStatement st = con.prepareCall(procedure);
+                
+           // st.setNString(1, "A");
+           // st.setNString(2, word);
+           if(st != null){
+                rs = st.executeQuery();
+           }
+            
+            if(rs != null){
+                    while(rs.next()){
+                    System.out.println("while del DAO de busqueda");
+                    Publicacion post = new Publicacion();
+                    Usuario uinfo = new Usuario();
+                    post.setId_post(rs.getInt("id_post")); //nombre de la columna de la db
+                    post.setTitle(rs.getString("title"));
+                    post.setDescription(rs.getString("description"));
+                    post.setMedia(rs.getString("media"));
+                    post.setPost_status(rs.getInt("post_status"));
+                    post.setPost_user(rs.getInt("post_user"));
+                    post.setIdCategory(rs.getInt("id_category"));
+                    uinfo.setFirstname(rs.getString("first_name")); 
+                    uinfo.setpLastname(rs.getString("p_lastname")); 
+                    uinfo.setProfileImg(rs.getString("profile_img")); 
+                    post.setPost_userdata(uinfo);
+                    System.out.println("Datos del post coincidente con " + word + ": ");
+                    System.out.println(word + ": " + post.getTitle());
+                    System.out.println(" ");
+                    datos.add(post);
+                }
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOPublicacion.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("err " +  ex);
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAOPublicacion.class.getName()).log(Level.SEVERE, null, ex);
+             System.out.println("err2 " +  ex);
+        }
+        return datos;
     }
     
     public List<Publicacion> searchResult(String word){

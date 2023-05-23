@@ -11,6 +11,7 @@ import jakarta.servlet.RequestDispatcher;           //MODIFICAR
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import jakarta.servlet.ServletException;            //MODIFICAR
 import jakarta.servlet.annotation.WebServlet;       //MODIFICAR
@@ -45,11 +46,16 @@ public class dashboardServlet extends HttpServlet {
         
         String action = request.getParameter("action");
         PrintWriter out = response.getWriter();
+        
          if("search".equals(action)){
-             searchResults(request, out);
+             searchResults(request, out, "normal");
              return;
          }
-        
+         
+        if("advanced".equals(action)){
+            searchResults(request, out, "advanced");
+            return;
+        }
         System.out.println("Entra al do get PROFILE");
         request.setAttribute("usuario", logged);
         RequestDispatcher rd = request.getRequestDispatcher("dashboard.jsp");
@@ -108,11 +114,22 @@ public class dashboardServlet extends HttpServlet {
     }// </editor-fold>
     
     
-    void searchResults(HttpServletRequest request, PrintWriter out){
+    void searchResults(HttpServletRequest request, PrintWriter out, String typeSearch){
         System.out.println("LLEGUE DESDE LA BUSQUEDA!!!!!");
         String searchWord = request.getParameter("search");
         
-        List<Publicacion> posts = dao.searchResult(searchWord);
+        String category = request.getParameter("cat");
+        String initialDate = request.getParameter("initialDate");
+        String finalDate = request.getParameter("finalDate");
+        
+        List<Publicacion> posts = null;
+        if("normal".equals(typeSearch)){
+            posts = dao.searchResult(searchWord, "normal", null, null, null);
+        }
+        else if("advanced".equals(typeSearch)){
+            posts = dao.searchResult(searchWord, "advanced", category, initialDate, finalDate);
+        }
+       // List<Publicacion> posts = dao.searchResult(searchWord, "normal");
         JSONObject json = new JSONObject();
             for(int i=0; i<posts.size(); i++){
                 JSONObject jsonAux = new JSONObject();
@@ -136,7 +153,36 @@ public class dashboardServlet extends HttpServlet {
             }
             out.print(json);
             System.out.println("End of search results function in dashboard servlet" );
-            
     }
+    /*
+    void advancedSearch(HttpServletRequest request, PrintWriter out){
+        System.out.println("Advanced Search - DASHBOARD SERVLET");
+        String searchWord = request.getParameter("search");
+        
+        List<Publicacion> posts = dao.advancedSearch(searchWord);
+        JSONObject json = new JSONObject();
+            for(int i=0; i<posts.size(); i++){
+                JSONObject jsonAux = new JSONObject();
+                Usuario uinfo = new Usuario();
+                uinfo = posts.get(i).getPost_userdata();           
+                jsonAux.put("idPost", posts.get(i).getId_post());
+                jsonAux.put("title", posts.get(i).getTitle());
+                jsonAux.put("description", posts.get(i).getDescription());
+                jsonAux.put("media", posts.get(i).getMedia());
+                jsonAux.put("postStatus", posts.get(i).getPost_status());
+                jsonAux.put("postUser", posts.get(i).getPost_user());
+                jsonAux.put("postUserFirstname", uinfo.getFirstname());
+                jsonAux.put("postUserpLastname", uinfo.getpLastname());
+                jsonAux.put("postUserPfp", uinfo.getProfileImg());
+
+                json.put(i, jsonAux);
+                System.out.println("Imprimiendo posts desde dashboard servlet: " );
+                System.out.println("Post: " + json.toJSONString());
+                System.out.println(" " );
+
+            }
+            out.print(json);
+            System.out.println("End of search results function in dashboard servlet" );
+    }*/
 
 }
