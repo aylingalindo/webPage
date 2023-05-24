@@ -41,7 +41,7 @@ public class postServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         //System.out.println("action is " + action);
         
-        if("profile".equals(action)){
+        /*if("profile".equals(action)){
             //System.out.println("Antes del posts");
             List<Publicacion> posts = dao.consultLatestPostProfile(profile.getIdUser());
             //System.out.println("Post " + posts.get(0).getTitle() + posts.get(0).getDescription());
@@ -67,8 +67,8 @@ public class postServlet extends HttpServlet {
                 //System.out.println("JSON llego al final de json" + i);
             }
             out.print(json);
-        }
-        if("mod".equals(action)){
+        }*/
+        /*if("mod".equals(action)){
             String id = request.getParameter("postIdEdit");
             System.out.println("Post id: "+id);
             Publicacion postEdit = new Publicacion();
@@ -79,8 +79,8 @@ public class postServlet extends HttpServlet {
             request.setAttribute("modal", 1);
             RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
             rd.forward(request, response); 
-        }
-        if("delete".equals(action)){
+        }*/
+        /*if("delete".equals(action)){
             String id = request.getParameter("postIdEdit");
             System.out.println("Post id: "+id);
             Publicacion postEdit = new Publicacion();
@@ -90,7 +90,7 @@ public class postServlet extends HttpServlet {
             request.setAttribute("modal", 2);
             RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
             rd.forward(request, response); 
-        }
+        }*/
         switch(action){
             case "recents":{
                 getLatestPosts(request, out);
@@ -98,6 +98,59 @@ public class postServlet extends HttpServlet {
             }
             case "totalPages":{
                 getPagination(request, out);
+                break;
+            }
+            case "delete":{
+                String id = request.getParameter("postIdEdit");
+                System.out.println("Post id: "+id);
+                Publicacion postEdit = new Publicacion();
+                postEdit.setId_post(Integer.parseInt(id));
+                profile.setCurrent_post(postEdit);
+                request.setAttribute("usuario", profile);
+                request.setAttribute("modal", 2);
+                RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
+                rd.forward(request, response); 
+                break;
+            }
+            case "mod":{
+                String id = request.getParameter("postIdEdit");
+                System.out.println("Post id: "+id);
+                Publicacion postEdit = new Publicacion();
+                postEdit = dao.consultEdit(Integer.parseInt(id));
+                profile.setCurrent_post(postEdit);
+                System.out.println("Posttt: " +postEdit.getId_post());
+                request.setAttribute("usuario", profile);
+                request.setAttribute("modal", 1);
+                RequestDispatcher rd = request.getRequestDispatcher("user-profile.jsp");
+                rd.forward(request, response); 
+                break;
+            }
+            case "profile":{
+            //System.out.println("Antes del posts");
+            List<Publicacion> posts = dao.consultLatestPostProfile(profile.getIdUser());
+            //System.out.println("Post " + posts.get(0).getTitle() + posts.get(0).getDescription());
+
+            JSONObject json = new JSONObject();
+            for(int i=0; i<posts.size(); i++){
+                JSONObject jsonAux = new JSONObject();
+                Usuario uinfo = new Usuario();
+                uinfo = posts.get(i).getPost_userdata();           
+                jsonAux.put("idPost", posts.get(i).getId_post());
+                jsonAux.put("idCat", posts.get(i).getIdCategory());
+                jsonAux.put("title", posts.get(i).getTitle());
+                jsonAux.put("description", posts.get(i).getDescription());
+                jsonAux.put("media", posts.get(i).getMedia());
+                jsonAux.put("postStatus", posts.get(i).getPost_status());
+                jsonAux.put("postUser", posts.get(i).getPost_user());
+                jsonAux.put("postUserFirstname", uinfo.getFirstname());
+                jsonAux.put("postUserpLastname", uinfo.getpLastname());
+                jsonAux.put("postUserPfp", uinfo.getProfileImg());
+
+                json.put(i, jsonAux);
+                //System.out.println("JSON  " + json.toJSONString());
+                //System.out.println("JSON llego al final de json" + i);
+            }
+            out.print(json);
                 break;
             }
             default:{

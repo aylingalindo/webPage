@@ -115,7 +115,7 @@ public class dashboardServlet extends HttpServlet {
     
     
     void searchResults(HttpServletRequest request, PrintWriter out, String typeSearch){
-        System.out.println("LLEGUE DESDE LA BUSQUEDA!!!!!");
+        //System.out.println("LLEGUE DESDE LA BUSQUEDA!!!!!");
         String searchWord = request.getParameter("search");
         
         String category = request.getParameter("cat");
@@ -124,10 +124,12 @@ public class dashboardServlet extends HttpServlet {
         
         List<Publicacion> posts = null;
         if("normal".equals(typeSearch)){
+            System.out.println("En normal search");
             posts = dao.searchResult(searchWord, "normal", null, null, null);
         }
         else if("advanced".equals(typeSearch)){
             posts = dao.searchResult(searchWord, "advanced", category, initialDate, finalDate);
+            System.out.println("En advance search");
         }
        // List<Publicacion> posts = dao.searchResult(searchWord, "normal");
         JSONObject json = new JSONObject();

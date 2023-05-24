@@ -153,7 +153,7 @@ public class DAOPublicacion implements Operaciones{
         String sql = "SELECT post.id_post, post.id_category, post.title, post.description, post.media, post.post_status, post.post_user, user.first_name, user.p_lastname , user.profile_img \n" +
         "FROM TB_Posts post\n" +
         "    INNER JOIN TB_User user\n" +
-        "        ON user.id_user = post.post_user JOIN TB_Catstatus status ON post.post_status = status.id_status  WHERE (status.id_status = post.post_status) ORDER BY post.id_post DESC LIMIT ?, ?;";
+        "        ON user.id_user = post.post_user JOIN TB_Catstatus status ON post.post_status = status.id_status  WHERE (post.post_status = 1) ORDER BY post.id_post DESC LIMIT ?, ?;";
         try{
             //System.out.println("Entra al try del DAO de publicacion");
             Class.forName(db.getDriver());
@@ -205,8 +205,8 @@ public class DAOPublicacion implements Operaciones{
         String sql = "SELECT post.id_post, post.id_category, post.title, post.description, post.media, post.post_status, post.post_user, user.first_name, user.p_lastname , user.profile_img \n" +
         "FROM TB_Posts post\n" +
         "    INNER JOIN TB_User user\n" +
-        "        ON user.id_user = post.post_user " +
-        "     WHERE post.post_user = ?;";
+        "        ON user.id_user = post.post_user INNER JOIN TB_Catstatus stat ON post.post_status" +
+        "     WHERE post.post_user = ? AND (post.post_status = 1);";
         try{
             System.out.println("Entra al try del DAO de publicacion");
             Class.forName(db.getDriver());
@@ -288,8 +288,11 @@ public class DAOPublicacion implements Operaciones{
             String procedure;
             CallableStatement st = null;
             if("advanced".equals(typeSearch)){
+                System.out.println("DAO searchResult- if advanced");
                 Date initial = Date.valueOf(initialDate);
                 Date finalD = Date.valueOf(finalDate);
+                System.out.println("initialDate " + initial);
+                System.out.println("finalDate " + finalD);
                 procedure = "{ CALL advancedSearch(?, ?, ?, ?)}";
                 
                 st = con.prepareCall(procedure);
@@ -298,8 +301,10 @@ public class DAOPublicacion implements Operaciones{
                 st.setDate(3, initial);
                 st.setDate(4, finalD);
                 rs = st.executeQuery();
+                System.out.println("end of rs " + rs.toString());
             }
             else if("normal".equals(typeSearch)){
+                System.out.println("DAO searchResult- if advanced");
                 procedure = "{ CALL normalSearch(?,?)}";
                 
                 st = con.prepareCall(procedure);
@@ -313,9 +318,9 @@ public class DAOPublicacion implements Operaciones{
                 
            // st.setNString(1, "A");
            // st.setNString(2, word);
-           if(st != null){
+           /*if(st != null){
                 rs = st.executeQuery();
-           }
+           }*/
             
             if(rs != null){
                     while(rs.next()){

@@ -36,9 +36,9 @@
         <form id="search" class="d-flex position-relative p-3 d-inline-block" role="search">
           <input id="wordSearch" name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn searchNavbar position-absolute" type="submit"><i class="icon ion-md-search"></i></button>
-        </form>
+         </form>
         <button data-modal-target="#popupAdvancedSearch" type="button" class="btn btn-primary ms-4 advancedSearchBtn">Advanced Search</button>
- 
+       
  <%
      Usuario usuarioLogin = new Usuario();
      usuarioLogin = (Usuario)request.getAttribute("usuario");
@@ -185,19 +185,19 @@
         </div>
 
         <div class="card-body">
-            <form action="dashboardServlet?action=advanced" method="get" id="advancedSearch" class="needs-validation" novalidate>
+            <form id="advancedSearch" class="needs-validation" novalidate>
                 <div class="row mx-3">
                   <label class="form-label">Date range</label>
                 </div>
                 <div class="row mx-3 mb-4">
                   <div class="col ms-5">
-                    <input type="date" name="initialDate" class="form-control" name="fechaInicio" value=""/>
+                    <input type="date" class="form-control" id="initialDate" name="initialDate" value=""/>
                   </div>
                   <div class="col fs-3 ps-5 pe-0">
                     <label class="form-label">---</label>
                   </div>
                   <div class="col me-5">
-                  <input type="date" name="initialDate" class="form-control" name="fechaFin" value=""/>
+                  <input type="date" class="form-control" id="finalDate" name="finalDate" value=""/>
                   </div>
                 </div>
                 <div class="row mx-3">
@@ -208,21 +208,21 @@
                     <i class="icon ion-md-pricetags ms-2 mt-2"></i>
                   </div>
                   <div class="col-11 categories">
-                    <input name="cat" type="radio" class="cat" id="c1" value="1"/>
+                    <input id="cat" name="cat" type="radio" class="cat" id="c1" value="1"/>
                     <label for="c1">Science</label>
-                    <input name="cat" type="radio" class="cat" id="c2" value ="2"/>
+                    <input id="cat" name="cat" type="radio" class="cat" id="c2" value ="2"/>
                     <label for="c2">Tech</label>
-                    <input name="cat" type="radio" class="cat" id="c3" value="3"/>
+                    <input id="cat" name="cat" type="radio" class="cat" id="c3" value="3"/>
                     <label for="c3">Art</label>
-                    <input name="cat" type="radio" class="cat" id="c4" value="4"/>
+                    <input id="cat" name="cat" type="radio" class="cat" id="c4" value="4"/>
                     <label for="c4">Design</label>
-                    <input name="cat" type="radio" class="cat" id="c5" value="5"/>
+                    <input id="cat" name="cat" type="radio" class="cat" id="c5" value="5"/>
                     <label for="c5">Business</label>
-                    <input name="cat" type="radio" class="cat" id="c6" value="6"/>
+                    <input id="cat" name="cat" type="radio" class="cat" id="c6" value="6"/>
                     <label for="c6">Psychology</label>
-                    <input name="cat" type="radio" class="cat" id="c7" value="7"/>
+                    <input id="cat" name="cat" type="radio" class="cat" id="c7" value="7"/>
                     <label for="c7">Medicine</label>
-                    <input name="cat" type="radio" class="cat" id="c8" value="8"/>
+                    <input id="cat" name="cat" type="radio" class="cat" id="c8" value="8"/>
                     <label for="c8">Human Arts</label>
                   </div>
                 </div>
@@ -318,6 +318,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollto/1.4.6/jquery-scrollto.min.js"></script>
     <script defer src="JS/funcionalidad.js"></script>
-    <script defer src="JS/dashboard.js"></script>
+    <script defer src="JS/dashboard02.js"></script>
 </body>
 </html>

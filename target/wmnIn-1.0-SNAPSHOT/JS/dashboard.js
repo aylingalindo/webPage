@@ -25,6 +25,12 @@ $(document).ready(function(){
         searchUI(wordSearched);
     });
     
+    $('#advancedSearch').sumbit(function(event){
+        event.preventDefault();
+        alert("advanced search check");
+        var wordSearched = $('#wordSearch').val();
+        
+    });
 });
 
 $('#pages').on('click', 'span', function(){
@@ -209,4 +215,74 @@ function searchUI(wordSearched){
     });
 }
     
+    function advancedSearchUI(wordSearched, category, initialdate, finaldate){
+    console.log("Dentro de advancedSearchUI");
+    $("#posts").empty();
+    $("#pages").empty();
+    isSearching = true;
+    alert("advancedSearchUI, is searching is " + isSearching);
+    $("#dashSections").empty();
+    $("#dashSections").append(
+            '<div class="col sortingItem active ">' + 
+                '<a href="#" class="nav-link subTitle">Search post</a> ' + 
+                '</div>' + 
+                '<div id="home" class="col sortingItem">' +
+              '<a href="javascript:backToHome()" class="nav-link subTitle">Back to home</a>' +
+            '</div>');
+    
+    $.ajax({
+         url: "dashboardServlet?action=advanced"
+        ,type: "GET"
+        ,data: { search: wordSearched
+                ,cat: category
+                ,initialDate: initialdate
+                ,finalDate: finaldate}
+        ,success: function(data){
+            var postResult = JSON.parse(data);
+            
+            for(var key in postResult){
+                if(postResult.hasOwnProperty(key)){
+                    var post = postResult[key];
+                    var title = post.title;
+                    var description = post.description;
+                    var username = "" + post.postUserFirstname + " " + post.postUserpLastname;
+                    var profileImg = post.postUserPfp;
+                   // console.log("Recieved TITLE correctly: " + title);
+                   // console.log("Recieved DESCRIPTION correctly: " + description);
+                   // console.log("Recieved USERNAME correctly: " + username);
+                   console.log("Recieved PROFIMG correctly: " + profileImg);
+                   $("#posts").append(
+                        $("<div>").addClass("card contentItem")
+                          .append($("<div>").addClass("card-header")
+                            .append($("<img>").attr("src", profileImg).addClass("img-fluid rounded-circle pfpNewpost")
+                              .text(username)
+                            )
+                          )
+                          .append($("<div>").addClass("card-body")
+                            .append($("<h5>").text(title))
+                            .append($("<p>").text(description))
+                          )
+                          .append($("<div>").addClass("card-footer").append("<p>").append("<i>").addClass("icon ion-md-heart pe-2").text("0"))
+                          
+                      );
+                    
+                        
+                }
+            }
+            /*for(var i=0; i<Object.keys(response).length; i++){
+                console.log("POST DE BUSQUEDA " );  
+                $("#posts").append(
+                        $("<h5>").text(response[i]. title).append("<h5>")
+                );
+            }*/
+        },
+        error: function(xhr, data, error) {
+            console.log(xhr.responseText);
+            console.log(xhr.statusText);
+            console.log(data);
+            console.log(error);
+            console.log("error");
+        }
+    });
+  }
 
