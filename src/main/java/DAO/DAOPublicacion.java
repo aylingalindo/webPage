@@ -438,4 +438,62 @@ public class DAOPublicacion implements Operaciones{
         }
         return publi;
     }
+    
+     public List<Publicacion> categoryFilter(String category){     
+        System.out.println("Entra al DAO de categoryFilter");
+        List<Publicacion> datos = new ArrayList<>();
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+                
+        String sql = "SELECT post.id_post, post.id_category, post.title, post.description, post.media, post.post_status, post.post_user, \n" +
+"                userInfo.first_name, userInfo.p_lastname , userInfo.profile_img, cat.category\n" +
+"        FROM TB_Posts post \n" +
+"        INNER JOIN TB_User userInfo \n" +
+"        ON userInfo.id_user = post.post_user\n" +
+"        INNER JOIN TB_Category cat\n" +
+"        ON post.id_category = cat.id_category \n" +
+"        WHERE (cat.category = ?)\n" +
+"        ORDER BY post.id_post DESC";
+                
+                
+            try{
+            //System.out.println("Entra al try del DAO de publicacion");
+            Class.forName(db.getDriver());
+            con = DriverManager.getConnection(db.getUrl()+db.getDb(), db.getUser(), db.getPass());
+            
+            pst = con.prepareStatement(sql);
+            pst.setString(1, category);
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                //System.out.println("while del DAO de publicacion");
+                Publicacion post = new Publicacion();
+                Usuario uinfo = new Usuario();
+                post.setId_post(rs.getInt("id_post")); //nombre de la columna de la db
+                post.setTitle(rs.getString("title"));
+                post.setDescription(rs.getString("description"));
+                post.setMedia(rs.getString("media"));
+                post.setPost_status(rs.getInt("post_status"));
+                post.setPost_user(rs.getInt("post_user"));
+                post.setIdCategory(rs.getInt("id_category"));
+                uinfo.setFirstname(rs.getString("first_name")); 
+                uinfo.setpLastname(rs.getString("p_lastname")); 
+                uinfo.setProfileImg(rs.getString("profile_img")); 
+                post.setPost_userdata(uinfo);
+                
+                datos.add(post);
+                
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOPublicacion.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("err " +  ex);
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAOPublicacion.class.getName()).log(Level.SEVERE, null, ex);
+             System.out.println("err2 " +  ex);
+        }
+        return datos;
+    }
 }

@@ -35,6 +35,12 @@ $(document).ready(function(){
 
         advancedSearchUI(wordSearched, category, initDate, finDate);
     });
+    
+    $('.dropdown-item').click(function(){
+        var category = $(this).data('category');
+        alert("category from dropdown is " + category); 
+        filterCategory(category);        
+    });
 });
 
 $('#pages').on('click', 'span', function(){
@@ -290,3 +296,49 @@ function searchUI(wordSearched){
     });
   }
 
+function filterCategory(category){
+    $("#posts").empty();
+    $.ajax({
+          url: "postServlet?action=category"
+        , type: "GET"
+        , data: {
+            cat: category
+          }
+        , dataType: "JSON"
+        , success: function(data){
+            if(category === "all"){
+                getRecentPosts(1);
+                return;
+            }
+            console.log("entra a succes - filter category");
+            console.log("filter category - data", data);
+            posts = data;
+            for(var i=0; i<Object.keys(data).length; i++){
+                console.log("POST ", data[i]);
+                $("#posts").append(
+                    $("<div>").addClass("card contentItem").append(
+                        $("<div>").addClass("card-header").append(
+                            $("<img>").attr("src", data[i].postUserPfp).addClass("img-fluid rounded-circle pfpNewpost")).append($("</img>")).append(
+                            data[i].postUserFirstname+ " " + data[i].postUserpLastname).append(
+                        $("</div>")).append(
+                        $("<div>").addClass("card-body").append(
+                            $("<h5>").text(data[i].title).append($("</h5>")).append(
+                            $("<p>").text(data[i].description)).append($("</p>")).append(
+                            $("<img>").attr("src", data[i].media).addClass("img-fluid postImg"))).append(
+                        $("</div>"))).append(
+                        $("<div>").addClass("card-footer").append(
+                            $("<p>").append("<i>").addClass("icon ion-md-heart pe-2").append($("</i>")).text("0")).append($("</p>")).append(
+                        $("</div>"))).append(
+                    $("</div>")))
+                );
+            }
+        },
+        error: function(xhr, data, error) {
+            console.log(xhr.responseText);
+            console.log(xhr.statusText);
+            console.log(data);
+            console.log(error);
+            console.log("error");
+        }
+    });
+}
