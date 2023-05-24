@@ -228,3 +228,14 @@ BEGIN
     END IF;
 END //
 DELIMITER ;
+
+
+SELECT post.id_post, post.id_category, post.title, post.description, post.media, post.post_status, post.post_user, 
+                userInfo.first_name, userInfo.p_lastname , userInfo.profile_img, cat.category
+        FROM TB_Posts post 
+        INNER JOIN TB_User userInfo 
+        ON userInfo.id_user = post.post_user
+        INNER JOIN TB_Category cat
+        ON post.id_category = cat.id_category 
+        WHERE (cat.category = ? OR OR ? = 'all')
+        ORDER BY post.id_post DESC

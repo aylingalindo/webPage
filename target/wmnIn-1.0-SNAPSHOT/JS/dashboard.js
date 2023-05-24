@@ -108,14 +108,11 @@ function getPagination(){
         , type: "GET"
         , dataType: "text"
         , success: function(data){
-            //console.log("got into getPagination");
             var totalPages = parseInt(data);
             totalPages = data;
-            //console.log("total pages: " + totalPages + "in Page: " + i );
             var i = 0;
             do{
                 i++;
-                //console.log("total pages: " + totalPages + "in Page: " + i );
                 $("#pages").append('<span class="numPage">' + i + '</span>');
             }while(i < totalPages)
         },
