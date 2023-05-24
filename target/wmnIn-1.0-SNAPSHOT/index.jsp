@@ -54,7 +54,7 @@
                 <div class="row g-3">
                   <div class="col-12">
                     <label for="validationName" class="form-label">First name(s)</label>
-                    <input type="text" class="form-control" id="validationName" name="nameSignup" placeholder="Mark" value="" required pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1])[a-zA-ZÀ-ÿ\u00f1\u00d1]+$">
+                    <input type="text" title="fill with letters" class="form-control" id="validationName" name="nameSignup" placeholder="Mark" value="" required pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1])[a-zA-ZÀ-ÿ\u00f1\u00d1]+$">
                     <div class="invalid-feedback">
                       Please fill with letters. 
                     </div>

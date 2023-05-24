@@ -11,13 +11,13 @@
   Array.from(forms).forEach(form => {
     form.addEventListener('submit', event => {
       if ((!form.checkValidity()) || (!checkPass())) {
-        event.preventDefault()
-        event.stopPropagation()
-        showInvalidRegister()
+        event.preventDefault();
+        event.stopPropagation();
+        showInvalidRegister();
       }
-      form.classList.add('was-validated')
-    }, false)
-  })
+      form.classList.add('was-validated');
+    }, false);
+  });
   
   ///const form = forms[0];
   //Array.from(form.elements).forEach((input) => {
@@ -25,7 +25,7 @@
   //    event.classList.add('was-validated')
   //  }, false)
   //})
-})()
+})
 
 const openSignUpBtn = document.querySelectorAll('[data-modal-target]')
 const closeSignUpBtn = document.querySelectorAll('[data-close-button]')
