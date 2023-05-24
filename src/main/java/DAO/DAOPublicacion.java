@@ -291,6 +291,7 @@ public class DAOPublicacion implements Operaciones{
                 System.out.println("DAO searchResult- if advanced");
                 Date initial = Date.valueOf(initialDate);
                 Date finalD = Date.valueOf(finalDate);
+                System.out.println("category " + category);
                 System.out.println("initialDate " + initial);
                 System.out.println("finalDate " + finalD);
                 procedure = "{ CALL advancedSearch(?, ?, ?, ?)}";

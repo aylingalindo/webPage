@@ -128,6 +128,7 @@ public class dashboardServlet extends HttpServlet {
             posts = dao.searchResult(searchWord, "normal", null, null, null);
         }
         else if("advanced".equals(typeSearch)){
+            System.out.println("Category from searchResults function from servlet: " + category);
             posts = dao.searchResult(searchWord, "advanced", category, initialDate, finalDate);
             System.out.println("En advance search");
         }

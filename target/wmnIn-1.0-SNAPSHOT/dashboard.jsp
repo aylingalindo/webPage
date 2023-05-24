@@ -208,21 +208,21 @@
                     <i class="icon ion-md-pricetags ms-2 mt-2"></i>
                   </div>
                   <div class="col-11 categories">
-                    <input id="cat" name="cat" type="radio" class="cat" id="c1" value="1"/>
+                    <input name="categ" type="radio" class="cat" id="c1" value="Science"/>
                     <label for="c1">Science</label>
-                    <input id="cat" name="cat" type="radio" class="cat" id="c2" value ="2"/>
+                    <input name="categ" type="radio" class="cat" id="c2" value ="Tech"/>
                     <label for="c2">Tech</label>
-                    <input id="cat" name="cat" type="radio" class="cat" id="c3" value="3"/>
+                    <input name="categ" type="radio" class="cat" id="c3" value="Art"/>
                     <label for="c3">Art</label>
-                    <input id="cat" name="cat" type="radio" class="cat" id="c4" value="4"/>
+                    <input name="categ" type="radio" class="cat" id="c4" value="Design"/>
                     <label for="c4">Design</label>
-                    <input id="cat" name="cat" type="radio" class="cat" id="c5" value="5"/>
+                    <input name="categ" type="radio" class="cat" id="c5" value="Business"/>
                     <label for="c5">Business</label>
-                    <input id="cat" name="cat" type="radio" class="cat" id="c6" value="6"/>
+                    <input name="categ" type="radio" class="cat" id="c6" value="Psychology"/>
                     <label for="c6">Psychology</label>
-                    <input id="cat" name="cat" type="radio" class="cat" id="c7" value="7"/>
+                    <input name="categ" type="radio" class="cat" id="c7" value="Medicine"/>
                     <label for="c7">Medicine</label>
-                    <input id="cat" name="cat" type="radio" class="cat" id="c8" value="8"/>
+                    <input name="categ" type="radio" class="cat" id="c8" value="Human arts"/>
                     <label for="c8">Human Arts</label>
                   </div>
                 </div>

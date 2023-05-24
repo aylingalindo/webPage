@@ -28,7 +28,7 @@ $(document).ready(function(){
     $('#advancedSearch').submit(function(event){
         event.preventDefault();
         var wordSearched = $('#wordSearch').val();
-        var category = $('#cat').val();
+        var category = $('input[name="categ"]:checked').val();
         var initDate = $('#initialDate').val();
         var finDate = $('#finalDate').val();        
         alert("advanced search check " + wordSearched + " " + category + " " + initDate + " " + finDate);
