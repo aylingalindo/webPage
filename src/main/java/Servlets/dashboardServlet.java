@@ -52,6 +52,14 @@ public class dashboardServlet extends HttpServlet {
              return;
          }
          
+         /*if("searchFromProfile".equals(action)){
+             String search = request.getParameter("search");
+             List<Publicacion> posts = dao.searchResult(search, "normal", null, null, null);
+             request.setAttribute("resProfile", posts);
+             request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
+             return;
+         }*/
+         
         if("advanced".equals(action)){
             searchResults(request, out, "advanced");
             return;

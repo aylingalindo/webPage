@@ -1,3 +1,9 @@
+/* 
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
+ */
+
+
  /* 
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
@@ -8,7 +14,22 @@ var posts;
 $(document).ready(function(){
     getRecentPosts();
     
+    $('#searchProfile').submit(function(event){
+        event.preventDefault();
+        alert("vamos bien desde profile busqueda");
+        var searchedWord = document.getElementById("wordS").value;
+        window.location.href = "dashboardServlet?search=" + encodeURIComponent(searchedWord);
+    });
     
+    $('#advancedSearchProfile').submit(function(event){
+        event.preventDefault();
+        alert("vamos bien desde profile busqueda Avanzada");
+        var searchedWord = document.getElementById("wordS").value;
+        var category = $('input[name="cat"]:checked').val();
+        var initDate = $('#initialDateProf').val();
+        var finDate = $('#finalDateProf').val(); 
+        window.location.href = "dashboardServlet?search=" + encodeURIComponent(searchedWord) + "&category=" +encodeURIComponent(category) + "&initiDate=" + encodeURIComponent(initDate) + "&finalDate=" + encodeURIComponent(finDate);
+    });
     
 });
 

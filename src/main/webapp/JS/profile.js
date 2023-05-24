@@ -7,6 +7,9 @@ var posts;
 
 $(document).ready(function(){
     getRecentPosts();
+    
+    
+    
 });
 
 function getRecentPosts(){

@@ -35,6 +35,11 @@ $(document).ready(function(){
 
         advancedSearchUI(wordSearched, category, initDate, finDate);
     });
+    
+    var profileSearch = obtenerParametroDeURL("search");
+    if (profileSearch !== "") {
+      searchUI(profileSearch);
+    }
 });
 
 $('#pages').on('click', 'span', function(){
@@ -167,7 +172,7 @@ function searchUI(wordSearched){
             '</div>');
     
     $.ajax({
-         url: "dashboardServlet?action=search"
+            url: "dashboardServlet?action=search"
         ,type: "GET"
         ,data: { search: wordSearched}
         ,success: function(data){

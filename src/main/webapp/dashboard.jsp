@@ -197,7 +197,7 @@
                     <label class="form-label">---</label>
                   </div>
                   <div class="col me-5">
-                  <input type="date" class="form-control" id="finalDate" name="finalDate" value=""/>
+                    <input type="date" class="form-control" id="finalDate" name="finalDate" value=""/>
                   </div>
                 </div>
                 <div class="row mx-3">
@@ -318,6 +318,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollto/1.4.6/jquery-scrollto.min.js"></script>
     <script defer src="JS/funcionalidad.js"></script>
-    <script defer src="JS/dashboard02.js"></script>
+    <script defer src="JS/dashboard03.js"></script>
 </body>
 </html>
