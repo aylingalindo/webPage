@@ -46,8 +46,8 @@
         <h4 class="logo">wm.In</h4>  <!-- no se pone bold??? -->
 
         <!--search bar-->
-        <form class="d-flex position-relative p-3 d-inline-block" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <form id="searchProfile" class="d-flex position-relative p-3 d-inline-block" role="search">
+          <input name="search" id="wordS" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn searchNavbar position-absolute" type="submit"><i class="icon ion-md-search"></i></button>
         </form>
         <button data-modal-target="#popupAdvancedSearch" type="button" class="btn btn-primary ms-4 advancedSearchBtn">Advanced Search</button>
@@ -127,18 +127,19 @@
 
         <!-- contenido que va a cambiar -->
         <div class="card-body">
+             <form id="advancedSearchProfile" class="needs-validation" novalidate>
           <div class="row mx-3">
             <label class="form-label">Date range</label>
           </div>
           <div class="row mx-3 mb-4">
             <div class="col ms-5">
-              <input type="date" class="form-control" name="fechaInicio" value=""/>
+              <input id="initialDateProf" type="date" class="form-control" name="fechaInicio" value=""/>
             </div>
             <div class="col fs-3 ps-5 pe-0">
               <label class="form-label">---</label>
             </div>
             <div class="col me-5">
-            <input type="date" class="form-control" name="fechaFin" value=""/>
+            <input id="finalDateProf" type="date" class="form-control" name="fechaFin" value=""/>
             </div>
           </div>
           <div class="row mx-3">
@@ -149,27 +150,28 @@
               <i class="icon ion-md-pricetags ms-2 mt-2"></i>
             </div>
             <div class="col-11 categories">
-              <input name="cat" type="radio" class="cat" id="c1" value="1"/>
+              <input name="cat" type="radio" class="cat" id="c1" value="Science"/>
               <label for="c1">Science</label>
-              <input name="cat" type="radio" class="cat" id="c2" value ="2"/>
+              <input name="cat" type="radio" class="cat" id="c2" value ="Tech"/>
               <label for="c2">Tech</label>
-              <input name="cat" type="radio" class="cat" id="c3" value="3"/>
+              <input name="cat" type="radio" class="cat" id="c3" value="Art"/>
               <label for="c3">Art</label>
-              <input name="cat" type="radio" class="cat" id="c4" value="4"/>
+              <input name="cat" type="radio" class="cat" id="c4" value="Design"/>
               <label for="c4">Design</label>
-              <input name="cat" type="radio" class="cat" id="c5" value="5"/>
+              <input name="cat" type="radio" class="cat" id="c5" value="Business"/>
               <label for="c5">Business</label>
-              <input name="cat" type="radio" class="cat" id="c6" value="6"/>
+              <input name="cat" type="radio" class="cat" id="c6" value="Psychology"/>
               <label for="c6">Psychology</label>
-              <input name="cat" type="radio" class="cat" id="c7" value="7"/>
+              <input name="cat" type="radio" class="cat" id="c7" value="Medicne"/>
               <label for="c7">Medicine</label>
-              <input name="cat" type="radio" class="cat" id="c8" value="8"/>
+              <input name="cat" type="radio" class="cat" id="c8" value="Human Arts"/>
               <label for="c8">Human Arts</label>
             </div>
           </div>
           <div class="row mx-3 my-4">
               <button type="submit" class="btn btn-primary signUpBtn">Search</button>
           </div>
+                  </form>
         </div>
 
       </div>
@@ -198,7 +200,8 @@
               <div class="carousel-item active">
                   <div class="col-12">
                     <label for="validationName" class="form-label">First name(s)</label>
-                    <input type="text" class="form-control" id="validationName" name="validationName" value="<% out.print(usuarioLogin.getFirstname()); %>" required>
+                    <input type="text" class="form-control" id="validationName" name="validationName" value="<% if(usuarioLogin.getFirstname() == null){out.print("");}else{out.print(usuarioLogin.getFirstname());}
+                    %>" required>
                     <div class="invalid-feedback">
                       Please fill with letters. 
                     </div>
@@ -312,12 +315,22 @@
           <form action="profileServlet" method="post" class="needs-validation row g-3" novalidate>
               <div class="col-12">
                 <label class="form-label">Ocupation</label>
-                <input type="text" class="form-control" id="OcupationAbout" name="OcupationAbout" value="<% out.print(usuarioLogin.getOccupation()); %>" required>
+                <input type="text" class="form-control" id="OcupationAbout" name="OcupationAbout" value="<% 
+if(usuarioLogin.getOccupation() == null)
+{
+    out.print("");
+}else{
+out.print(usuarioLogin.getOccupation());} %>" required>
               </div>
               <div class="col-12">
                   <div class="col-3">
                     <label class="form-label">City</label>
-                    <input type="text" class="form-control" id="cityAbout" name="cityAbout" value="<% out.print(usuarioLogin.getCity()); %>">
+                    <input type="text" class="form-control" id="cityAbout" name="cityAbout" value="<% 
+                        if(usuarioLogin.getCity() == null){
+                            out.print("");
+                        }else{
+                        out.print(usuarioLogin.getCity());
+                        } %>">
                   </div>
                   <div class="col-3">
                     <label class="form-label">State</label>
@@ -608,27 +621,7 @@
       
       <!-- post -->
       <div id="postsPerfil">
-        <div class="card contentItem">
-          <div class="card-header">
-            <div class="flex-row d-flex">
-              <div class="col me-auto">
-                <img src="assets/fotoPerfil.jpeg" class="img-fluid rounded-circle pfpNewpost">
-                Aylin Galindo
-              </div>
-              <div class="col-2 ps-5 ms-5">
-                <button data-modal-target="#popupEditPost"  type="button" class="closeBtn ps-5"><i class="icon ion-md-create px-0 m-0"></i></button>
-                <button data-modal-target="#popupDeletePost" type="button" class="closeBtn"><i class="icon ion-md-close px-0 m-0"></i></button>
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <h5>Hello world</h5>
-            <p> I like to hunt </p>
-          </div>
-          <div class="card-footer">
-            <p><i class="icon ion-md-heart pe-2"></i>15</p>
-          </div>
-        </div>
+        
       </div>
 
       
@@ -650,6 +643,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollto/1.4.6/jquery-scrollto.min.js"></script>
   <script defer src="JS/funcionalidad.js"></script>
-  <script defer src="JS/profile.js"></script>
+  <script defer src="JS/profile02.js"></script>
 </body>
 </html>

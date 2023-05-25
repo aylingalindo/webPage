@@ -7,16 +7,16 @@ package Servlets;
 import DAO.DAOPublicacion;
 import DAO.DAOUsuario;
 
-import jakarta.servlet.RequestDispatcher;               //MODIFICAR
+import javax.servlet.RequestDispatcher;               //MODIFICAR
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import jakarta.servlet.ServletException;                //MODIFICAR
-import jakarta.servlet.annotation.WebServlet;           //MODIFICAR
-import jakarta.servlet.http.HttpServlet;                //MODIFICAR
-import jakarta.servlet.http.HttpServletRequest;         //MODIFICAR
-import jakarta.servlet.http.HttpServletResponse;        //MODIFICAR
+import javax.servlet.ServletException;                //MODIFICAR
+import javax.servlet.annotation.WebServlet;           //MODIFICAR
+import javax.servlet.http.HttpServlet;                //MODIFICAR
+import javax.servlet.http.HttpServletRequest;         //MODIFICAR
+import javax.servlet.http.HttpServletResponse;        //MODIFICAR
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

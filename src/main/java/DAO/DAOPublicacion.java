@@ -202,11 +202,8 @@ public class DAOPublicacion implements Operaciones{
         PreparedStatement pst;
         ResultSet rs;
                
-        String sql = "SELECT post.id_post, post.id_category, post.title, post.description, post.media, post.post_status, post.post_user, user.first_name, user.p_lastname , user.profile_img \n" +
-        "FROM TB_Posts post\n" +
-        "    INNER JOIN TB_User user\n" +
-        "        ON user.id_user = post.post_user INNER JOIN TB_Catstatus stat ON post.post_status" +
-        "     WHERE post.post_user = ? AND (post.post_status = 1);";
+        String sql = "SELECT post.id_post, post.id_category, post.title, post.description, post.media, post.post_status, post.post_user, user.first_name, user.p_lastname , user.profile_img FROM TB_Posts post  INNER JOIN TB_User user ON user.id_user = post.post_user JOIN TB_Catstatus stat ON post.post_status = stat.id_status  WHERE (post.post_status = 1) AND (user.id_user = ?) ORDER BY post.id_post DESC;";
+
         try{
             System.out.println("Entra al try del DAO de publicacion");
             Class.forName(db.getDriver());

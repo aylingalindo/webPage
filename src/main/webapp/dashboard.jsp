@@ -308,13 +308,11 @@
             </div>
         </div>
         <div id="pagination" class="pagination">
-            <button id="prevPage" class="btn btn-primary signUpBtn">Prev</button>
                 <div id="pages">
                 <!--<span class="numPage">1</span>
                 <span class="numPage">2</span>
                 <span class="numPage">3</span> -->
                 </div>
-            <button id="nextPage" class="btn btn-primary signUpBtn">Next</button>
         </div>
       </section>
       

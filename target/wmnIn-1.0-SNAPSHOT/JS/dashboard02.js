@@ -11,9 +11,28 @@ var isSearching = false;
 
 $(document).ready(function(){    
     console.log("entra al console log del document ready"); 
+    var profileSearch = getURLParameter("search");
+    var profileCategory = getURLParameter("category");
+    var profileInitialDate = getURLParameter("initiDate");
+    var profileFinalDate = getURLParameter("finalDate");
+
+
+    if(profileSearch !== "" && profileSearch !== null && ((profileCategory !== "" && profileCategory !== null) ||
+            (profileInitialDate !== "" && profileInitialDate !== null) || (profileFinalDate !== "" && profileFinalDate !== null))){
+
+        advancedSearchUI(profileSearch, profileCategory, profileInitialDate, profileFinalDate);
+        return;
+    }
+    if (profileSearch !== "" && profileSearch !== null) {
+      alert("entramos al diferente de search nada + " + profileSearch);
+      $("#posts").empty();
+      $("#pages").empty();
+      searchUI(profileSearch);
+      return;
+    }
+    
     getPagination();
     if(!pageClick){
-            console.log("FROM THE DOC READY");
             getRecentPosts(1);
     }
     dashUI();
@@ -36,6 +55,8 @@ $(document).ready(function(){
         advancedSearchUI(wordSearched, category, initDate, finDate);
     });
     
+    
+    
     $('.dropdown-item').click(function(){
         var category = $(this).data('category');
         alert("category from dropdown is " + category); 
@@ -49,6 +70,11 @@ $('#pages').on('click', 'span', function(){
     var currentPage = $(this).text();
     getRecentPosts(currentPage);
 });
+
+function getURLParameter(parametro) {
+    var url = new URL(window.location.href);
+    return url.searchParams.get(parametro);
+  }
 
 /*$('#search').on('click', 'span', function(){
     event.preventDefault();
